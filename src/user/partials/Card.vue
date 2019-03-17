@@ -1,12 +1,18 @@
 <template>
 	<div>
-		<div class="card text-center p-3 mb-5">
-			<img width="100%" src="/assets/pizza.png" alt="">
-			<p class="price mb-1 mt-2">10,53$</p>
-			<p class="name">Margarita</p>
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-				Pedir
-			</button>
+		<div class="card text-center py-3 mx-0 mx-md-2 my-3">
+			<div class="information-product pr-4 py-3 text-right">
+				<img width="auto" height="auto" src="/assets/pizza.png" class="rounded-circle position-absolute w-50 wd-md-100">
+				<p class="name">
+					<button type="button" data-toggle="modal" data-target="#exampleModal">
+						<i class="fas fa-plus-circle"></i>
+					</button>
+					Margarita
+				</p>
+				<p class="price my-0"><span>Pequeña</span> 10,53$</p>
+				<p class="price my-0"><span>Mediana</span> 10,53$</p>
+				<p class="price my-0"><span>Familiar</span> 10,53$</p>
+			</div>
 		</div>
 
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -46,26 +52,34 @@
 <style scoped>
 	.card{
 		border: none;
-		box-shadow: 0px 0px 15px 0px rgba(158, 155, 155, .2);
+		background-color: transparent;
+		/*box-shadow: 0px 0px 15px 0px rgba(158, 155, 155, .2);*/
 	}
-	.card .btn{
-		background-color: #ba0811;
-		border-radius: 0px;
-		border-color: #ba0811;
+	.card .information-product{
+		background: rgba(255, 255, 255, 0.8);
+		border-radius: 40% 8px 8px 40%;
+		box-shadow: 0px 0px 10px 5px rgba(158, 155, 155, .2);
 	}
-	.card .btn:hover,
-	.card .btn:focus{
-		background-color: #FFF;
-		color: #ba0811;
+	.card .information-product img{
+		background: rgba(255, 255, 255, 0.8);
+		box-shadow: 0px 0px 10px 5px rgba(158, 155, 155, .2);
+		left: -2%;
+		max-width: 220px;
+		top: 3%;
 	}
 	.card .price{
-		color: #ba0811;
-		font-size: 1.5rem;
-		font-weight: 600;
+		font-size: .95rem;
+		color: rgba(97, 92, 92, 0.7);
 	}
 	.card .name{
-		font-size: .9rem;
-		font-weight: 400;
+		font-size: 1rem;
+		font-weight: 600;
+		color: #474747;
+	}
+	.card .name button{
+		background-color: transparent;
+		border: none;
+		color: #ba0811;
 	}
 
 	.modal .modal-header{
@@ -92,4 +106,9 @@
 		border-radius: 0px;
 		border-color: #ba0811;
 	}
+
+	@media (max-width: 767px) {
+
+	}
+
 </style>

@@ -43,7 +43,15 @@ export default {
 	.btn{
 		border-radius: 0;
 	}
-	.btn:focus{
+	.btn:focus,
+	button:focus{
 		box-shadow: none;
+		outline: none;
+	}
+
+	@media (min-width: 768px) {
+		w-xs-50{
+			width: 50%;
+		}
 	}
 </style>
