@@ -23,7 +23,7 @@ export default {
 
 <style>
 	#app {
-		background-color: #f5f5f566;
+		//background-color: #f5f5f566;
 		color: #474747;
 		font-family: 'Roboto';
 		text-align: center;
@@ -47,6 +47,10 @@ export default {
 	button:focus{
 		box-shadow: none;
 		outline: none;
+	}
+
+	a:hover{
+		text-decoration: none;
 	}
 
 	@media (min-width: 768px) {

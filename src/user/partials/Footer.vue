@@ -2,9 +2,6 @@
 	<div class="footer pt-5 pb-3">
 		<div class="container">
 			<div class="row justify-content-md-center">
-				<div class="col-12 col-md-auto text-center">
-					<img src="/assets/logo.png" alt="logo de superpizza" width="100px" height="auto">
-				</div>
 				<div class="col-12 col-md-auto text-center text-md-left">
 					<p class="title">Productos</p>
 					<ul class="p-0">
@@ -14,6 +11,9 @@
 						<li><a href="#">Bebidas</a></li>
 						<li><a href="#">Complementos</a></li>
 					</ul>
+				</div>
+				<div class="col-12 col-md-auto text-center my-auto">
+					<img src="/assets/logo.png" alt="logo de superpizza" width="100px" height="auto">
 				</div>
 				<div class="col-12 col-md-auto text-center text-md-left">
 					<p class="title">Ayuda</p>

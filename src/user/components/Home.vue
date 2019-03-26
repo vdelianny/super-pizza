@@ -2,7 +2,6 @@
 	<div>
 		<div class="row">
 			<div class="col-12 col-md-8 sale-content">
-				<p class="title">¡Conoce nuestras últimas ofertas!</p>
 				<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 					<ol class="carousel-indicators">
 						<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -32,7 +31,14 @@
 					</a>
 				</div>
 			</div>
-			<div class="col-12 col-md-4 p-3 my-auto">
+			<div class="col-12 col-md-4 pt-0 pb-3 px-3 my-auto">
+				<div class="register-box box mb-4 mx-0 mx-md-4">
+					<p class="title p-3">¿No estás registrado?</p>
+					<div class="p-3">
+						<p><a href="#" class="btn btn-primary w-75">Registrarme</a></p>
+						<p><a href="#" class="btn btn-primary w-75">Pedido sin registar</a></p>
+					</div>
+				</div>
 				<div class="login-box box my-4 mx-0 mx-md-4">
 					<p class="title p-3">Inicio de sesión</p>
 					<form class="p-3">
@@ -42,15 +48,15 @@
 						<div class="form-group">
 							<input type="password" class="form-control" placeholder="Ingrese contraseña">
 						</div>
+						<div class="form-group text-left">
+							<input type="checkbox">
+							<span class="ml-2">Recordar sesión</span>
+						</div>
+						<div class="form-group text-left">
+							<a href="#">Olvidé mi contraseña</a>
+						</div>
 						<p><button type="submit" class="btn btn-primary w-75">Iniciar sesión</button></p>
 					</form>
-				</div>
-				<div class="register-box box my-4 mx-0 mx-md-4">
-					<p class="title p-3">¿No estás registrado?</p>
-					<div class="p-3">
-						<p><a href="#" class="btn btn-primary w-75">Registrarme</a></p>
-						<p><a href="#" class="btn btn-primary w-75">Pedido sin registar</a></p>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -84,17 +90,17 @@
 		text-transform: uppercase;
 	}
 	.login-box .btn{
-		background-color: #ba0811;
-	}
-	.register-box .btn{
 		background-color: #ffc50c;
 	}
-	.login-box .title{
+	.register-box .btn{
 		background-color: #ba0811;
+	}
+	.login-box .title{
+		background-color: #ffc50c;
 		background-image: url(/assets/bg-pizzas.png);
 	}
 	.register-box .title{
-		background-color: #ffc50c;
+		background-color: #ba0811;
 		background-image: url(/assets/bg-pizzas.png);
 	}
 	.sale-content .title{
