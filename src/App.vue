@@ -33,7 +33,25 @@ export default {
 	}
 	.form-control{
 		font-weight: 300;
+		border: none;
+		border-bottom: 1px solid rgba(204, 204, 204, 0.6);
+		border-radius: 0px;
 	}
+	.form-control:focus{
+		box-shadow: none;
+		border-color: #9c9a9a;
+	}
+	select{
+		background-image: url(/assets/chevron-down.png);
+		background-position: 95% center;
+		background-repeat: no-repeat;
+		background-size: 20px;
+		text-indent: 1px;
+		text-overflow: '';
+		-moz-appearance: none;
+		-webkit-appearance: none;
+	}
+
 	.carousel-indicators li{
 		border-radius: 50px;
 		border: none;
@@ -48,9 +66,16 @@ export default {
 		box-shadow: none;
 		outline: none;
 	}
-
 	a:hover{
 		text-decoration: none;
+	}
+	label{
+		font-size: .96rem;
+		font-weight: 300;
+	}
+	.form-row>.col, .form-row>[class*=col-] {
+		padding-right: 10px;
+		padding-left: 10px;
 	}
 
 	@media (min-width: 768px) {
