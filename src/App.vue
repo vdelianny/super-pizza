@@ -1,7 +1,7 @@
 <template>
 	<div id="app">
 		<Nav/>
-		<div class="container body py-5">
+		<div class="body">
 			<router-view />
 		</div>
 		<Footer/>
@@ -26,6 +26,7 @@ export default {
 		//background-color: #f5f5f566;
 		color: #474747;
 		font-family: 'Roboto';
+		overflow-x: hidden;
 		text-align: center;
 	}
 	.body{
@@ -62,7 +63,8 @@ export default {
 		border-radius: 0;
 	}
 	.btn:focus,
-	button:focus{
+	button:focus,
+	a:focus{
 		box-shadow: none;
 		outline: none;
 	}
@@ -79,8 +81,11 @@ export default {
 	}
 
 	@media (min-width: 768px) {
-		w-xs-50{
+		.w-xs-50{
 			width: 50%;
+		}
+		.w-md-75{
+			width: 75% !important;
 		}
 	}
 </style>
