@@ -31,7 +31,7 @@
 </template>
 <style scoped>
 	.footer{
-		/*border-top: 5px solid #ffc50c;*/
+		/*border-top: 5px solid #f5be10;*/
 		background-color: #343a40;
 		background-image: url(/assets/bg-pizzas.png);
 		color: #f7f7f7;

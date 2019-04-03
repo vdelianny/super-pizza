@@ -99,15 +99,15 @@
 		box-shadow: 0px 2px 20px -3px rgba(158, 155, 155, .4);
 	}
 	.form-shop i{
-		color: #ba0811;
+		color: #c12f36;
 	}
 	.form-shop .title-form{
 		font-size: 1.5rem;
 		font-weight: 300;
 	}
 	.form-shop .btn-primary{
-		background-color: #ba0811;
-		border-color: #ba0811;
+		background-color: #c12f36;
+		border-color: #c12f36;
 	}
 	.details-shop{
 		background-color: #f5f5f5;

@@ -183,13 +183,13 @@
 		text-transform: uppercase;
 	}
 	.login-box .btn{
-		background-color: #ffc50c;
+		background-color: #f5be10;
 	}
 	.register-box .btn{
-		background-color: #ba0811;
+		background-color: #c12f36;
 	}
 	.register-box .title{
-		color: #ba0811;
+		color: #c12f36;
 		font-weight: 400;
 	}
 	.sale-content .title{
@@ -203,7 +203,7 @@
 	.carousel-caption .btn{
 		background-color: #FFF;
 		border: 2px solid #FFF;
-		color: #ba0811;
+		color: #c12f36;
 		font-size: 1.1rem;
 		font-weight: 500;
 	}
@@ -215,11 +215,11 @@
 	}
 	/*
 	.login-box .title{
-		background-color: #ffc50c;
+		background-color: #f5be10;
 		background-image: url(/assets/bg-pizzas.png);
 	}
 	.register-box .title{
-		background-color: #ba0811;
+		background-color: #c12f36;
 		background-image: url(/assets/bg-pizzas.png);
 	}
 	*/

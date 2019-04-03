@@ -70,7 +70,7 @@
 </template>
 <style scoped>
 	.sup-nav{
-		background-color: #ba0811;
+		background-color: #c12f36;
 	}
 	.sup-nav .nav-item p{
 		color: #fff;
@@ -80,7 +80,7 @@
 	.navbar-down{
 		background-image: url(/assets/bg-pizzas.png);
 		box-shadow: 0px 5px 12px -2px rgba(158, 155, 155, 1);
-		/*border-bottom: 5px solid #ffc50c;*/
+		/*border-bottom: 5px solid #f5be10;*/
 	}
 	.navbar .nav-link{
 		color: #f7f7f7;

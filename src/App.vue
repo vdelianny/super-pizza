@@ -61,6 +61,7 @@ export default {
 	}
 	.btn{
 		border-radius: 0;
+		color: #FFF;
 	}
 	.btn:focus,
 	button:focus,
@@ -78,6 +79,29 @@ export default {
 	.form-row>.col, .form-row>[class*=col-] {
 		padding-right: 10px;
 		padding-left: 10px;
+	}
+	.w-45{
+		width: 45%;
+	}
+
+
+	/*original red: #ba0811;*/
+	/*original yellow: #ffc50c;*/
+
+	.btn-primary,
+	.btn-primary:hover,
+	.btn-primary:focus,
+	.btn-primary:active{
+		background-color: #c12f36;
+		border-color: #c12f36;
+	}
+	.btn-secundary,
+	.btn-secundary:hover,
+	.btn-secundary:focus,
+	.btn-secundary:active{
+		background-color: #f5be10;
+		border-color: #f5be10;
+		color: #FFF;
 	}
 
 	@media (min-width: 768px) {
