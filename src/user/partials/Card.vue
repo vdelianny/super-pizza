@@ -38,7 +38,7 @@
 							</div>
 							<div class="form-group text-center d-flex">
 								<div class="w-50 px-2">
-									<router-link tag="button" data-dismiss="modal" class="btn btn-secundary w-100" to="/">
+									<router-link tag="button" data-dismiss="modal" class="btn btn-secundary w-100" to="/custome">
 										Personalizar
 									</router-link>
 								</div>

@@ -4,6 +4,7 @@ import App from './App.vue'
 import Home from './user/components/Home'
 import Pizzas from './user/components/Pizzas'
 import Orders from './user/components/Orders'
+import Custome from './user/components/Custome'
 
 Vue.use(VueRouter)
 
@@ -12,6 +13,7 @@ const routes = [
 	{ path: '/', component: Home },
 	{ path: '/pizzas', component: Pizzas },
 	{ path: '/orders', component: Orders },
+	{ path: '/custome', component: Custome },
 ]
 
 const router = new VueRouter({
