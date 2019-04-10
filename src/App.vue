@@ -1,6 +1,7 @@
 <template>
 	<div id="app">
-		<Nav/>
+		<NavAdmin/>
+		<SidebarAdmin/>
 		<div class="body">
 			<router-view />
 		</div>
@@ -9,21 +10,25 @@
 </template>
 
 <script>
-import Nav from './user/partials/Nav.vue'
-import Footer from './user/partials/Footer.vue'
+//import Nav from './user/partials/Nav.vue'
+import NavAdmin from './admin/partials/Nav.vue'
+import SidebarAdmin from './admin/partials/Sidebar.vue'
+//import Footer from './user/partials/Footer.vue'
 
 export default {
 	name: 'app',
 	components: {
-		Nav,
-		Footer
+		//Nav,
+		NavAdmin,
+		SidebarAdmin,
+		//Footer
 	}
 }
 </script>
 
 <style>
 	#app {
-		//background-color: #f5f5f566;
+		/*background-color: #f5f5f566;*/
 		color: #474747;
 		font-family: 'Roboto';
 		overflow-x: hidden;
@@ -46,7 +51,7 @@ export default {
 		background-image: url(/assets/chevron-down.png);
 		background-position: 95% center;
 		background-repeat: no-repeat;
-		background-size: 20px;
+		background-size: 18px;
 		text-indent: 1px;
 		text-overflow: '';
 		-moz-appearance: none;
@@ -83,7 +88,54 @@ export default {
 	.w-45{
 		width: 45%;
 	}
+	.w-10{
+		width: 10%;
+	}
+	.admin-page{
+		background-color: #eee;
+		color: #747474;
+		/*margin-bottom: -8px;*/
+		min-height: 100vh;
+		padding: 0 8%;
+	}
+	.admin-page .title{
+		font-size: 1.5rem;
+		font-weight: 300;
+	}
+	.admin-page .card-admin{
+		background-color: #FFF;
+		box-shadow: 0px 1px 10px 0px rgba(158, 155, 155, .6);
+	}
 
+	.admin-page .card-admin .card-title{
+		background-color: #28b0a6;
+		color: #f7f7f7;
+		padding: .5rem 2rem;
+		font-size: 1.2rem;
+		font-weight: 300;
+	}
+	.admin-page .btn-admin{
+		background-color: #28b0a6;
+		border-color: #28b0a6;
+		color: #f7f7f7;
+	}
+	.modal-admin .modal-content{
+		border-radius: 0px;
+		border: none;
+	}
+	.modal-admin .modal-header{
+		background-color: #28b0a6;
+		border-radius: 0px;
+		color: #f7f7f7;
+		font-weight: 400;
+	}
+	.modal-admin .modal-footer{
+		border-top: none;
+	}
+	.modal-admin .modal-footer .btn-primary{
+		background-color: #28b0a6;
+		border-color: #28b0a6;
+	}
 
 	/*original red: #ba0811;*/
 	/*original yellow: #ffc50c;*/
@@ -110,6 +162,9 @@ export default {
 		}
 		.w-md-75{
 			width: 75% !important;
+		}
+		.w-md-90{
+			width: 90% !important;
 		}
 	}
 </style>

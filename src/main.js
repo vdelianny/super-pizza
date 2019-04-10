@@ -6,6 +6,10 @@ import Pizzas from './user/components/Pizzas'
 import Orders from './user/components/Orders'
 import Custome from './user/components/Custome'
 
+import HomeAdmin from './admin/components/Home'
+import Products from './admin/components/Products'
+
+
 Vue.use(VueRouter)
 
 
@@ -14,6 +18,8 @@ const routes = [
 	{ path: '/pizzas', component: Pizzas },
 	{ path: '/orders', component: Orders },
 	{ path: '/custome', component: Custome },
+	{ path: '/admin/', component: HomeAdmin },
+	{ path: '/admin/products', component: Products },
 ]
 
 const router = new VueRouter({
