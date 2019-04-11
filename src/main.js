@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
-import Home from './user/components/Home'
+//import Home from './user/components/Home'
 import Pizzas from './user/components/Pizzas'
 import Orders from './user/components/Orders'
 import Custome from './user/components/Custome'
@@ -17,10 +17,11 @@ Vue.use(VueRouter)
 
 
 const routes = [
-	{ path: '/', component: Home },
+	//{ path: '/', component: Home },
 	{ path: '/pizzas', component: Pizzas },
 	{ path: '/orders', component: Orders },
 	{ path: '/custome', component: Custome },
+	{ path: '/', redirect: '/admin/' },
 	{ path: '/admin/', component: HomeAdmin },
 	{ path: '/admin/products', component: Products },
 	{ path: '/admin/ingredients', component: Ingredients },
