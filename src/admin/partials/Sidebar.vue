@@ -5,13 +5,19 @@
 				<i class="fas fa-home"></i>
 			</router-link>
 			<router-link tag="a" class="nav-link pt-3" to="/admin/products">
+				<i class="fas fa-clipboard-list"></i>
+			</router-link>
+			<router-link tag="a" class="nav-link pt-3" to="/admin/ingredients">
 				<i class="fas fa-pizza-slice"></i>
 			</router-link>
-			<router-link tag="a" class="nav-link pt-3" to="/admin/">
-				<i class="fas fa-home"></i>
+			<router-link tag="a" class="nav-link pt-3" to="/admin/orders">
+				<i class="fas fa-shopping-basket"></i>
+			</router-link>
+			<router-link tag="a" class="nav-link pt-3" to="/admin/payments">
+				<i class="fas fa-dollar-sign"></i>
 			</router-link>
 			<router-link tag="a" class="nav-link pt-3" to="/admin/">
-				<i class="fas fa-search-dollar"></i>
+				<i class="fas fa-power-off"></i>
 			</router-link>
 		</div>
 	</div>

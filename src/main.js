@@ -8,6 +8,9 @@ import Custome from './user/components/Custome'
 
 import HomeAdmin from './admin/components/Home'
 import Products from './admin/components/Products'
+import Ingredients from './admin/components/Ingredients'
+import OrdersAdmin from './admin/components/Orders'
+import Payments from './admin/components/Payments'
 
 
 Vue.use(VueRouter)
@@ -20,6 +23,9 @@ const routes = [
 	{ path: '/custome', component: Custome },
 	{ path: '/admin/', component: HomeAdmin },
 	{ path: '/admin/products', component: Products },
+	{ path: '/admin/ingredients', component: Ingredients },
+	{ path: '/admin/orders', component: OrdersAdmin },
+	{ path: '/admin/payments', component: Payments },
 ]
 
 const router = new VueRouter({

@@ -2,6 +2,11 @@
     <div class="navbar navbar-expand-lg w-100 py-2 px-5">
         <div class="navbar-nav ml-auto">
             <div class="nav-item d-flex">
+                <li class="mx-2 my-auto">
+                    <div class="nav-link p-0">
+                        <i class="far fa-user-circle"></i>
+                    </div>
+                </li>
                 <li class="mx-2">
                     <div class="nav-link p-0">
                         <p class="mb-0 title">SuperPizzas</p>
@@ -24,5 +29,9 @@
     .navbar .subtitle{
         color: #ccc;
         font-size: .95rem;
+    }
+    .navbar i{
+        font-size: 2.3rem;
+        color: #28b0a6;
     }
 </style>
