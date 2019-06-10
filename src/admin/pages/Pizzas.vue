@@ -5,7 +5,7 @@
 		<div class="row page-body justify-content-md-center mt-5">
 			<div class="col-12 col-md-4">
 				<div class="card-admin pb-4">
-					<div class="card-title text-left">Nuevo producto</div>
+					<div class="card-title text-left">Nueva pizza</div>
 					<div class="px-4">
 						<form @submit="addPizza">
 							<div class="form-group">
@@ -46,6 +46,7 @@
 							<thead>
 								<tr>
 									<th scope="col">Nombre</th>
+									<th scope="col">Ingredientes</th>
 									<th scope="col">Precio</th>
 									<th scope="col">Acciones</th>
 								</tr>
@@ -53,6 +54,15 @@
 							<tbody>
 								<tr v-for="pizza in pizzas">
 									<td>{{pizza.name}}</td>
+									<td>
+										<!--
+										<ul class="p-0">
+											<li v-for="ingredient in pizza.ingredients">
+												<em>{{ingredient.name}}</em>
+											</li>
+										</ul>
+										-->
+									</td>
 									<td>{{pizza.price}}</td>
 									<td>
 										<!--
@@ -179,6 +189,7 @@ export default {
         	axios.get('http://localhost:3000/api/pizzas')
 	    	.then(response => {
 	    		this.pizzas = response.data.pizzas;
+	    		console.log(response.data.pizzas)
 	    	});
         },
         addPizza(e) {
@@ -222,5 +233,7 @@ export default {
 	.table .btn:hover{
 		color: #227669;
 	}
-
+	ul{
+		list-style: none;
+	}
 </style>

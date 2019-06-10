@@ -108,7 +108,7 @@
 							class="btn btn-primary"
 							data-dismiss="modal"
 							@click="deleteIngredient(ingredientCurrent.id)">
-							Guardar
+							Eliminar
 						</button>
 					</div>
 				</div>

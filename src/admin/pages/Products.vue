@@ -53,10 +53,18 @@
 									<td>{{product.type}}</td>
 									<td>{{product.price}}</td>
 									<td>
-										<button class="btn p-0" data-toggle="modal" data-target="#modalEdit">
+										<button
+											class="btn p-0"
+											data-toggle="modal"
+											data-target="#modalEdit"
+											@click="selectProduct(product)">
 											<i class="fas fa-edit mx-1"></i>
 										</button>
-										<button class="btn p-0" data-toggle="modal" data-target="#modalDelete">
+										<button
+											class="btn p-0"
+											data-toggle="modal"
+											data-target="#modalDelete"
+											@click="selectProduct(product)">
 											<i class="fas fa-trash mx-1"></i>
 										</button>
 									</td>
@@ -81,24 +89,37 @@
 					<div class="modal-body px-4">
 						<form>
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Nombre del producto">
+								<input
+									type="text"
+									class="form-control"
+									v-model="productCurrent.name"
+									placeholder="Nombre del producto">
 							</div>
 							<div class="form-group">
-								<select class="form-control">
-									<option disabled hidden selected>Tipo de producto</option>
-									<option value="pizza">Pizza</option>
-									<option value="drink">Bebida</option>
-									<option value="complement">Complemento</option>
+								<select class="form-control" v-model="productCurrent.type">
+									<option value="" disabled hidden selected>Tipo de producto</option>
+									<option value="Bebida">Bebida</option>
+									<option value="Complemento">Complemento</option>
 								</select>
 							</div>
 							<div class="form-group">
-								<input type="number" class="form-control" placeholder="Precio del producto">
+								<input
+									type="number"
+									class="form-control"
+									v-model="productCurrent.price"
+									placeholder="Precio del producto">
 							</div>
 						</form>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-						<button type="button" class="btn btn-primary">Guardar</button>
+						<button
+							type="button"
+							class="btn btn-primary"
+							data-dismiss="modal"
+							@click="updateIngredient(productCurrent.id)">
+							Guardar
+						</button>
 					</div>
 				</div>
 			</div>
@@ -114,11 +135,17 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						¿Desea eliminar este producto?
+						¿Desea eliminar el producto: {{productCurrent.name}}?
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-						<button type="button" class="btn btn-primary">Guardar</button>
+						<button
+							type="button"
+							class="btn btn-primary"
+							data-dismiss="modal"
+							@click="deleteProduct(productCurrent.id)">
+							Eliminar
+						</button>
 					</div>
 				</div>
 			</div>
@@ -135,6 +162,12 @@ export default {
 		return {
 			products: null,
 			newProduct: {
+				name: null,
+				type: "",
+				price: null
+			},
+			productCurrent: {
+				id: null,
 				name: null,
 				type: "",
 				price: null
@@ -164,6 +197,27 @@ export default {
 				this.newProduct.type = "";
 				this.newProduct.price = null;
             });
+        },
+        deleteProduct(product) {
+        	axios.delete('http://localhost:3000/api/products/'+product)
+        	.then(response => {
+            	this.getProducts();
+        	});
+        },
+        updateIngredient(product) {
+        	axios.put('http://localhost:3000/api/products/'+product, {
+            	name: this.productCurrent.name,
+				type: this.productCurrent.type,
+				price: this.productCurrent.price
+            }).then(response => {
+            	this.getProducts();
+        	});
+        },
+        selectProduct(product) {
+        	this.productCurrent.id = product.id;
+        	this.productCurrent.name = product.name;
+        	this.productCurrent.type = product.type;
+        	this.productCurrent.price = product.price;
         }
     }
 }
