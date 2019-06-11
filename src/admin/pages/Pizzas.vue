@@ -4,9 +4,9 @@
 		<h2 class="title text-left py-3">Pizzas</h2>
 		<div class="row page-body justify-content-md-center mt-5">
 			<div class="col-12 col-md-4">
-				<div class="card-admin pb-4">
-					<div class="card-title text-left">Nueva pizza</div>
-					<div class="px-4">
+				<div class="card-admin">
+					<div class="card-title mb-0 text-left">Nueva pizza</div>
+					<div class="px-4 card-body pt-2">
 						<form @submit="addPizza">
 							<div class="form-group">
 								<input
@@ -18,8 +18,8 @@
 							<div class="form-group">
 								<p class="text-left px-3">Ingredientes</p>
 								<div class="row text-left px-4">
-									<label v-for="ingredient in ingredients" @change="addIngredient(ingredient.id)" class="col-12 col-md-6">
-										<input type="checkbox" :value="ingredient.id">
+									<label v-for="ingredient in ingredients" class="col-12 col-md-6">
+										<input type="checkbox" :value="ingredient.id"  v-model="newPizza.ingredientsList">
 										<span class="ml-2">{{ingredient.name}}</span>
 									</label>
 								</div>
@@ -39,9 +39,9 @@
 				</div>
 			</div>
 			<div class="col-12 col-md-6">
-				<div class="card-admin pb-3">
-					<div class="card-title text-left">Pizzas</div>
-					<div class="px-4">
+				<div class="card-admin">
+					<div class="card-title mb-0 text-left">Pizzas</div>
+					<div class="px-4 card-body pt-2">
 						<table class="table table-striped">
 							<thead>
 								<tr>
@@ -55,13 +55,11 @@
 								<tr v-for="pizza in pizzas">
 									<td>{{pizza.name}}</td>
 									<td>
-										<!--
 										<ul class="p-0">
 											<li v-for="ingredient in pizza.ingredients">
 												<em>{{ingredient.name}}</em>
 											</li>
 										</ul>
-										-->
 									</td>
 									<td>{{pizza.price}}</td>
 									<td>
@@ -182,14 +180,10 @@ export default {
 	    		this.ingredients = response.data.ingredients;
 	    	});
         },
-        addIngredient(idIngredient) {
-        	this.newPizza.ingredientsList.push(idIngredient);
-        },
         getPizzas() {
         	axios.get('http://localhost:3000/api/pizzas')
 	    	.then(response => {
 	    		this.pizzas = response.data.pizzas;
-	    		console.log(response.data.pizzas)
 	    	});
         },
         addPizza(e) {
@@ -202,7 +196,7 @@ export default {
             .then(() => {
             	this.getPizzas();
             	this.newPizza.name = null;
-				this.newPizza.ingredientsList = null;
+				this.newPizza.ingredientsList = [];
 				this.newPizza.price = null;
             });
         },

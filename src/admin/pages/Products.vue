@@ -4,9 +4,9 @@
 		<h2 class="title text-left py-3">Productos</h2>
 		<div class="row page-body justify-content-md-center mt-5">
 			<div class="col-12 col-md-4">
-				<div class="card-admin pb-4">
-					<div class="card-title text-left">Nuevo producto</div>
-					<div class="px-4">
+				<div class="card-admin">
+					<div class="card-title mb-0 text-left">Nuevo producto</div>
+					<div class="px-4 card-body pt-2">
 						<form @submit="addProduct">
 							<div class="form-group">
 								<input
@@ -35,9 +35,9 @@
 				</div>
 			</div>
 			<div class="col-12 col-md-6">
-				<div class="card-admin pb-3">
-					<div class="card-title text-left">Productos</div>
-					<div class="px-4">
+				<div class="card-admin">
+					<div class="card-title mb-0 text-left">Productos</div>
+					<div class="px-4 card-body pt-2">
 						<table class="table table-striped">
 							<thead>
 								<tr>

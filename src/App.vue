@@ -35,7 +35,7 @@ export default {
 		text-align: center;
 	}
 	.body{
-		min-height: 100vh;
+		min-height: calc(100vh - 60px);
 	}
 	.form-control{
 		font-weight: 300;
@@ -94,8 +94,7 @@ export default {
 	.admin-page{
 		background-color: #eee;
 		color: #747474;
-		/*margin-bottom: -8px;*/
-		min-height: 100vh;
+		min-height: calc(100vh - 60px);
 		padding: 0 8%;
 	}
 	.admin-page .title{
@@ -113,6 +112,10 @@ export default {
 		padding: .5rem 2rem;
 		font-size: 1.2rem;
 		font-weight: 300;
+	}
+	.admin-page .card-admin .card-body{
+		max-height: 450px;
+		overflow-y: auto;
 	}
 	.admin-page .btn-admin{
 		background-color: #28b0a6;

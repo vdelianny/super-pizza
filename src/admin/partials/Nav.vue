@@ -1,5 +1,5 @@
 <template>
-    <div class="navbar navbar-expand-lg w-100 py-2 px-5">
+    <div class="navbar navbar-expand-lg w-100 py-0 px-5">
         <div class="navbar-nav ml-auto">
             <div class="nav-item d-flex">
                 <li class="mx-2 my-auto">
@@ -20,6 +20,7 @@
 
 <style scoped>
     .navbar{
+        height: 60px;
         box-shadow: 0px 1px 10px 0px rgba(158, 155, 155, .3);
     }
     .navbar .title{

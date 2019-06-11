@@ -9,7 +9,7 @@ import Pizzas from './user/components/Pizzas'
 import Orders from './user/components/Orders'
 import Custome from './user/components/Custome'
 
-import HomeAdmin from './admin/pages/Home'
+//import HomeAdmin from './admin/pages/Home'
 import PizzasAdmin from './admin/pages/Pizzas'
 import Products from './admin/pages/Products'
 import Ingredients from './admin/pages/Ingredients'
@@ -27,7 +27,7 @@ const routes = [
 	{ path: '/orders', component: Orders },
 	{ path: '/custome', component: Custome },
 	{ path: '/', redirect: '/admin/' },
-	{ path: '/admin/', component: HomeAdmin },
+	//{ path: '/admin/', component: HomeAdmin },
 	{ path: '/admin/pizzas', component: PizzasAdmin },
 	{ path: '/admin/products', component: Products },
 	{ path: '/admin/ingredients', component: Ingredients },

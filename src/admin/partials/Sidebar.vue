@@ -1,7 +1,8 @@
 <template>
+<!-- eslint-disable -->
 	<div class="w-10 position-absolute sidebar">
 		<div class="nav flex-column" aria-orientation="vertical">
-			<router-link tag="a" class="nav-link pt-3" to="/admin/">
+			<router-link tag="a" class="nav-link pt-3" to="/admin/pizzas">
 				<i class="fas fa-home"></i>
 			</router-link>
 			<router-link tag="a" class="nav-link pt-3" to="/admin/pizzas">
@@ -19,7 +20,7 @@
 			<router-link tag="a" class="nav-link pt-3" to="/admin/payments">
 				<i class="fas fa-dollar-sign"></i>
 			</router-link>
-			<router-link tag="a" class="nav-link pt-3" to="/admin/">
+			<router-link tag="a" class="nav-link pt-3" to="/admin/pizzas">
 				<i class="fas fa-power-off"></i>
 			</router-link>
 		</div>
@@ -30,7 +31,7 @@
 	.sidebar{
 		background-color: #28b0a6;
 		box-shadow: 0px 5px 10px 3px rgba(158, 155, 155, .4);
-		min-height: 100vh;
+		min-height: calc(100vh - 60px);
 		width: auto;
 	}
 	.sidebar .nav-link{
