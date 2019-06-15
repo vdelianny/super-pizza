@@ -179,14 +179,14 @@ export default {
     },
     methods: {
         getProducts() {
-        	axios.get('http://localhost:3000/api/products')
+        	axios.get('https://superpizza-api-01.herokuapp.com/api/products')
 	    	.then(response => {
 	    		this.products = response.data.products;
 	    	});
         },
         addProduct(e) {
         	e.preventDefault();
-            axios.post('http://localhost:3000/api/products', {
+            axios.post('https://superpizza-api-01.herokuapp.com/api/products', {
             	name: this.newProduct.name,
             	type: this.newProduct.type,
             	price: this.newProduct.price
@@ -199,13 +199,13 @@ export default {
             });
         },
         deleteProduct(product) {
-        	axios.delete('http://localhost:3000/api/products/'+product)
+        	axios.delete('https://superpizza-api-01.herokuapp.com/api/products/'+product)
         	.then(response => {
             	this.getProducts();
         	});
         },
         updateIngredient(product) {
-        	axios.put('http://localhost:3000/api/products/'+product, {
+        	axios.put('https://superpizza-api-01.herokuapp.com/api/products/'+product, {
             	name: this.productCurrent.name,
 				type: this.productCurrent.type,
 				price: this.productCurrent.price

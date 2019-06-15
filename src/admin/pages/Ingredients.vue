@@ -138,14 +138,14 @@ export default {
     },
     methods: {
         getIngredients() {
-        	axios.get('http://localhost:3000/api/ingredients')
+        	axios.get('https://superpizza-api-01.herokuapp.com/api/ingredients')
 	    	.then(response => {
 	    		this.ingredients = response.data.ingredients;
 	    	});
         },
         addIngredient(e) {
         	e.preventDefault();
-            axios.post('http://localhost:3000/api/ingredients', {
+            axios.post('https://superpizza-api-01.herokuapp.com/api/ingredients', {
             	name: this.name,
             })
             .then(() => {
@@ -154,13 +154,13 @@ export default {
             });
         },
         deleteIngredient(ingredient) {
-        	axios.delete('http://localhost:3000/api/ingredients/'+ingredient)
+        	axios.delete('https://superpizza-api-01.herokuapp.com/api/ingredients/'+ingredient)
         	.then(response => {
             	this.getIngredients();
         	});
         },
         updateIngredient(ingredient) {
-        	axios.put('http://localhost:3000/api/ingredients/'+ingredient, {
+        	axios.put('https://superpizza-api-01.herokuapp.com/api/ingredients/'+ingredient, {
             	name: this.ingredientCurrent.name,
             }).then(response => {
             	this.getIngredients();

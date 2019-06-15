@@ -175,20 +175,20 @@ export default {
     },
     methods: {
         getIngredients() {
-        	axios.get('http://localhost:3000/api/ingredients')
+        	axios.get('https://superpizza-api-01.herokuapp.comhttps://superpizza-api-01.herokuapp.com/api/ingredients')
 	    	.then(response => {
 	    		this.ingredients = response.data.ingredients;
 	    	});
         },
         getPizzas() {
-        	axios.get('http://localhost:3000/api/pizzas')
+        	axios.get('https://superpizza-api-01.herokuapp.com/api/pizzas')
 	    	.then(response => {
 	    		this.pizzas = response.data.pizzas;
 	    	});
         },
         addPizza(e) {
         	e.preventDefault();
-            axios.post('http://localhost:3000/api/pizzas', {
+            axios.post('https://superpizza-api-01.herokuapp.com/api/pizzas', {
             	name: this.newPizza.name,
             	ingredients: this.newPizza.ingredientsList,
             	price: this.newPizza.price
@@ -201,7 +201,7 @@ export default {
             });
         },
         deletePizza(pizza) {
-        	axios.delete('http://localhost:3000/api/pizzas/'+pizza)
+        	axios.delete('https://superpizza-api-01.herokuapp.com/api/pizzas/'+pizza)
         	.then(response => {
             	this.getPizzas();
         	});
