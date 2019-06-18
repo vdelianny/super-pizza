@@ -7,7 +7,7 @@
 				<div class="card-admin">
 					<div class="card-title mb-0 text-left">Nueva pizza</div>
 					<div class="px-4 card-body pt-2">
-						<form @submit="addPizza">
+						<form @submit="addPizza" enctype="multipart/form-data">
 							<div class="form-group">
 								<input
 									type="text"
@@ -19,10 +19,13 @@
 								<p class="text-left px-3">Ingredientes</p>
 								<div class="row text-left px-4">
 									<label v-for="ingredient in ingredients" class="col-12 col-md-6">
-										<input type="checkbox" :value="ingredient.id"  v-model="newPizza.ingredientsList">
+										<input type="checkbox" :value="ingredient.id"  v-model="newPizza.ingredients">
 										<span class="ml-2">{{ingredient.name}}</span>
 									</label>
 								</div>
+							</div>
+							<div class="form-group">
+								<input type="file" ref="avatar" @change="uploadAvatar">
 							</div>
 							<div class="form-group">
 								<input
@@ -159,14 +162,16 @@ export default {
 			pizzas: null,
 			newPizza: {
 				name: null,
-				ingredientsList: [],
+				avatar: null,
+				ingredients: [],
 				price: null
 			},
 			pizzaCurrent: {
 				id: null,
 				name: null,
 				price: null
-			}
+			},
+			url:'http://localhost:3000'
 		}
 	},
     mounted () {
@@ -175,33 +180,37 @@ export default {
     },
     methods: {
         getIngredients() {
-        	axios.get('https://superpizza-api-01.herokuapp.comhttps://superpizza-api-01.herokuapp.com/api/ingredients')
+        	axios.get(this.url+'/api/ingredients')
 	    	.then(response => {
 	    		this.ingredients = response.data.ingredients;
 	    	});
         },
         getPizzas() {
-        	axios.get('https://superpizza-api-01.herokuapp.com/api/pizzas')
+        	axios.get(this.url+'/api/pizzas')
 	    	.then(response => {
 	    		this.pizzas = response.data.pizzas;
 	    	});
         },
         addPizza(e) {
         	e.preventDefault();
-            axios.post('https://superpizza-api-01.herokuapp.com/api/pizzas', {
-            	name: this.newPizza.name,
-            	ingredients: this.newPizza.ingredientsList,
-            	price: this.newPizza.price
-            })
+        	var formData = new FormData();
+        	formData.append('name', this.newPizza.name);
+        	formData.append('avatar', this.newPizza.avatar);
+        	for (var i=0; i<this.newPizza.ingredients.length; i++){
+    			formData.append('ingredients[]', this.newPizza.ingredients[i]);
+        	}
+        	formData.append('price', this.newPizza.price);
+    		
+    		axios.post(this.url+'/api/pizzas', formData)
             .then(() => {
             	this.getPizzas();
             	this.newPizza.name = null;
-				this.newPizza.ingredientsList = [];
+				this.newPizza.ingredients = [];
 				this.newPizza.price = null;
-            });
+            });	
         },
         deletePizza(pizza) {
-        	axios.delete('https://superpizza-api-01.herokuapp.com/api/pizzas/'+pizza)
+        	axios.delete(this.url+'/api/pizzas/'+pizza)
         	.then(response => {
             	this.getPizzas();
         	});
@@ -210,6 +219,9 @@ export default {
         	this.pizzaCurrent.id = pizza.id;
         	this.pizzaCurrent.name = pizza.name;
         	this.pizzaCurrent.price = pizza.price;
+        },
+        uploadAvatar() {
+        	this.newPizza.avatar = this.$refs.avatar.files[0];
         }
     }
 }

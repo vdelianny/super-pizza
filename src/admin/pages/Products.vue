@@ -7,7 +7,7 @@
 				<div class="card-admin">
 					<div class="card-title mb-0 text-left">Nuevo producto</div>
 					<div class="px-4 card-body pt-2">
-						<form @submit="addProduct">
+						<form @submit="addProduct" enctype="multipart/form-data">
 							<div class="form-group">
 								<input
 									type="text"
@@ -21,6 +21,9 @@
 									<option value="Bebida">Bebida</option>
 									<option value="Complemento">Complemento</option>
 								</select>
+							</div>
+							<div class="form-group">
+								<input type="file" ref="avatar" @change="uploadAvatar">
 							</div>
 							<div class="form-group">
 								<input
@@ -163,6 +166,7 @@ export default {
 			products: null,
 			newProduct: {
 				name: null,
+				avatar: null,
 				type: "",
 				price: null
 			},
@@ -171,7 +175,8 @@ export default {
 				name: null,
 				type: "",
 				price: null
-			}
+			},
+			url:'http://localhost:3000'
 		}
 	},
     mounted () {
@@ -179,18 +184,19 @@ export default {
     },
     methods: {
         getProducts() {
-        	axios.get('https://superpizza-api-01.herokuapp.com/api/products')
+        	axios.get(this.url+'/api/products')
 	    	.then(response => {
 	    		this.products = response.data.products;
 	    	});
         },
         addProduct(e) {
         	e.preventDefault();
-            axios.post('https://superpizza-api-01.herokuapp.com/api/products', {
-            	name: this.newProduct.name,
-            	type: this.newProduct.type,
-            	price: this.newProduct.price
-            })
+        	var formData = new FormData();
+        	formData.append('name', this.newProduct.name);
+        	formData.append('avatar', this.newProduct.avatar);
+        	formData.append('type', this.newProduct.type);
+        	formData.append('price', this.newProduct.price);
+            axios.post(this.url+'/api/products', formData)
             .then(() => {
             	this.getProducts();
             	this.newProduct.name = null;
@@ -199,13 +205,13 @@ export default {
             });
         },
         deleteProduct(product) {
-        	axios.delete('https://superpizza-api-01.herokuapp.com/api/products/'+product)
+        	axios.delete(this.url+'/api/products/'+product)
         	.then(response => {
             	this.getProducts();
         	});
         },
         updateIngredient(product) {
-        	axios.put('https://superpizza-api-01.herokuapp.com/api/products/'+product, {
+        	axios.put(this.url+'/api/products/'+product, {
             	name: this.productCurrent.name,
 				type: this.productCurrent.type,
 				price: this.productCurrent.price
@@ -218,6 +224,9 @@ export default {
         	this.productCurrent.name = product.name;
         	this.productCurrent.type = product.type;
         	this.productCurrent.price = product.price;
+        },
+        uploadAvatar() {
+        	this.newProduct.avatar = this.$refs.avatar.files[0];
         }
     }
 }
