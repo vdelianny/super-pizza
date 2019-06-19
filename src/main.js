@@ -4,12 +4,12 @@ import VueAxios from 'vue-axios'
 import VueRouter from 'vue-router'
 
 import App from './App.vue'
-//import Home from './user/components/Home'
+import Home from './user/components/Home'
 import Pizzas from './user/components/Pizzas'
 import Orders from './user/components/Orders'
 import Custome from './user/components/Custome'
 
-//import HomeAdmin from './admin/pages/Home'
+import HomeAdmin from './admin/pages/Home'
 import PizzasAdmin from './admin/pages/Pizzas'
 import Products from './admin/pages/Products'
 import Ingredients from './admin/pages/Ingredients'
@@ -18,16 +18,15 @@ import Payments from './admin/pages/Payments'
 
 
 Vue.use(VueRouter)
- 
 Vue.use(VueAxios, axios)
 
+
 const routes = [
-	//{ path: '/', component: Home },
+	{ path: '/', component: Home },
 	{ path: '/pizzas', component: Pizzas },
 	{ path: '/orders', component: Orders },
 	{ path: '/custome', component: Custome },
-	{ path: '/', redirect: '/admin/' },
-	//{ path: '/admin/', component: HomeAdmin },
+	{ path: '/admin/', component: HomeAdmin },
 	{ path: '/admin/pizzas', component: PizzasAdmin },
 	{ path: '/admin/products', component: Products },
 	{ path: '/admin/ingredients', component: Ingredients },
@@ -43,5 +42,9 @@ Vue.config.productionTip = false
 
 new Vue({
 	router,
-	render: h => h(App)
+	render: h => h(App, {
+    props:{
+      router: router
+    }
+  })
 }).$mount("#app");

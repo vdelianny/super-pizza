@@ -1,28 +1,40 @@
 <template>
 	<div id="app">
-		<NavAdmin/>
-		<SidebarAdmin/>
+		<Nav v-if="!adminRoute()"/>
+		<NavAdmin v-if="adminRoute()"/>
+		<SidebarAdmin v-if="adminRoute()"/>
 		<div class="body">
 			<router-view />
 		</div>
-		<Footer/>
+		<Footer v-if="!adminRoute()"/>
 	</div>
 </template>
 
 <script>
-//import Nav from './user/partials/Nav.vue'
+/* eslint-disable */
+
+import Nav from './user/partials/Nav.vue'
 import NavAdmin from './admin/partials/Nav.vue'
 import SidebarAdmin from './admin/partials/Sidebar.vue'
-//import Footer from './user/partials/Footer.vue'
+import Footer from './user/partials/Footer.vue'
 
 export default {
 	name: 'app',
+	props: ['router'],
 	components: {
-		//Nav,
+		Nav,
 		NavAdmin,
 		SidebarAdmin,
-		//Footer
-	}
+		Footer
+	},
+    methods: {
+        adminRoute() {
+        	if (this.router.currentRoute.path.search('/admin/') == 0){
+    			return true;
+        	}
+        	return false;
+        }
+    }
 }
 </script>
 
