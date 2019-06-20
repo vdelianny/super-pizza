@@ -4,27 +4,27 @@
 		<div class="row">
 			<div class="col-md-9">
 				<div class="row">
-					<div class="col-12 col-md-6" v-for="pizza in pizzas">
+					<div class="col-12 col-md-6" v-for="product in products">
 						<div class="card text-center py-3 mx-0 mx-md-2 mb-3">
 							<div class="information-product pr-4 py-3 text-right">
 								<div class="rounded-circle position-absolute w-45 p-2">
 									<img
 										width="auto"
 										height="auto"
-										:src="url+'/pizzas/'+pizza.id+'.jpg'">
+										:src="url+'/products/'+product.id+'.jpg'">
 								</div>
 								<p class="name mb-0">
 									<button
 										type="button"
 										data-toggle="modal"
 										data-target="#exampleModal"
-										@click="selectPizza(pizza)">
+										@click="selectProduct(product)">
 										<i class="fas fa-plus-circle mr-2"></i>
-										<span>{{pizza.name}}</span>
+										<span>{{product.name}}</span>
 									</button>
 								</p>
 								<p class="price my-0 w-50 ml-auto">
-									<i v-for="ingredient in pizza.ingredients">{{ingredient.name}}, </i>
+									<i>{{product.price}}$</i>
 								</p>
 							</div>
 						</div>
@@ -42,12 +42,12 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">{{pizzaCurrent.name}}</h5>
+						<h5 class="modal-title" id="exampleModalLabel">{{productCurrent.name}}</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
@@ -82,7 +82,6 @@
 			</div>
 		</div>
 	</div>
-
 </template>
 <script>
 /* eslint-disable */
@@ -92,8 +91,8 @@ export default {
 	name: 'Pizzas',
 	data () {
 		return {
-			pizzas: null,
-			pizzaCurrent: {
+			products: null,
+			productCurrent: {
 				id: null,
 				name: null
 			},
@@ -101,18 +100,18 @@ export default {
 		}
 	},
     mounted () {
-    	this.getPizzas();
+    	this.getProducts();
     },
     methods: {
-        getPizzas() {
-        	axios.get(this.url+'/api/pizzas')
+        getProducts() {
+        	axios.get(this.url+'/api/products')
 	    	.then(response => {
-	    		this.pizzas = response.data.pizzas;
+	    		this.products = response.data.products;
 	    	});
         },
-        selectPizza(pizza) {
-        	this.pizzaCurrent.id = pizza.id;
-        	this.pizzaCurrent.name = pizza.name;
+        selectProduct(product) {
+        	this.productCurrent.id = product.id;
+        	this.productCurrent.name = product.name;
         }
     }
 }

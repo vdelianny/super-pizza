@@ -48,13 +48,8 @@
 							</router-link>
 						</div>
 						<div class="nav-item">
-							<router-link tag="li" to="/">
-								<a class="nav-link">Bebidas</a>
-							</router-link>
-						</div>
-						<div class="nav-item">
-							<router-link tag="li" to="/">
-								<a class="nav-link">Complementos</a>
+							<router-link tag="li" to="/products">
+								<a class="nav-link">Bebidas y Complementos</a>
 							</router-link>
 						</div>
 						<div class="nav-item">
