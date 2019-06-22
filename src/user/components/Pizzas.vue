@@ -55,25 +55,39 @@
 					<div class="modal-body text-left py-4 px-3 px-md-5">
 						<form action="">
 							<div class="form-group">
-								<label for="exampleFormControlSelect1">Seleccione tamaño</label>
-								<select class="form-control" id="exampleFormControlSelect1">
+								<label for="size">Seleccione tamaño</label>
+								<select class="form-control" id="size" v-model="pizzaCurrent.size">
 									<option>Pequeña</option>
 									<option>Mediana</option>
 									<option>Familiar</option>
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="exampleFormControlSelect1">Cantidad</label>
-								<input type="number" class="form-control" placeholder="Ingrese cantidad" id="exampleFormControlSelect1" min="1" max="10">
+								<label for="quantity">Cantidad</label>
+								<input
+									min="1"
+									id="quantity"
+									type="number"
+									class="form-control"
+									placeholder="Ingrese cantidad"
+									v-model="pizzaCurrent.quantity">
 							</div>
 							<div class="form-group text-center d-flex">
+								<!--
 								<div class="w-50 px-2">
 									<router-link tag="button" data-dismiss="modal" class="btn btn-secundary w-100" to="/custome">
 										Personalizar
 									</router-link>
 								</div>
-								<div class="w-50 px-2">
-									<button type="button" class="btn btn-primary w-100">Continuar</button>
+								-->
+								<div class="w-100 px-2">
+									<button
+										type="button"
+										data-dismiss="modal"
+										@click="addPizzaStorage()"
+										class="btn btn-primary w-100">
+										Continuar
+									</button>
 								</div>
 							</div>
 						</form>
@@ -95,13 +109,23 @@ export default {
 			pizzas: null,
 			pizzaCurrent: {
 				id: null,
-				name: null
+				name: null,
+				size: 'Pequeña',
+				quantity: 1
 			},
+			pizzasStorage: [],
 			url:'http://localhost:3000'
 		}
 	},
     mounted () {
     	this.getPizzas();
+    	if (localStorage.getItem('pizzasStorage')) {
+    		try {
+    			this.pizzasStorage = JSON.parse(localStorage.getItem('pizzasStorage'));
+    		} catch(e) {
+    			localStorage.removeItem('pizzasStorage');
+    		}
+    	}
     },
     methods: {
         getPizzas() {
@@ -113,6 +137,12 @@ export default {
         selectPizza(pizza) {
         	this.pizzaCurrent.id = pizza.id;
         	this.pizzaCurrent.name = pizza.name;
+        },
+        addPizzaStorage() {
+        	this.pizzasStorage.push(this.pizzaCurrent);
+        	const parsed = JSON.stringify(this.pizzasStorage);
+        	localStorage.setItem('pizzasStorage', parsed);
+        	//window.localStorage.clear()
         }
     }
 }

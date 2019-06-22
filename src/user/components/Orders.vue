@@ -1,18 +1,16 @@
 <template>
+<!-- eslint-disable -->
 	<div class="container py-5">
 		<div class="order-content row">
 			<div class="form-shop col-md-7 p-4">
 				<h2 class="text-left title-form">Formulario de compra</h2>
-				<form>
+				<form @submit="addOrder">
 					<div class="text-left subtitle mb-2 mt-4">
 						<label><i class="far fa-address-card"></i> Datos personales</label>
 					</div>
 					<div class="form-row">
 						<div class="form-group col">
-							<input type="text" class="form-control" placeholder="Nombre">
-						</div>
-						<div class="form-group col">
-							<input type="text" class="form-control" placeholder="Apellido">
+							<input type="text" class="form-control" placeholder="Nombre y apellido" v-model="order.name">
 						</div>
 					</div>
 					<div class="text-left subtitle mb-2 mt-3">
@@ -20,21 +18,16 @@
 					</div>
 					<div class="form-row">
 						<div class="form-group col">
-							<input type="text" class="form-control" placeholder="Teléfono">
+							<input type="text" class="form-control" placeholder="Teléfono" v-model="order.phone">
 						</div>
 						<div class="form-group col">
-							<select class="form-control">
-								<option selected disabled>Ciudad</option>
-								<option>Madrid</option>
-								<option>Barcelona</option>
-								<option>Sevilla</option>
-								<option>Valencia</option>
-							</select>
+							<input type="text" class="form-control" placeholder="Ciudad" v-model="order.city">
 						</div>
 						<div class="form-group col-12">
-							<input type="text" class="form-control" placeholder="Dirección">
+							<input type="text" class="form-control" placeholder="Dirección" v-model="order.direction">
 						</div>
 					</div>
+					<!--
 					<div class="text-left subtitle mb-2 mt-3">
 						<label><i class="far fa-money-bill-alt"></i> Datos bancarios</label>
 					</div>
@@ -45,39 +38,21 @@
 						<div class="form-group col">
 							<input type="text" class="form-control" placeholder="CCV">
 						</div>
-					</div>
+					</div> -->
 					<button type="submit" class="btn btn-primary w-75 mt-4">Continuar</button>
 				</form>
 			</div>
 			<div class="details-shop text-left col-md-5 p-4">
 				<table class="table">
 					<tbody>
-						<tr>
+						<tr v-for="pizza in pizzasStorage">
 							<td width="50px">
 								<img src="/assets/pizza-icon.png" width="auto" height="25px">
-								<span class="cant">1</span>
+								<span class="cant">{{pizza.quantity}}</span>
 							</td>
-							<td>Pizza Margarita</td>
-							<td><span>Grande</span></td>
-							<td class="text-right">8,05$</td>
-						</tr>
-						<tr>
-							<td width="50px">
-								<img src="/assets/drink-icon.png" width="auto" height="25px">
-								<span class="cant">2</span>
-							</td>
-							<td>Bebida</td>
-							<td><span>Pequeño</span></td>
-							<td class="text-right">10,05$</td>
-						</tr>
-						<tr>
-							<td width="50px">
-								<img src="/assets/aditional-icon.png" width="auto" height="25px">
-								<span class="cant">3</span>
-							</td>
-							<td>Complemento</td>
-							<td><span>Mediano</span></td>
-							<td class="text-right">11,00$</td>
+							<td>{{pizza.name}}</td>
+							<td><span>{{pizza.size}}</span></td>
+							<!--td class="text-right">{{pizza.price}}$</td-->
 						</tr>
 					</tbody>
 				</table>
@@ -94,6 +69,52 @@
 		</div>
 	</div>
 </template>
+<script>
+/* eslint-disable */
+import axios from 'axios';
+export default {
+	name: 'Orders',
+	data () {
+		return {
+			order: {
+				name: null,
+				city: null,
+				phone: null,
+				direction: null
+			},
+			pizzasStorage: [],
+			url:'http://localhost:3000'
+		}
+	},
+	mounted() {
+		if (localStorage.getItem('pizzasStorage')) {
+			try {
+				this.pizzasStorage = JSON.parse(localStorage.getItem('pizzasStorage'));
+				console.log(this.pizzasStorage);
+			} catch(e) {
+				localStorage.removeItem('pizzasStorage');
+			}
+		}
+	},
+    methods: {
+	    addOrder(e) {
+        	e.preventDefault();
+            axios.post(this.url+'/api/orders', {
+            	name: this.order.name,
+            	city: this.order.city,
+            	phone: this.order.phone,
+            	direction: this.order.direction
+            })
+            .then(() => {
+            	this.order.name = null;
+            	this.order.city = null;
+            	this.order.phone = null;
+            	this.order.direction = null;
+            });
+        }
+    }
+}
+</script>
 <style scoped>
 	.order-content{
 		box-shadow: 0px 2px 20px -3px rgba(158, 155, 155, .4);

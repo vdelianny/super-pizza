@@ -21,7 +21,6 @@ import Payments from './admin/pages/Payments'
 Vue.use(VueRouter)
 Vue.use(VueAxios, axios)
 
-
 const routes = [
 	{ path: '/', component: Home },
 	{ path: '/pizzas', component: Pizzas },
