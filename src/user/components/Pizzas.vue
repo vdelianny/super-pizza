@@ -108,10 +108,12 @@ export default {
 		return {
 			pizzas: null,
 			pizzaCurrent: {
-				id: null,
+				pizzaId: null,
 				name: null,
 				size: 'Pequeña',
-				quantity: 1
+				quantity: 1,
+				price: null,
+				category: 'pizza'
 			},
 			pizzasStorage: [],
 			url:'http://localhost:3000'
@@ -135,8 +137,9 @@ export default {
 	    	});
         },
         selectPizza(pizza) {
-        	this.pizzaCurrent.id = pizza.id;
+        	this.pizzaCurrent.pizzaId = pizza.id;
         	this.pizzaCurrent.name = pizza.name;
+        	this.pizzaCurrent.price = pizza.price;
         },
         addPizzaStorage() {
         	this.pizzasStorage.push(this.pizzaCurrent);

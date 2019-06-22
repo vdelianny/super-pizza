@@ -43,16 +43,17 @@
 				</form>
 			</div>
 			<div class="details-shop text-left col-md-5 p-4">
+				<h2 class="text-left title mb-3">Detalles de pedido</h2>
 				<table class="table">
 					<tbody>
-						<tr v-for="pizza in pizzasStorage">
+						<tr v-for="pizza in order.pizzasStorage">
 							<td width="50px">
 								<img src="/assets/pizza-icon.png" width="auto" height="25px">
 								<span class="cant">{{pizza.quantity}}</span>
 							</td>
 							<td>{{pizza.name}}</td>
 							<td><span>{{pizza.size}}</span></td>
-							<!--td class="text-right">{{pizza.price}}$</td-->
+							<td class="text-right">{{pizza.price * pizza.quantity}}$</td>
 						</tr>
 					</tbody>
 				</table>
@@ -61,10 +62,27 @@
 					<tbody>
 						<tr style="font-size: 1.05rem">
 							<td><strong>Total</strong></td>
-							<td class="text-right"><strong>200,00$</strong></td>
+							<td class="text-right"><strong>{{order.totalAmount}}$</strong></td>
 						</tr>
 					</tbody>
 				</table>
+			</div>
+		</div>
+
+
+		<div ref="modal" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Nro. de pedido</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body text-left py-4 px-3 px-md-5">
+						<p>Su nro de pedido es: {{numberOrder}}</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -80,17 +98,19 @@ export default {
 				name: null,
 				city: null,
 				phone: null,
-				direction: null
+				direction: null,
+				totalAmount: 0,
+				pizzasStorage: []
 			},
-			pizzasStorage: [],
+			numberOrder: null,
 			url:'http://localhost:3000'
 		}
 	},
 	mounted() {
 		if (localStorage.getItem('pizzasStorage')) {
 			try {
-				this.pizzasStorage = JSON.parse(localStorage.getItem('pizzasStorage'));
-				console.log(this.pizzasStorage);
+				this.order.pizzasStorage = JSON.parse(localStorage.getItem('pizzasStorage'));
+				this.calculateAmount();
 			} catch(e) {
 				localStorage.removeItem('pizzasStorage');
 			}
@@ -103,14 +123,25 @@ export default {
             	name: this.order.name,
             	city: this.order.city,
             	phone: this.order.phone,
-            	direction: this.order.direction
+            	amount: this.order.totalAmount,
+            	direction: this.order.direction,
+            	pizzas: this.order.pizzasStorage
             })
-            .then(() => {
+            .then(res => {
+            	this.numberOrder = res.message;
             	this.order.name = null;
             	this.order.city = null;
             	this.order.phone = null;
             	this.order.direction = null;
+    			localStorage.removeItem('pizzasStorage');
+    			let element = this.$refs.modal;
+    			$(element).modal('show');
             });
+        },
+        calculateAmount() {
+        	for (var i=0; i<this.order.pizzasStorage.length; i++) {
+    			this.order.totalAmount += (this.order.pizzasStorage[i].price * this.order.pizzasStorage[i].quantity);
+        	}
         }
     }
 }
@@ -122,7 +153,8 @@ export default {
 	.form-shop i{
 		color: #c12f36;
 	}
-	.form-shop .title-form{
+	.form-shop .title-form,
+	.details-shop .title{
 		font-size: 1.5rem;
 		font-weight: 300;
 	}
