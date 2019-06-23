@@ -1,4 +1,5 @@
 <template>
+<!-- eslint-disable -->
 	<div class="admin-page">
 		<h2 class="title text-left py-3">Pedidos realizados</h2>
 		<div class="row page-body justify-content-md-center mt-5">
@@ -10,6 +11,8 @@
 							<thead>
 								<tr>
 									<th scope="col">Cliente</th>
+									<th scope="col">Teléfono</th>
+									<th scope="col">Ciudad</th>
 									<th scope="col">Dirección</th>
 									<th scope="col">Monto total</th>
 									<th scope="col">Status</th>
@@ -17,30 +20,26 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>Jhon Doe</td>
-									<td>Av. de Concha Espina, 1, 28036 Madrid, España</td>
-									<td>10,50$</td>
-									<td>Entregado</td>
+								<tr v-for="order in orders">
+									<td>{{order.name}}</td>
+									<td>{{order.phone}}</td>
+									<td>{{order.city}}</td>
+									<td>{{order.direction}}</td>
+									<td>{{order.amount}}</td>
+									<td>{{order.status}}</td>
 									<td>
-										<button class="btn p-0" data-toggle="modal" data-target="#modalDetails">
+										<button
+											class="btn p-0"
+											data-toggle="modal"
+											@click="selectOrder(order)"
+											data-target="#modalDetails">
 											<i class="fas fa-eye mx-1"></i>
 										</button>
-										<button class="btn p-0" data-toggle="modal" data-target="#modalChangeStatus">
-											<i class="fas fa-random"></i>
-										</button>
-									</td>
-								</tr>
-								<tr>
-									<td>Jhon Doe</td>
-									<td>Av. de Concha Espina, 1, 28036 Madrid, España</td>
-									<td>10,50$</td>
-									<td>Entregado</td>
-									<td>
-										<button class="btn p-0" data-toggle="modal" data-target="#modalDetails">
-											<i class="fas fa-eye mx-1"></i>
-										</button>
-										<button class="btn p-0" data-toggle="modal" data-target="#modalChangeStatus">
+										<button
+											class="btn p-0"
+											data-toggle="modal"
+											@click="selectOrder(order)"
+											data-target="#modalChangeStatus">
 											<i class="fas fa-random"></i>
 										</button>
 									</td>
@@ -65,18 +64,23 @@
 					<div class="modal-body px-4">
 						<form>
 							<div class="form-group">
-								<select class="form-control">
-									<option disabled hidden selected>Status del pedido</option>
-									<option value="pizza">Pendiente</option>
-									<option value="drink">En camino</option>
-									<option value="complement">Entregado</option>
+								<select class="form-control" v-model="orderCurrent.status">
+									<option value="Pendiente">Pendiente</option>
+									<option value="En camino">En camino</option>
+									<option value="Entregado">Entregado</option>
 								</select>
 							</div>
 						</form>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-						<button type="button" class="btn btn-primary">Guardar</button>
+						<button
+							type="button"
+							data-dismiss="modal" 
+							class="btn btn-primary"
+							@click="updateIngredient(orderCurrent.id)">
+							Guardar
+						</button>
 					</div>
 				</div>
 			</div>
@@ -93,56 +97,103 @@
 					<div class="modal-body text-left px-4">
 						<p>
 							<i class="far fa-user-circle mr-2"></i>
-							<strong> Cliente:</strong> Jhon Doe
+							<strong> Cliente: </strong>
+							{{orderCurrent.name}}
 						</p>
 						<p>
 							<i class="fas fa-street-view mr-2"></i>
-							<strong> Dirección:</strong> Av. de Concha Espina, 1, 28036 Madrid, España
+							<strong> Dirección: </strong>
+							{{orderCurrent.city}} - {{orderCurrent.direction}}
 						</p>
 						<p>
 							<i class="fas fa-utensils mr-2"></i>
-							<strong> Pedido:</strong>
+							<strong> Pedido: </strong>
 						</p>
 						<table class="table table-striped text-center">
 							<thead>
 								<tr>
 									<th scope="col">Cantidad</th>
 									<th scope="col">Producto</th>
-									<th scope="col">Precio</th>
+									<th scope="col">Tamaño</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>Pizza Margarita</td>
-									<td>10,50$</td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td>Pizza Hawaiana</td>
-									<td>10,50$</td>
+								<tr v-for="product in orderCurrent.products">
+									<td>{{product.quantity}}</td>
+									<td>{{product.pizza.name}}</td>
+									<td>{{product.size}}</td>
 								</tr>
 							</tbody>
 						</table>
 						<p>
 							<i class="fas fa-dollar-sign mr-2"></i>
-							<strong> Total:</strong> 21,00$
+							<strong> Total: </strong>
+							{{orderCurrent.amount}}$
 						</p>
 						<p>
 							<i class="far fa-smile-beam mr-2"></i>
-							<strong> Status:</strong> En camino
+							<strong> Status: </strong>
+							{{orderCurrent.status}}
 						</p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-						<button type="button" class="btn btn-primary">Guardar</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </template>
+<script>
+/* eslint-disable */
+import axios from 'axios';
 
+export default {
+	name: 'Order',
+	data () {
+		return {
+			orders: null,
+			orderCurrent: {
+				id: null,
+				name: null,
+				city: null,
+				direction: null,
+				amount: null,
+				status: null,
+				products: null
+			},
+			url:'http://localhost:3000'
+		}
+	},
+    mounted () {
+    	this.getOrders();
+    },
+    methods: {
+        getOrders() {
+        	axios.get(this.url+'/api/orders')
+	    	.then(response => {
+	    		this.orders = response.data.orders;
+	    	});
+        },
+        selectOrder(order) {
+        	this.orderCurrent.id = order.id;
+        	this.orderCurrent.name = order.name;
+        	this.orderCurrent.city = order.city;
+        	this.orderCurrent.direction = order.direction;
+        	this.orderCurrent.amount = order.amount;
+        	this.orderCurrent.status = order.status;
+        	this.orderCurrent.products = order.OrderPizzas;
+        },
+        updateIngredient(status) {
+        	axios.put(this.url+'/api/orders/status/'+status, {
+            	status: this.orderCurrent.status,
+            }).then(response => {
+            	this.getOrders();
+        	});
+        }
+    }
+}
+</script>
 <style scoped>
 	.table{
 		color: #747474;

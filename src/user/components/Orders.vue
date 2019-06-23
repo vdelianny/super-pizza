@@ -128,7 +128,7 @@ export default {
             	pizzas: this.order.pizzasStorage
             })
             .then(res => {
-            	this.numberOrder = res.message;
+            	this.numberOrder = res.data.message;
             	this.order.name = null;
             	this.order.city = null;
             	this.order.phone = null;
