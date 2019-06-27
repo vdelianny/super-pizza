@@ -112,16 +112,28 @@
 						<table class="table table-striped text-center">
 							<thead>
 								<tr>
+									<th scope="col">Tipo</th>
 									<th scope="col">Cantidad</th>
 									<th scope="col">Producto</th>
 									<th scope="col">Tamaño</th>
 								</tr>
 							</thead>
 							<tbody>
+								<tr v-for="pizza in orderCurrent.pizzas">
+									<td>
+										<img src="/assets/pizza-icon.png" width="auto" height="20px">
+									</td>
+									<td>{{pizza.quantity}}</td>
+									<td>{{pizza.pizza.name}}</td>
+									<td>{{pizza.size}}</td>
+								</tr>
 								<tr v-for="product in orderCurrent.products">
+									<td>
+										<img src="/assets/product-icon.png" width="auto" height="20px">
+									</td>
 									<td>{{product.quantity}}</td>
-									<td>{{product.pizza.name}}</td>
-									<td>{{product.size}}</td>
+									<td>{{product.product.name}}</td>
+									<td>-</td>
 								</tr>
 							</tbody>
 						</table>
@@ -160,9 +172,9 @@ export default {
 				direction: null,
 				amount: null,
 				status: null,
+				pizzas: null,
 				products: null
-			},
-			url:'http://localhost:3000'
+			}
 		}
 	},
     mounted () {
@@ -170,7 +182,7 @@ export default {
     },
     methods: {
         getOrders() {
-        	axios.get(this.url+'/api/orders')
+        	axios.get(this.urlServer+'/api/orders')
 	    	.then(response => {
 	    		this.orders = response.data.orders;
 	    	});
@@ -182,10 +194,11 @@ export default {
         	this.orderCurrent.direction = order.direction;
         	this.orderCurrent.amount = order.amount;
         	this.orderCurrent.status = order.status;
-        	this.orderCurrent.products = order.OrderPizzas;
+        	this.orderCurrent.pizzas = order.OrderPizzas;
+        	this.orderCurrent.products = order.OrderProducts;
         },
         updateIngredient(status) {
-        	axios.put(this.url+'/api/orders/status/'+status, {
+        	axios.put(this.urlServer+'/api/orders/status/'+status, {
             	status: this.orderCurrent.status,
             }).then(response => {
             	this.getOrders();

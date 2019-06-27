@@ -130,8 +130,7 @@ export default {
 			ingredientCurrent: {
 				name: null,
 				id: null
-			},
-			url:'http://localhost:3000'
+			}
 		}
 	},
     mounted () {
@@ -139,14 +138,14 @@ export default {
     },
     methods: {
         getIngredients() {
-        	axios.get(this.url+'/api/ingredients')
+        	axios.get(this.urlServer+'/api/ingredients')
 	    	.then(response => {
 	    		this.ingredients = response.data.ingredients;
 	    	});
         },
         addIngredient(e) {
         	e.preventDefault();
-            axios.post(this.url+'/api/ingredients', {
+            axios.post(this.urlServer+'/api/ingredients', {
             	name: this.name,
             })
             .then(() => {
@@ -155,13 +154,13 @@ export default {
             });
         },
         deleteIngredient(ingredient) {
-        	axios.delete(this.url+'/api/ingredients/'+ingredient)
+        	axios.delete(this.urlServer+'/api/ingredients/'+ingredient)
         	.then(response => {
             	this.getIngredients();
         	});
         },
         updateIngredient(ingredient) {
-        	axios.put(this.url+'/api/ingredients/'+ingredient, {
+        	axios.put(this.urlServer+'/api/ingredients/'+ingredient, {
             	name: this.ingredientCurrent.name,
             }).then(response => {
             	this.getIngredients();

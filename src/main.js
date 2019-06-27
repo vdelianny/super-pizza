@@ -40,6 +40,7 @@ const router = new VueRouter({
 })
 
 Vue.config.productionTip = false
+Vue.prototype.urlServer = 'http://localhost:3000';
 
 new Vue({
 	router,

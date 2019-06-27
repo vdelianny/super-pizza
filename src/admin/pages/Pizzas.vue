@@ -170,8 +170,7 @@ export default {
 				id: null,
 				name: null,
 				price: null
-			},
-			url:'http://localhost:3000'
+			}
 		}
 	},
     mounted () {
@@ -180,13 +179,13 @@ export default {
     },
     methods: {
         getIngredients() {
-        	axios.get(this.url+'/api/ingredients')
+        	axios.get(this.urlServer+'/api/ingredients')
 	    	.then(response => {
 	    		this.ingredients = response.data.ingredients;
 	    	});
         },
         getPizzas() {
-        	axios.get(this.url+'/api/pizzas')
+        	axios.get(this.urlServer+'/api/pizzas')
 	    	.then(response => {
 	    		this.pizzas = response.data.pizzas;
 	    	});
@@ -201,7 +200,7 @@ export default {
         	}
         	formData.append('price', this.newPizza.price);
     		
-    		axios.post(this.url+'/api/pizzas', formData)
+    		axios.post(this.urlServer+'/api/pizzas', formData)
             .then(() => {
             	this.getPizzas();
             	this.newPizza.name = null;
@@ -210,7 +209,7 @@ export default {
             });	
         },
         deletePizza(pizza) {
-        	axios.delete(this.url+'/api/pizzas/'+pizza)
+        	axios.delete(this.urlServer+'/api/pizzas/'+pizza)
         	.then(response => {
             	this.getPizzas();
         	});

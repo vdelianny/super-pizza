@@ -175,8 +175,7 @@ export default {
 				name: null,
 				type: "",
 				price: null
-			},
-			url:'http://localhost:3000'
+			}
 		}
 	},
     mounted () {
@@ -184,7 +183,7 @@ export default {
     },
     methods: {
         getProducts() {
-        	axios.get(this.url+'/api/products')
+        	axios.get(this.urlServer+'/api/products')
 	    	.then(response => {
 	    		this.products = response.data.products;
 	    	});
@@ -196,7 +195,7 @@ export default {
         	formData.append('avatar', this.newProduct.avatar);
         	formData.append('type', this.newProduct.type);
         	formData.append('price', this.newProduct.price);
-            axios.post(this.url+'/api/products', formData)
+            axios.post(this.urlServer+'/api/products', formData)
             .then(() => {
             	this.getProducts();
             	this.newProduct.name = null;
@@ -205,13 +204,13 @@ export default {
             });
         },
         deleteProduct(product) {
-        	axios.delete(this.url+'/api/products/'+product)
+        	axios.delete(this.urlServer+'/api/products/'+product)
         	.then(response => {
             	this.getProducts();
         	});
         },
         updateIngredient(product) {
-        	axios.put(this.url+'/api/products/'+product, {
+        	axios.put(this.urlServer+'/api/products/'+product, {
             	name: this.productCurrent.name,
 				type: this.productCurrent.type,
 				price: this.productCurrent.price

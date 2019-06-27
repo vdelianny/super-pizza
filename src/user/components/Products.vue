@@ -11,7 +11,7 @@
 									<img
 										width="auto"
 										height="auto"
-										:src="url+'/products/'+product.id+'.jpg'">
+										:src="urlServer+'/products/'+product.id+'.jpg'">
 								</div>
 								<p class="name mb-0">
 									<button
@@ -55,25 +55,24 @@
 					<div class="modal-body text-left py-4 px-3 px-md-5">
 						<form action="">
 							<div class="form-group">
-								<label for="exampleFormControlSelect1">Seleccione tamaño</label>
-								<select class="form-control" id="exampleFormControlSelect1">
-									<option>Pequeña</option>
-									<option>Mediana</option>
-									<option>Familiar</option>
-								</select>
-							</div>
-							<div class="form-group">
-								<label for="exampleFormControlSelect1">Cantidad</label>
-								<input type="number" class="form-control" placeholder="Ingrese cantidad" id="exampleFormControlSelect1" min="1" max="10">
+								<label for="quantity">Cantidad</label>
+								<input
+									min="1"
+									id="quantity"
+									type="number"
+									class="form-control"
+									placeholder="Ingrese cantidad"
+									v-model="productCurrent.quantity">
 							</div>
 							<div class="form-group text-center d-flex">
-								<div class="w-50 px-2">
-									<router-link tag="button" data-dismiss="modal" class="btn btn-secundary w-100" to="/custome">
-										Personalizar
-									</router-link>
-								</div>
-								<div class="w-50 px-2">
-									<button type="button" class="btn btn-primary w-100">Continuar</button>
+								<div class="w-100 px-2">
+									<button
+										type="button"
+										data-dismiss="modal"
+										@click="addProductStorage()"
+										class="btn btn-primary w-100">
+										Continuar
+									</button>
 								</div>
 							</div>
 						</form>
@@ -93,25 +92,41 @@ export default {
 		return {
 			products: null,
 			productCurrent: {
-				id: null,
-				name: null
+				productId: null,
+				name: null,
+				quantity: 1,
+				price: null,
+				category: 'product'
 			},
-			url:'http://localhost:3000'
+			productsStorage: []
 		}
 	},
     mounted () {
     	this.getProducts();
+    	if (localStorage.getItem('productsStorage')) {
+    		try {
+    			this.productsStorage = JSON.parse(localStorage.getItem('productsStorage'));
+    		} catch(e) {
+    			localStorage.removeItem('productsStorage');
+    		}
+    	}
     },
     methods: {
         getProducts() {
-        	axios.get(this.url+'/api/products')
+        	axios.get(this.urlServer+'/api/products')
 	    	.then(response => {
 	    		this.products = response.data.products;
 	    	});
         },
         selectProduct(product) {
-        	this.productCurrent.id = product.id;
+        	this.productCurrent.productId = product.id;
         	this.productCurrent.name = product.name;
+        	this.productCurrent.price = product.price
+        },
+        addProductStorage() {
+        	this.productsStorage.push(this.productCurrent);
+        	const parsed = JSON.stringify(this.productsStorage);
+        	localStorage.setItem('productsStorage', parsed);
         }
     }
 }

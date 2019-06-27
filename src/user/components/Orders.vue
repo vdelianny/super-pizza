@@ -46,14 +46,14 @@
 				<h2 class="text-left title mb-3">Detalles de pedido</h2>
 				<table class="table">
 					<tbody>
-						<tr v-for="pizza in order.pizzasStorage">
+						<tr v-for="product in order.productsStorage">
 							<td width="50px">
-								<img src="/assets/pizza-icon.png" width="auto" height="25px">
-								<span class="cant">{{pizza.quantity}}</span>
+								<img :src="'/assets/'+product.category+'-icon.png'" width="auto" height="25px">
+								<span class="cant">{{product.quantity}}</span>
 							</td>
-							<td>{{pizza.name}}</td>
-							<td><span>{{pizza.size}}</span></td>
-							<td class="text-right">{{pizza.price * pizza.quantity}}$</td>
+							<td>{{product.name}}</td>
+							<td><span v-show="product.category == 'pizza'">{{product.size}}</span></td>
+							<td class="text-right">{{product.price * product.quantity}}$</td>
 						</tr>
 					</tbody>
 				</table>
@@ -100,32 +100,32 @@ export default {
 				phone: null,
 				direction: null,
 				totalAmount: 0,
-				pizzasStorage: []
+				productsStorage: []
 			},
-			numberOrder: null,
-			url:'http://localhost:3000'
+			numberOrder: null
 		}
 	},
 	mounted() {
-		if (localStorage.getItem('pizzasStorage')) {
+		if (localStorage.getItem('productsStorage')) {
 			try {
-				this.order.pizzasStorage = JSON.parse(localStorage.getItem('pizzasStorage'));
+				this.order.productsStorage = JSON.parse(localStorage.getItem('productsStorage'));
+				console.log(this.order.productsStorage);
 				this.calculateAmount();
 			} catch(e) {
-				localStorage.removeItem('pizzasStorage');
+				localStorage.removeItem('productsStorage');
 			}
 		}
 	},
     methods: {
 	    addOrder(e) {
         	e.preventDefault();
-            axios.post(this.url+'/api/orders', {
+            axios.post(this.urlServer+'/api/orders', {
             	name: this.order.name,
             	city: this.order.city,
             	phone: this.order.phone,
             	amount: this.order.totalAmount,
             	direction: this.order.direction,
-            	pizzas: this.order.pizzasStorage
+            	products: this.order.productsStorage
             })
             .then(res => {
             	this.numberOrder = res.data.message;
@@ -133,14 +133,14 @@ export default {
             	this.order.city = null;
             	this.order.phone = null;
             	this.order.direction = null;
-    			localStorage.removeItem('pizzasStorage');
+    			localStorage.removeItem('productsStorage');
     			let element = this.$refs.modal;
     			$(element).modal('show');
             });
         },
         calculateAmount() {
-        	for (var i=0; i<this.order.pizzasStorage.length; i++) {
-    			this.order.totalAmount += (this.order.pizzasStorage[i].price * this.order.pizzasStorage[i].quantity);
+        	for (var i=0; i<this.order.productsStorage.length; i++) {
+    			this.order.totalAmount += (this.order.productsStorage[i].price * this.order.productsStorage[i].quantity);
         	}
         }
     }

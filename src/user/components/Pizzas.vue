@@ -11,7 +11,7 @@
 									<img
 										width="auto"
 										height="auto"
-										:src="url+'/pizzas/'+pizza.id+'.jpg'">
+										:src="urlServer+'/pizzas/'+pizza.id+'.jpg'">
 								</div>
 								<p class="name mb-0">
 									<button
@@ -115,23 +115,22 @@ export default {
 				price: null,
 				category: 'pizza'
 			},
-			pizzasStorage: [],
-			url:'http://localhost:3000'
+			productsStorage: []
 		}
 	},
     mounted () {
     	this.getPizzas();
-    	if (localStorage.getItem('pizzasStorage')) {
+    	if (localStorage.getItem('productsStorage')) {
     		try {
-    			this.pizzasStorage = JSON.parse(localStorage.getItem('pizzasStorage'));
+    			this.productsStorage = JSON.parse(localStorage.getItem('productsStorage'));
     		} catch(e) {
-    			localStorage.removeItem('pizzasStorage');
+    			localStorage.removeItem('productsStorage');
     		}
     	}
     },
     methods: {
         getPizzas() {
-        	axios.get(this.url+'/api/pizzas')
+        	axios.get(this.urlServer+'/api/pizzas')
 	    	.then(response => {
 	    		this.pizzas = response.data.pizzas;
 	    	});
@@ -142,10 +141,9 @@ export default {
         	this.pizzaCurrent.price = pizza.price;
         },
         addPizzaStorage() {
-        	this.pizzasStorage.push(this.pizzaCurrent);
-        	const parsed = JSON.stringify(this.pizzasStorage);
-        	localStorage.setItem('pizzasStorage', parsed);
-        	//window.localStorage.clear()
+        	this.productsStorage.push(this.pizzaCurrent);
+        	const parsed = JSON.stringify(this.productsStorage);
+        	localStorage.setItem('productsStorage', parsed);
         }
     }
 }
