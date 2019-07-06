@@ -9,6 +9,8 @@ import Pizzas from './user/components/Pizzas'
 import Products from './user/components/Products'
 import Orders from './user/components/Orders'
 import Custome from './user/components/Custome'
+import Register from './user/components/Register'
+import Login from './user/components/Login'
 
 import HomeAdmin from './admin/pages/Home'
 import PizzasAdmin from './admin/pages/Pizzas'
@@ -27,6 +29,8 @@ const routes = [
 	{ path: '/products', component: Products },
 	{ path: '/orders', component: Orders },
 	{ path: '/custome', component: Custome },
+	{ path: '/register', component: Register },
+	{ path: '/login', component: Login },
 	{ path: '/admin/', component: HomeAdmin },
 	{ path: '/admin/pizzas', component: PizzasAdmin },
 	{ path: '/admin/products', component: ProductsAdmin },

@@ -1,0 +1,61 @@
+<template>
+<!-- eslint-disable -->
+	<div class="container py-5">
+		<div class="row justify-content-md-center px-3">
+			<div class="form-register col-12 col-md-6 py-5">
+				<h2 class="text-center title mb-3">Ingreso de usuarios</h2>
+				<form @submit="login">
+					<div class="form-group">
+						<input type="email" class="form-control" placeholder="Email" v-model="user.email" required>
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control" placeholder="Password" v-model="user.password" required>
+					</div>
+					<button type="submit" class="btn btn-primary w-75 mt-4">Continuar</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</template>
+<script>
+/* eslint-disable */
+import axios from 'axios';
+export default {
+	name: 'Register',
+	data () {
+		return {
+			user: {
+				email: null,
+				password: null
+			}
+		}
+	},
+    methods: {
+	    login(e) {
+        	e.preventDefault();
+            axios.post(this.urlServer+'/api/users/login', {
+            	email: this.user.email,
+            	password: this.user.password
+            }).then(res => {
+            	if (res.data.success) {
+	    			localStorage.setItem('jwtToken', res.data.token);
+					this.$router.push('pizzas');
+            	} else {
+            		console.log(res.data);
+            	}
+            }).catch(e => {
+            	console.log(e);
+            });
+        }
+    }
+}
+</script>
+<style scoped>
+	.form-register{
+		box-shadow: 0px 2px 20px -3px rgba(158, 155, 155, .4);
+	}
+	.form-register .title{
+		font-size: 1.5rem;
+		font-weight: 300;
+	}
+</style>
