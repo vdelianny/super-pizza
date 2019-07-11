@@ -27,6 +27,9 @@ export default {
 		SidebarAdmin,
 		Footer
 	},
+	updated() {
+		//console.log(this.jwtToken);
+	},
     methods: {
         adminRoute() {
         	if (this.router.currentRoute.path.search('/admin/') == 0){

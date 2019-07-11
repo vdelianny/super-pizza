@@ -46,7 +46,7 @@
 				<h2 class="text-left title mb-3">Detalles de pedido</h2>
 				<table class="table">
 					<tbody>
-						<tr v-for="product in order.productsStorage">
+						<tr v-for="product in products">
 							<td width="50px">
 								<img :src="'/assets/'+product.category+'-icon.png'" width="auto" height="25px">
 								<span class="cant">{{product.quantity}}</span>
@@ -62,7 +62,7 @@
 					<tbody>
 						<tr style="font-size: 1.05rem">
 							<td><strong>Total</strong></td>
-							<td class="text-right"><strong>{{order.totalAmount}}$</strong></td>
+							<td class="text-right"><strong>{{calculateAmount}}$</strong></td>
 						</tr>
 					</tbody>
 				</table>
@@ -105,17 +105,14 @@ export default {
 			numberOrder: null
 		}
 	},
-	mounted() {
-		if (localStorage.getItem('productsStorage')) {
-			try {
-				this.order.productsStorage = JSON.parse(localStorage.getItem('productsStorage'));
-				console.log(this.order.productsStorage);
-				this.calculateAmount();
-			} catch(e) {
-				localStorage.removeItem('productsStorage');
-			}
-		}
-	},
+	computed: {
+        products() {
+            return this.$store.state.productsStore;
+        },
+        calculateAmount() {
+            return this.$store.getters.calculateAmount;
+        }
+    },
     methods: {
 	    addOrder(e) {
         	e.preventDefault();
@@ -137,11 +134,6 @@ export default {
     			let element = this.$refs.modal;
     			$(element).modal('show');
             });
-        },
-        calculateAmount() {
-        	for (var i=0; i<this.order.productsStorage.length; i++) {
-    			this.order.totalAmount += (this.order.productsStorage[i].price * this.order.productsStorage[i].quantity);
-        	}
         }
     }
 }

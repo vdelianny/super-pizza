@@ -7,30 +7,34 @@
 				</a>
 				<div class="navbar-nav ml-auto">
 					<div class="nav-item d-flex">
-						<router-link tag="li" class="mx-2" to="/login">
-							<a class="nav-link p-0" style="font-size: 1.2rem;">
-								<i class="far fa-user"></i>
-								<p class="mb-0">Acceso</p>
-							</a>
-						</router-link>
-						<router-link tag="li" class="mx-2" to="/register">
-							<a class="nav-link p-0" style="font-size: 1.2rem;">
-								<i class="far fa-edit"></i>
-								<p class="mb-0">Registro</p>
-							</a>
-						</router-link>
+						<div v-if="!isAuthenticated" class="d-flex">
+							<router-link tag="li" class="mx-2" to="/login">
+								<a class="nav-link p-0" style="font-size: 1.2rem;">
+									<i class="far fa-user"></i>
+									<p class="mb-0">Acceso</p>
+								</a>
+							</router-link>
+							<router-link tag="li" class="mx-2" to="/register">
+								<a class="nav-link p-0" style="font-size: 1.2rem;">
+									<i class="far fa-edit"></i>
+									<p class="mb-0">Registro</p>
+								</a>
+							</router-link>
+						</div>
+						<div v-else>
+							<li class="mx-2" @click="logout()">
+								<div class="nav-link p-0" style="font-size: 1.2rem;">
+									<i class="far fa-edit"></i>
+									<p class="mb-0">Salir</p>
+								</div>
+							</li>
+						</div>
 						<router-link tag="li" class="mx-2" to="/orders">
 							<a class="nav-link p-0" style="font-size: 1.2rem;">
 								<i class="fas fa-shopping-cart"></i>
 								<p class="mb-0">Carrito</p>
 							</a>
 						</router-link>
-						<li class="mx-2" @click="logout()">
-							<div class="nav-link p-0" style="font-size: 1.2rem;">
-								<i class="far fa-edit"></i>
-								<p class="mb-0">Salir</p>
-							</div>
-						</li>
 					</div>
 				</div>
 			</div>
@@ -76,25 +80,17 @@ export default {
 	name: 'Nav',
 	data () {
 		return {
-			logged: false
+			logged: true
 		}
 	},
-    mounted () {
-    	if(localStorage.getItem('jwtToken')){
-    		this.logged = true;
-    	} else {
-    		this.logged = false;
-    	}
+    computed: {
+        isAuthenticated() {
+            return this.$store.getters.isAuthenticated;
+        }
     },
     methods: {
-        isLogged() {
-        	console.log(this.logged);
-        	return this.logged;
-        },
         logout() {
-        	localStorage.removeItem('jwtToken')
-    		this.logged = false;
-			this.$router.push('login');
+            this.$store.dispatch('userSignOut');
         }
     }
 }

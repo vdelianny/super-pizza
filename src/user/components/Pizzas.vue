@@ -11,7 +11,7 @@
 									<img
 										width="auto"
 										height="auto"
-										:src="urlServer+'/pizzas/'+pizza.id+'.jpg'">
+										:src="urlPublic+'pizzas/'+pizza.id+'.jpg'">
 								</div>
 								<p class="name mb-0">
 									<button
@@ -84,7 +84,7 @@
 									<button
 										type="button"
 										data-dismiss="modal"
-										@click="addPizzaStorage()"
+										@click="addElementStore()"
 										class="btn btn-primary w-100">
 										Continuar
 									</button>
@@ -101,12 +101,11 @@
 <script>
 /* eslint-disable */
 import axios from 'axios';
-
+import { urlPublic } from '../../vuex/variables.js'
 export default {
 	name: 'Pizzas',
 	data () {
 		return {
-			pizzas: null,
 			pizzaCurrent: {
 				pizzaId: null,
 				name: null,
@@ -115,35 +114,28 @@ export default {
 				price: null,
 				category: 'pizza'
 			},
-			productsStorage: []
+			urlPublic
 		}
 	},
+    computed: {
+        pizzas() {
+            return this.$store.state.pizzas;
+        }
+    },
     mounted () {
     	this.getPizzas();
-    	if (localStorage.getItem('productsStorage')) {
-    		try {
-    			this.productsStorage = JSON.parse(localStorage.getItem('productsStorage'));
-    		} catch(e) {
-    			localStorage.removeItem('productsStorage');
-    		}
-    	}
     },
     methods: {
         getPizzas() {
-        	axios.get(this.urlServer+'/api/pizzas')
-	    	.then(response => {
-	    		this.pizzas = response.data.pizzas;
-	    	});
+            this.$store.dispatch('getPizzas');
         },
         selectPizza(pizza) {
         	this.pizzaCurrent.pizzaId = pizza.id;
         	this.pizzaCurrent.name = pizza.name;
         	this.pizzaCurrent.price = pizza.price;
         },
-        addPizzaStorage() {
-        	this.productsStorage.push(this.pizzaCurrent);
-        	const parsed = JSON.stringify(this.productsStorage);
-        	localStorage.setItem('productsStorage', parsed);
+        addElementStore() {
+        	this.$store.dispatch('addElementStore', this.pizzaCurrent);
         }
     }
 }

@@ -35,22 +35,11 @@ export default {
 		}
 	},
     methods: {
-	    addUser(e) {
-        	e.preventDefault();
-            axios.post(this.urlServer+'/api/users', {
+	    addUser() {
+	    	this.$store.dispatch('userRegister', {
             	name: this.user.name,
             	email: this.user.email,
             	password: this.user.password
-            })
-            .then(res => {
-            	if (res.data.success) {
-	            	this.user.name = null;
-					this.user.email = null;
-					this.user.password = null;
-					this.$router.push('login');
-            	} else {
-            		console.log(res.data);
-            	}
             });
         }
     }

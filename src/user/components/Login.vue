@@ -31,20 +31,10 @@ export default {
 		}
 	},
     methods: {
-	    login(e) {
-        	e.preventDefault();
-            axios.post(this.urlServer+'/api/users/login', {
+	    login() {
+            this.$store.dispatch('userLogin', {
             	email: this.user.email,
             	password: this.user.password
-            }).then(res => {
-            	if (res.data.success) {
-	    			localStorage.setItem('jwtToken', res.data.token);
-					this.$router.push('pizzas');
-            	} else {
-            		console.log(res.data);
-            	}
-            }).catch(e => {
-            	console.log(e);
             });
         }
     }
