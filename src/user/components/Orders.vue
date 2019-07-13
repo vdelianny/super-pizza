@@ -80,7 +80,7 @@
 						</button>
 					</div>
 					<div class="modal-body text-left py-4 px-3 px-md-5">
-						<p>Su nro de pedido es: {{numberOrder}}</p>
+						<p>Su nro de pedido es: </p>
 					</div>
 				</div>
 			</div>
@@ -99,10 +99,9 @@ export default {
 				city: null,
 				phone: null,
 				direction: null,
-				totalAmount: 0,
-				productsStorage: []
-			},
-			numberOrder: null
+				products: [],
+				amount: null
+			}
 		}
 	},
 	computed: {
@@ -114,26 +113,11 @@ export default {
         }
     },
     methods: {
-	    addOrder(e) {
-        	e.preventDefault();
-            axios.post(this.urlServer+'/api/orders', {
-            	name: this.order.name,
-            	city: this.order.city,
-            	phone: this.order.phone,
-            	amount: this.order.totalAmount,
-            	direction: this.order.direction,
-            	products: this.order.productsStorage
-            })
-            .then(res => {
-            	this.numberOrder = res.data.message;
-            	this.order.name = null;
-            	this.order.city = null;
-            	this.order.phone = null;
-            	this.order.direction = null;
-    			localStorage.removeItem('productsStorage');
-    			let element = this.$refs.modal;
-    			$(element).modal('show');
-            });
+	    addOrder() {
+	    	this.order.products = this.products;
+	    	this.order.amount = this.calculateAmount;
+        	this.$store.dispatch('orderRegister', this.order);         
+        	//this.$store.dispatch('addElementStore', this.pizzaCurrent);
         }
     }
 }

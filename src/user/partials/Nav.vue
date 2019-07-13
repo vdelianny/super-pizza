@@ -24,7 +24,7 @@
 						<div v-else>
 							<li class="mx-2" @click="logout()">
 								<div class="nav-link p-0" style="font-size: 1.2rem;">
-									<i class="far fa-edit"></i>
+									<i class="fas fa-power-off"></i>
 									<p class="mb-0">Salir</p>
 								</div>
 							</li>

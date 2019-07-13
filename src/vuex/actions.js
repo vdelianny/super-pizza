@@ -50,10 +50,30 @@ const addElementStore = ({ commit }, product) => {
     commit('setElementStore', product);
 };
 
+const orderRegister = ({ commit }, order) => {
+    try {
+        axios.post(urlServer+'orders', {
+            name: order.name,
+            city: order.city,
+            phone: order.phone,
+            direction: order.direction,
+            products: order.products,
+            amount: order.amount
+        }).then(res => {
+            console.log(res);
+            commit('setResetStore', []);
+        });
+    }
+    catch (error) {
+        commit('setRecipes', []);
+    }
+};
+
 export default {
     userLogin,
     userSignOut,
     userRegister,
     getPizzas,
     addElementStore,
+    orderRegister,
 };

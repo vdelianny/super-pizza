@@ -11,9 +11,13 @@ const setPizzas = (state, payload) => {
 const setElementStore = (state, payload) => {
     state.productsStore.push(payload);
 };
+const setResetStore = (state, payload) => {
+    state.productsStore = payload;
+};
 export default {
 	setIsAuthenticated,
 	setToken,
 	setPizzas,
 	setElementStore,
+	setResetStore,
 };
