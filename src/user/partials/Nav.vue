@@ -10,7 +10,7 @@
 						<div v-if="!isAuthenticated" class="d-flex">
 							<router-link tag="li" class="mx-2" to="/login">
 								<a class="nav-link p-0" style="font-size: 1.2rem;">
-									<i class="far fa-user"></i>
+									<i class="fas fa-user-plus"></i>
 									<p class="mb-0">Acceso</p>
 								</a>
 							</router-link>
@@ -21,7 +21,13 @@
 								</a>
 							</router-link>
 						</div>
-						<div v-else>
+						<div v-else class="d-flex">
+							<router-link tag="li" class="mx-2" to="/profile">
+								<a class="nav-link p-0" style="font-size: 1.2rem;">
+									<i class="fas fa-user-cog"></i>
+									<p class="mb-0">Perfil</p>
+								</a>
+							</router-link>
 							<li class="mx-2" @click="logout()">
 								<div class="nav-link p-0" style="font-size: 1.2rem;">
 									<i class="fas fa-power-off"></i>
@@ -85,6 +91,7 @@ export default {
 	},
     computed: {
         isAuthenticated() {
+        	console.log(this.$store.getters.isAuthenticated);
             return this.$store.getters.isAuthenticated;
         }
     },

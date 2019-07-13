@@ -1,12 +1,14 @@
 import axios from 'axios';
 import {urlServer} from './variables';
-import router from '@/router';
+import router from '../router';
 
 /*User*/
 
-const userLogin = ({ commit }, { email, password }) => {
-    axios.post(urlServer+'users/login', {email, password})
-    .then(res => {
+const userLogin = ({ commit }, user) => {
+    axios.post(urlServer+'users/login', {
+        email: user.email,
+        password: user.password
+    }).then(res => {
         if (res.data.success) {
             commit('setToken', res.data.token);
             router.push('pizzas');
@@ -16,9 +18,12 @@ const userLogin = ({ commit }, { email, password }) => {
     })
 };
 
-const userRegister = ({ name, email, password }) => {
-    axios.post(urlServer+'users', {name, email, password})
-    .then(res => {
+const userRegister = ({ commit }, user) => {
+    axios.post(urlServer+'users', {
+        name: user.name,
+        email: user.email,
+        password: user.password
+    }).then(res => {
         if (res.data.success) {
             router.push('login');
         }
@@ -26,13 +31,13 @@ const userRegister = ({ name, email, password }) => {
 };
 
 const userSignOut = ({ commit }) => {
-    commit('setToken', null);
+    commit('setToken', 'null');
 };
 
 
 /*Admin*/
 
-/*Pizzas*/
+/*Pizzas/Products/Orders*/
 
 const getPizzas = async ({ commit }) => {
     try {
@@ -42,7 +47,19 @@ const getPizzas = async ({ commit }) => {
         });
     }
     catch (error) {
-        commit('setRecipes', []);
+        commit('setPizzas', []);
+    }
+};
+
+const getProducts = async ({ commit }) => {
+    try {
+        axios.get(urlServer+'products')
+        .then(res => {
+            commit('setProducts', res.data.products);
+        });
+    }
+    catch (error) {
+        commit('setProducts', []);
     }
 };
 
@@ -51,22 +68,16 @@ const addElementStore = ({ commit }, product) => {
 };
 
 const orderRegister = ({ commit }, order) => {
-    try {
-        axios.post(urlServer+'orders', {
-            name: order.name,
-            city: order.city,
-            phone: order.phone,
-            direction: order.direction,
-            products: order.products,
-            amount: order.amount
-        }).then(res => {
-            console.log(res);
-            commit('setResetStore', []);
-        });
-    }
-    catch (error) {
-        commit('setRecipes', []);
-    }
+    axios.post(urlServer+'orders', {
+        name: order.name,
+        city: order.city,
+        phone: order.phone,
+        direction: order.direction,
+        products: order.products,
+        amount: order.amount
+    }).then(() => {
+        commit('setResetStore', []);
+    });
 };
 
 export default {
@@ -74,6 +85,7 @@ export default {
     userSignOut,
     userRegister,
     getPizzas,
+    getProducts,
     addElementStore,
     orderRegister,
 };

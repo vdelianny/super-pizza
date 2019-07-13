@@ -108,7 +108,7 @@
 							<img src="/assets/logo.png" alt="logo de superpizza" height="50px" width="auto">
 							¿Por qué registrarte en SuperPizza?
 						</h4>
-						<div class="icons-box px-0 px-md-4 py-4">
+						<div class="icons-box px-3 px-md-4 py-4">
 							<div class="mt-2">
 								<i class="fas fa-pizza-slice"></i>
 								<span class="ml-2">Promociones y descuentos exclusivos</span>
@@ -123,7 +123,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-12 col-md-4">
+					<div class="col-12 col-md-4 mt-3 mt-md-0">
 						<div class="register-box box mb-4 mx-0 mx-md-4">
 							<p class="title pt-4 mb-0">Registarme</p>
 							<form class="p-4">

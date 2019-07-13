@@ -11,7 +11,7 @@
 									<img
 										width="auto"
 										height="auto"
-										:src="urlServer+'/products/'+product.id+'.jpg'">
+										:src="urlPublic+'products/'+product.id+'.jpg'">
 								</div>
 								<p class="name mb-0">
 									<button
@@ -69,7 +69,7 @@
 									<button
 										type="button"
 										data-dismiss="modal"
-										@click="addProductStorage()"
+										@click="addElementStore()"
 										class="btn btn-primary w-100">
 										Continuar
 									</button>
@@ -85,12 +85,12 @@
 <script>
 /* eslint-disable */
 import axios from 'axios';
+import { urlPublic } from '../../vuex/variables.js'
 
 export default {
-	name: 'Pizzas',
+	name: 'Products',
 	data () {
 		return {
-			products: null,
 			productCurrent: {
 				productId: null,
 				name: null,
@@ -98,35 +98,28 @@ export default {
 				price: null,
 				category: 'product'
 			},
-			productsStorage: []
+			urlPublic
 		}
 	},
+    computed: {
+        products() {
+            return this.$store.state.products;
+        }
+    },
     mounted () {
     	this.getProducts();
-    	if (localStorage.getItem('productsStorage')) {
-    		try {
-    			this.productsStorage = JSON.parse(localStorage.getItem('productsStorage'));
-    		} catch(e) {
-    			localStorage.removeItem('productsStorage');
-    		}
-    	}
     },
     methods: {
         getProducts() {
-        	axios.get(this.urlServer+'/api/products')
-	    	.then(response => {
-	    		this.products = response.data.products;
-	    	});
+            this.$store.dispatch('getProducts');
         },
         selectProduct(product) {
         	this.productCurrent.productId = product.id;
         	this.productCurrent.name = product.name;
         	this.productCurrent.price = product.price
         },
-        addProductStorage() {
-        	this.productsStorage.push(this.productCurrent);
-        	const parsed = JSON.stringify(this.productsStorage);
-        	localStorage.setItem('productsStorage', parsed);
+        addElementStore() {
+        	this.$store.dispatch('addElementStore', this.productCurrent);
         }
     }
 }

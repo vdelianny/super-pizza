@@ -36,11 +36,7 @@ export default {
 	},
     methods: {
 	    addUser() {
-	    	this.$store.dispatch('userRegister', {
-            	name: this.user.name,
-            	email: this.user.email,
-            	password: this.user.password
-            });
+	    	this.$store.dispatch('userRegister', this.user);
         }
     }
 }

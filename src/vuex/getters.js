@@ -1,5 +1,5 @@
 const isAuthenticated = (state) => {
-    return state.token !== null && state.token !== undefined;
+    return state.user.token !== 'null' && state.user.token !== undefined;
 };
 
 const calculateAmount = (state) => {
