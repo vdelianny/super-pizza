@@ -66,6 +66,25 @@
 						</tr>
 					</tbody>
 				</table>
+				<div v-if="isAuthenticated && points >= 20" class="p-3">
+					<div class="text-center points-box p-4">
+						<p class="mb-1">¿Deseas canjear {{points}} tus puntos por descuentos?</p>
+						<p><b>Por cada 20 puntos ahorras 1$ en tu compra.</b></p>
+						<p class="d-flex justify-content-md-center">
+							<input
+								min="20"
+								type="number"
+								class="form-control w-auto"
+								v-model="newPoints">
+						</p>
+						<button
+							type="button"
+							@click="changePoints()"
+							class="btn btn-secundary w-100">
+							Canjear
+						</button>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -101,15 +120,22 @@ export default {
 				direction: null,
 				products: [],
 				amount: null
-			}
+			},
+			newPoints: 20
 		}
 	},
 	computed: {
+		isAuthenticated() {
+            return this.$store.getters.isAuthenticated;
+        },
         products() {
             return this.$store.state.productsStore;
         },
         calculateAmount() {
             return this.$store.getters.calculateAmount;
+        },
+        points() {
+            return this.$store.state.user.points;
         }
     },
     methods: {
@@ -117,7 +143,9 @@ export default {
 	    	this.order.products = this.products;
 	    	this.order.amount = this.calculateAmount;
         	this.$store.dispatch('orderRegister', this.order);         
-        	//this.$store.dispatch('addElementStore', this.pizzaCurrent);
+        },
+        changePoints() {
+        	this.$store.dispatch('changePoints', this.newPoints);         
         }
     }
 }
@@ -167,5 +195,10 @@ export default {
 		margin-top: -8px;
 		margin-left: -8px;
 		position: absolute;
+	}
+	.points-box{
+		background-color: #FFF;
+		border-radius: 5px;
+		box-shadow: 0px 0px 5px 0px rgba(155, 155, 155, .4);
 	}
 </style>

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import axios from 'axios';
 import {urlServer} from './variables';
 import router from '../router';
@@ -11,6 +12,7 @@ const userLogin = ({ commit }, user) => {
     }).then(res => {
         if (res.data.success) {
             commit('setToken', res.data.token);
+            commit('setUserInicialized', res.data.user);
             router.push('pizzas');
         } else {
             //errores
@@ -30,8 +32,17 @@ const userRegister = ({ commit }, user) => {
     })
 };
 
+const changePoints = ({ commit, state }, newPoints) => {
+    axios.put(urlServer+'users/points/'+state.user.id, {
+        points: newPoints,
+    }).then(() => {
+        commit('setPointsToChange', newPoints);
+    });
+};
+
 const userSignOut = ({ commit }) => {
     commit('setToken', 'null');
+    router.push('login');
 };
 
 
@@ -80,6 +91,7 @@ const orderRegister = ({ commit }, order) => {
     });
 };
 
+
 export default {
     userLogin,
     userSignOut,
@@ -88,4 +100,5 @@ export default {
     getProducts,
     addElementStore,
     orderRegister,
+    changePoints,
 };

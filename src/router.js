@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from './vuex/store';
@@ -48,6 +49,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.authRequired)) {
+    	console.log(store.getters.isAuthenticated);
         if (!store.getters.isAuthenticated) {
             next({
                 path: '/login'

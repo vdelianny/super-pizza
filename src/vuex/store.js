@@ -11,9 +11,11 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         user: {
+            id: null,
             role: null,
             token: localStorage.jwtToken,
-            points: null
+            points: 0,
+            pointsToChange: 0,
         },
         pizzas: [],
         products: [],

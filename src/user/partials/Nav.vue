@@ -91,7 +91,6 @@ export default {
 	},
     computed: {
         isAuthenticated() {
-        	console.log(this.$store.getters.isAuthenticated);
             return this.$store.getters.isAuthenticated;
         }
     },
