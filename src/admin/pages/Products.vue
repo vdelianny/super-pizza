@@ -120,7 +120,7 @@
 							type="button"
 							class="btn btn-primary"
 							data-dismiss="modal"
-							@click="updateIngredient(productCurrent.id)">
+							@click="updateProduct">
 							Guardar
 						</button>
 					</div>
@@ -146,7 +146,7 @@
 							type="button"
 							class="btn btn-primary"
 							data-dismiss="modal"
-							@click="deleteProduct(productCurrent.id)">
+							@click="deleteProduct">
 							Eliminar
 						</button>
 					</div>
@@ -157,13 +157,10 @@
 </template>
 <script>
 /* eslint-disable */
-import axios from 'axios';
-
 export default {
 	name: 'Products',
 	data () {
 		return {
-			products: null,
 			newProduct: {
 				name: null,
 				avatar: null,
@@ -178,51 +175,42 @@ export default {
 			}
 		}
 	},
+    computed: {
+        products() {
+            return this.$store.state.products;
+        }
+    },
     mounted () {
     	this.getProducts();
     },
     methods: {
         getProducts() {
-        	axios.get(this.urlServer+'/api/products')
-	    	.then(response => {
-	    		this.products = response.data.products;
-	    	});
-        },
-        addProduct(e) {
-        	e.preventDefault();
-        	var formData = new FormData();
-        	formData.append('name', this.newProduct.name);
-        	formData.append('avatar', this.newProduct.avatar);
-        	formData.append('type', this.newProduct.type);
-        	formData.append('price', this.newProduct.price);
-            axios.post(this.urlServer+'/api/products', formData)
-            .then(() => {
-            	this.getProducts();
-            	this.newProduct.name = null;
-				this.newProduct.type = "";
-				this.newProduct.price = null;
-            });
-        },
-        deleteProduct(product) {
-        	axios.delete(this.urlServer+'/api/products/'+product)
-        	.then(response => {
-            	this.getProducts();
-        	});
-        },
-        updateIngredient(product) {
-        	axios.put(this.urlServer+'/api/products/'+product, {
-            	name: this.productCurrent.name,
-				type: this.productCurrent.type,
-				price: this.productCurrent.price
-            }).then(response => {
-            	this.getProducts();
-        	});
+            this.$store.dispatch('getProducts');
         },
         selectProduct(product) {
         	this.productCurrent.id = product.id;
         	this.productCurrent.name = product.name;
         	this.productCurrent.type = product.type;
         	this.productCurrent.price = product.price;
+        },
+        addProduct() {
+        	var formData = new FormData();
+        	formData.append('name', this.newProduct.name);
+        	formData.append('avatar', this.newProduct.avatar);
+        	formData.append('type', this.newProduct.type);
+        	formData.append('price', this.newProduct.price);
+
+            this.$store.dispatch('addProduct', formData);
+        	this.newProduct.name = null;
+			this.newProduct.avatar = null;
+			this.newProduct.type = "";
+			this.newProduct.price = null;
+        },
+        updateProduct() {
+            this.$store.dispatch('updateProduct', this.productCurrent);
+        },
+        deleteProduct() {
+            this.$store.dispatch('deleteProduct', this.productCurrent.id);
         },
         uploadAvatar() {
         	this.newProduct.avatar = this.$refs.avatar.files[0];

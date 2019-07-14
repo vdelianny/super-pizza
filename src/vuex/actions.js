@@ -83,6 +83,27 @@ const getProducts = async ({ commit }) => {
         commit('setProducts', []);
     }
 };
+const addProduct = ({ dispatch }, product) => {
+    axios.post(urlServer+'products', product)
+    .then(() => {
+        dispatch('getProducts');
+    });
+};
+const deleteProduct = ({ dispatch }, id) => {
+    axios.delete(urlServer+'products/'+id)
+    .then(() => {
+        dispatch('getProducts');
+    });
+};
+const updateProduct = ({ dispatch }, product) => {
+    axios.put(urlServer+'products/'+product.id, {
+        name: product.name,
+        type: product.type,
+        price: product.price
+    }).then(() => {
+        dispatch('getProducts');
+    });
+};
 
 /*Ingredients*/
 
@@ -115,7 +136,7 @@ const updateIngredient = ({ dispatch }, ingredient) => {
     ).then(() => {
         dispatch('getIngredients');
     });
-}
+};
 
 /*Orders*/
 const addElementStore = ({ commit }, product) => {
@@ -151,4 +172,7 @@ export default {
     updateIngredient,
     deletePizza,
     addPizza,
+    addProduct,
+    deleteProduct,
+    updateProduct,
 };
