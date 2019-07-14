@@ -142,8 +142,7 @@ const updateIngredient = ({ dispatch }, ingredient) => {
 const addElementStore = ({ commit }, product) => {
     commit('setElementStore', product);
 };
-
-const orderRegister = ({ commit }, order) => {
+const orderRegister = ({ commit, dispatch }, order) => {
     axios.post(urlServer+'orders', {
         name: order.name,
         city: order.city,
@@ -153,26 +152,47 @@ const orderRegister = ({ commit }, order) => {
         amount: order.amount
     }).then(() => {
         commit('setResetStore', []);
+        dispatch('getOrders');
     });
 };
+const getOrders = async ({ commit }) => {
+    try {
+        axios.get(urlServer+'orders')
+        .then(res => {
+            commit('setOrders', res.data.orders);
+        });
+    }
+    catch (error) {
+        commit('setOrders', []);
+    }
+};
+const updateStatus = ({ dispatch }, order) => {
+    axios.put(urlServer+'orders/status/'+order.id, {
+        status: order.status
+    }).then(() => {
+        dispatch('getOrders');
+    });
 
+};
 
 export default {
+    userRegister,
     userLogin,
     userSignOut,
-    userRegister,
     getPizzas,
+    addPizza,
+    deletePizza,
     getProducts,
-    addElementStore,
-    orderRegister,
-    changePoints,
+    addProduct,
+    deleteProduct,
+    updateProduct,
     getIngredients,
     addIngredient,
     deleteIngredient,
     updateIngredient,
-    deletePizza,
-    addPizza,
-    addProduct,
-    deleteProduct,
-    updateProduct,
+    getOrders,
+    orderRegister,
+    addElementStore,
+    changePoints,
+    updateStatus,
 };

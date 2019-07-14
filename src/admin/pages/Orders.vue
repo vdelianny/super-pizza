@@ -6,7 +6,7 @@
 			<div class="col-12 col-md-10">
 				<div class="card-admin pb-3">
 					<div class="card-title text-left">Pedidos</div>
-					<div class="px-4">
+					<div class="px-4 card-body">
 						<table class="table table-striped">
 							<thead>
 								<tr>
@@ -78,7 +78,7 @@
 							type="button"
 							data-dismiss="modal" 
 							class="btn btn-primary"
-							@click="updateIngredient(orderCurrent.id)">
+							@click="updateStatus">
 							Guardar
 						</button>
 					</div>
@@ -164,7 +164,6 @@ export default {
 	name: 'Order',
 	data () {
 		return {
-			orders: null,
 			orderCurrent: {
 				id: null,
 				name: null,
@@ -177,15 +176,17 @@ export default {
 			}
 		}
 	},
+	computed: {
+        orders() {
+            return this.$store.state.orders;
+        }
+    },
     mounted () {
     	this.getOrders();
     },
     methods: {
         getOrders() {
-        	axios.get(this.urlServer+'/api/orders')
-	    	.then(response => {
-	    		this.orders = response.data.orders;
-	    	});
+            this.$store.dispatch('getOrders');
         },
         selectOrder(order) {
         	this.orderCurrent.id = order.id;
@@ -197,12 +198,8 @@ export default {
         	this.orderCurrent.pizzas = order.OrderPizzas;
         	this.orderCurrent.products = order.OrderProducts;
         },
-        updateIngredient(status) {
-        	axios.put(this.urlServer+'/api/orders/status/'+status, {
-            	status: this.orderCurrent.status,
-            }).then(response => {
-            	this.getOrders();
-        	});
+        updateStatus(){
+            this.$store.dispatch('updateStatus', this.orderCurrent);
         }
     }
 }

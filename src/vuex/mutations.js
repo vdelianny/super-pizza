@@ -5,6 +5,9 @@ const setToken = (state, payload) => {
 const setPizzas = (state, payload) => {
     state.pizzas = payload;
 };
+const setOrders = (state, payload) => {
+    state.orders = payload;
+};
 const setProducts = (state, payload) => {
     state.products = payload;
 };
@@ -34,4 +37,5 @@ export default {
     setUserInicialized,
     setPointsToChange,
     setIngredients,
+    setOrders,
 };
