@@ -25,7 +25,7 @@
 									<td>{{order.phone}}</td>
 									<td>{{order.city}}</td>
 									<td>{{order.direction}}</td>
-									<td>{{order.amount}}</td>
+									<td>{{order.amount}}$</td>
 									<td>{{order.status}}</td>
 									<td>
 										<button

@@ -13,6 +13,11 @@
 							<input type="text" class="form-control" placeholder="Nombre y apellido" v-model="order.name">
 						</div>
 					</div>
+					<div class="form-row">
+						<div class="form-group col">
+							<input type="email" class="form-control" placeholder="Email">
+						</div>
+					</div>
 					<div class="text-left subtitle mb-2 mt-3">
 						<label><i class="fas fa-map-pin"></i> Dirección de compra</label>
 					</div>
@@ -93,13 +98,14 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Nro. de pedido</h5>
+						<h5 class="modal-title" id="exampleModalLabel">Importante</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body text-left py-4 px-3 px-md-5">
-						<p>Su nro de pedido es: </p>
+						<p>Te enviaremos a tu correo electrónico el nro de pedido para que puedas verificar su status</p>
+						<p>Si eres usuario registrado, podrás verificarlo en tu perfil.</p>
 					</div>
 				</div>
 			</div>
@@ -147,7 +153,9 @@ export default {
 	    	this.order.idUser = this.userId;
 	    	this.order.products = this.products;
 	    	this.order.amount = this.calculateAmount;
-        	this.$store.dispatch('orderRegister', this.order);         
+        	this.$store.dispatch('orderRegister', this.order);
+			let element = this.$refs.modal;
+			$(element).modal('show');
         },
         changePoints() {
         	this.$store.dispatch('changePoints', this.newPoints);         
@@ -205,5 +213,9 @@ export default {
 		background-color: #FFF;
 		border-radius: 5px;
 		box-shadow: 0px 0px 5px 0px rgba(155, 155, 155, .4);
+	}
+	.modal .modal-header{
+		background-color: #ba0811;
+		color: #fff;
 	}
 </style>

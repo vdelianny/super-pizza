@@ -27,6 +27,9 @@ const setPointsToChange = (state, payload) => {
 const setIngredients = (state, payload) => {
     state.ingredients = payload;
 };
+const setUserOrders = (state, payload) => {
+    state.user.orders = payload;
+};
 
 export default {
 	setToken,
@@ -38,4 +41,5 @@ export default {
     setPointsToChange,
     setIngredients,
     setOrders,
+    setUserOrders,
 };

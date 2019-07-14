@@ -48,18 +48,15 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    if (to.matched.some(record => record.meta.authRequired)) {
-    	console.log(store.getters.isAuthenticated);
-        if (!store.getters.isAuthenticated) {
-            next({
-                path: '/login'
-            });
-        } else {
-            next();
-        }
-    } else {
-        next();
-    }
+	if (!to.meta.authRequired && to.path !== 'profile') {
+		next();
+	} else {
+		if (!store.getters.isAuthenticated) {
+			next({ path: '/login' });
+		} else {
+			next();
+		}
+	}
 });
 
 export default router;

@@ -8,8 +8,8 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" id="password-tab" data-toggle="tab" href="#password" role="tab" aria-controls="password" aria-selected="true">
-					Cambio de contraseña
+				<a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="true">
+					Pedidos
 				</a>
 			</li>
 		</ul>
@@ -21,7 +21,12 @@
   					</div>
   				</div>
   			</div>
-  			<div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
+  			<div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+  				<div class="row justify-content-md-center">
+  					<div class="col-12 col-md-5">
+						<UserOrders/>
+  					</div>
+  				</div>
   			</div>
 		</div>
 	</div>
@@ -30,9 +35,11 @@
 /* eslint-disable */
 import axios from 'axios';
 import CardPoints from '../partials/CardPoints.vue'
+import UserOrders from '../partials/UserOrders.vue'
 export default {
 	name: 'Profile',
 	components: {
+		UserOrders,
 		CardPoints
 	},
     methods: {
@@ -41,5 +48,12 @@ export default {
 }
 </script>
 <style scoped>
-	
+	.nav-link{
+		color: #474747;
+	}
+	.nav-link.active{
+		background-color: #343a3f;
+		border-color: transparent;
+		color: #FFF;
+	}
 </style>

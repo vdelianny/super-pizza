@@ -16,6 +16,7 @@ export default new Vuex.Store({
             token: localStorage.jwtToken,
             points: 0,
             pointsToChange: 0,
+            orders: [],
         },
         pizzas: [],
         products: [],
