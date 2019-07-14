@@ -21,6 +21,10 @@ const setUserInicialized = (state, payload) => {
 const setPointsToChange = (state, payload) => {
     state.user.pointsToChange = payload;
 };
+const setIngredients = (state, payload) => {
+    state.ingredients = payload;
+};
+
 export default {
 	setToken,
 	setPizzas,
@@ -29,4 +33,5 @@ export default {
 	setResetStore,
     setUserInicialized,
     setPointsToChange,
+    setIngredients,
 };

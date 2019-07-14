@@ -5,6 +5,11 @@
 		<SidebarAdmin v-if="adminRoute()"/>
 		<div class="body">
 			<router-view />
+			<router-link tag="div" class="btn btn-primary btn-store py-2" to="/orders" v-if="!adminRoute()">
+				<a class="nav-link p-0" style="font-size: 1.5rem;">
+					<i class="fas fa-shopping-cart"></i>
+				</a>
+			</router-link>
 		</div>
 		<Footer v-if="!adminRoute()"/>
 	</div>
@@ -172,6 +177,20 @@ export default {
 		background-color: #f5be10;
 		border-color: #f5be10;
 		color: #FFF;
+	}
+
+	.btn-store{
+		border-radius: 50px;
+		box-shadow: 0px 0px 10px 0px rgba(155, 155, 155, .6);
+		position: absolute;
+		right: 2rem;
+		top: 80vh;
+	}
+	.btn-store a,
+	.btn-store a:hover,
+	.btn-store a:active,
+	.btn-store a:focus{
+		color: #fff;
 	}
 
 	@media (min-width: 768px) {

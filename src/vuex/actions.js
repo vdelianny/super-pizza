@@ -46,10 +46,7 @@ const userSignOut = ({ commit }) => {
 };
 
 
-/*Admin*/
-
-/*Pizzas/Products/Orders*/
-
+/*Pizzas*/
 const getPizzas = async ({ commit }) => {
     try {
         axios.get(urlServer+'pizzas')
@@ -62,6 +59,8 @@ const getPizzas = async ({ commit }) => {
     }
 };
 
+
+/*Products*/
 const getProducts = async ({ commit }) => {
     try {
         axios.get(urlServer+'products')
@@ -74,6 +73,40 @@ const getProducts = async ({ commit }) => {
     }
 };
 
+/*Ingredients*/
+
+const getIngredients = async ({ commit }) => {
+    try {
+        axios.get(urlServer+'ingredients')
+        .then(res => {
+            commit('setIngredients', res.data.ingredients);
+        });
+    }
+    catch (error) {
+        commit('setIngredients', []);
+    }
+};
+const addIngredient = ({ dispatch }, name) => {
+    axios.post(urlServer+'ingredients', { name })
+    .then(() => {
+        dispatch('getIngredients');
+    });
+};
+const deleteIngredient = ({ dispatch }, id) => {
+    axios.delete(urlServer+'ingredients/'+id)
+    .then(() => {
+        dispatch('getIngredients');
+    });
+};
+const updateIngredient = ({ dispatch }, ingredient) => {
+    axios.put(urlServer+'ingredients/'+ingredient.id,
+        { name: ingredient.name }
+    ).then(() => {
+        dispatch('getIngredients');
+    });
+}
+
+/*Orders*/
 const addElementStore = ({ commit }, product) => {
     commit('setElementStore', product);
 };
@@ -101,4 +134,8 @@ export default {
     addElementStore,
     orderRegister,
     changePoints,
+    getIngredients,
+    addIngredient,
+    deleteIngredient,
+    updateIngredient,
 };

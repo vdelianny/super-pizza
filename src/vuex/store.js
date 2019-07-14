@@ -19,6 +19,7 @@ export default new Vuex.Store({
         },
         pizzas: [],
         products: [],
+        ingredients: [],
         productsStore: [],
     },
     mutations,

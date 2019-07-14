@@ -81,7 +81,7 @@
 							type="button"
 							class="btn btn-primary"
 							data-dismiss="modal"
-							@click="updateIngredient(ingredientCurrent.id)">
+							@click="updateIngredient">
 							Guardar
 						</button>
 					</div>
@@ -107,7 +107,7 @@
 							type="button"
 							class="btn btn-primary"
 							data-dismiss="modal"
-							@click="deleteIngredient(ingredientCurrent.id)">
+							@click="deleteIngredient">
 							Eliminar
 						</button>
 					</div>
@@ -119,13 +119,10 @@
 
 <script>
 /* eslint-disable */
-import axios from 'axios';
-
 export default {
 	name: 'Ingredients',
 	data () {
 		return {
-			ingredients: null,
 			name: null,
 			ingredientCurrent: {
 				name: null,
@@ -133,42 +130,31 @@ export default {
 			}
 		}
 	},
+	computed: {
+        ingredients() {
+            return this.$store.state.ingredients;
+        }
+    },
     mounted () {
     	this.getIngredients();
     },
     methods: {
         getIngredients() {
-        	axios.get(this.urlServer+'/api/ingredients')
-	    	.then(response => {
-	    		this.ingredients = response.data.ingredients;
-	    	});
-        },
-        addIngredient(e) {
-        	e.preventDefault();
-            axios.post(this.urlServer+'/api/ingredients', {
-            	name: this.name,
-            })
-            .then(() => {
-            	this.getIngredients();
-            	this.name = null;
-            });
-        },
-        deleteIngredient(ingredient) {
-        	axios.delete(this.urlServer+'/api/ingredients/'+ingredient)
-        	.then(response => {
-            	this.getIngredients();
-        	});
-        },
-        updateIngredient(ingredient) {
-        	axios.put(this.urlServer+'/api/ingredients/'+ingredient, {
-            	name: this.ingredientCurrent.name,
-            }).then(response => {
-            	this.getIngredients();
-        	});
+            this.$store.dispatch('getIngredients');
         },
         selectIngredient(ingredient) {
-        	this.ingredientCurrent.name = ingredient.name;
         	this.ingredientCurrent.id = ingredient.id;
+        	this.ingredientCurrent.name = ingredient.name;
+        },
+        addIngredient() {
+            this.$store.dispatch('addIngredient', this.name);
+            this.name = null;
+        },
+        deleteIngredient() {
+            this.$store.dispatch('deleteIngredient', this.ingredientCurrent.id);
+        },
+        updateIngredient() {
+            this.$store.dispatch('updateIngredient', this.ingredientCurrent);
         }
     }
 }
