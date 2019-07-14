@@ -114,6 +114,7 @@ export default {
 	data () {
 		return {
 			order: {
+				idUser: null,
 				name: null,
 				city: null,
 				phone: null,
@@ -136,10 +137,14 @@ export default {
         },
         points() {
             return this.$store.state.user.points;
+        },
+        userId(){
+            return this.$store.state.user.id;
         }
     },
     methods: {
 	    addOrder() {
+	    	this.order.idUser = this.userId;
 	    	this.order.products = this.products;
 	    	this.order.amount = this.calculateAmount;
         	this.$store.dispatch('orderRegister', this.order);         

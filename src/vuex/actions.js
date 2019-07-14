@@ -149,7 +149,8 @@ const orderRegister = ({ commit, dispatch }, order) => {
         phone: order.phone,
         direction: order.direction,
         products: order.products,
-        amount: order.amount
+        amount: order.amount,
+        idUser: order.idUser
     }).then(() => {
         commit('setResetStore', []);
         dispatch('getOrders');

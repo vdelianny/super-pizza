@@ -14,13 +14,13 @@ const calculateAmount = (state) => {
 		state.productsStore.length >= 1) 
 	{
 		discount = state.user.pointsToChange / 20;
-		total -= discount;
+		total -= Math.trunc(discount);
 	}
     return total;
 };
 
 const pointsToMoney = (state) => {
-    return state.user.points / 20;
+    return Math.trunc(state.user.points / 20);
 };
 
 export default {
