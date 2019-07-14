@@ -141,7 +141,7 @@
 							type="button"
 							class="btn btn-primary"
 							data-dismiss="modal"
-							@click="deletePizza(pizzaCurrent.id)">
+							@click="deletePizza">
 							Eliminar
 						</button>
 					</div>
@@ -152,14 +152,10 @@
 </template>
 <script>
 /* eslint-disable */
-import axios from 'axios';
-
 export default {
-	name: 'Products',
+	name: 'Pizzas',
 	data () {
 		return {
-			ingredients: null,
-			pizzas: null,
 			newPizza: {
 				name: null,
 				avatar: null,
@@ -173,25 +169,31 @@ export default {
 			}
 		}
 	},
+	computed: {
+        pizzas() {
+            return this.$store.state.pizzas;
+        },
+        ingredients() {
+            return this.$store.state.ingredients;
+        }
+    },
     mounted () {
-    	this.getIngredients();
     	this.getPizzas();
+    	this.getIngredients();
     },
     methods: {
         getIngredients() {
-        	axios.get(this.urlServer+'/api/ingredients')
-	    	.then(response => {
-	    		this.ingredients = response.data.ingredients;
-	    	});
+            this.$store.dispatch('getIngredients');
         },
         getPizzas() {
-        	axios.get(this.urlServer+'/api/pizzas')
-	    	.then(response => {
-	    		this.pizzas = response.data.pizzas;
-	    	});
+            this.$store.dispatch('getPizzas');
         },
-        addPizza(e) {
-        	e.preventDefault();
+        selectPizza(pizza) {
+        	this.pizzaCurrent.id = pizza.id;
+        	this.pizzaCurrent.name = pizza.name;
+        	this.pizzaCurrent.price = pizza.price;
+        },
+        addPizza() {
         	var formData = new FormData();
         	formData.append('name', this.newPizza.name);
         	formData.append('avatar', this.newPizza.avatar);
@@ -199,25 +201,14 @@ export default {
     			formData.append('ingredients[]', this.newPizza.ingredients[i]);
         	}
         	formData.append('price', this.newPizza.price);
-    		
-    		axios.post(this.urlServer+'/api/pizzas', formData)
-            .then(() => {
-            	this.getPizzas();
-            	this.newPizza.name = null;
-				this.newPizza.ingredients = [];
-				this.newPizza.price = null;
-            });	
+            this.$store.dispatch('addPizza', formData);
+        	this.newPizza.name = null;
+			this.newPizza.avatar = null;
+			this.newPizza.ingredients = [];
+			this.newPizza.price = null;
         },
-        deletePizza(pizza) {
-        	axios.delete(this.urlServer+'/api/pizzas/'+pizza)
-        	.then(response => {
-            	this.getPizzas();
-        	});
-        },
-        selectPizza(pizza) {
-        	this.pizzaCurrent.id = pizza.id;
-        	this.pizzaCurrent.name = pizza.name;
-        	this.pizzaCurrent.price = pizza.price;
+        deletePizza() {
+            this.$store.dispatch('deletePizza', this.pizzaCurrent.id);
         },
         uploadAvatar() {
         	this.newPizza.avatar = this.$refs.avatar.files[0];

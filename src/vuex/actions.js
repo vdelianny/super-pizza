@@ -58,7 +58,18 @@ const getPizzas = async ({ commit }) => {
         commit('setPizzas', []);
     }
 };
-
+const addPizza = ({ dispatch }, pizza) => {
+    axios.post(urlServer+'pizzas', pizza)
+    .then(() => {
+        dispatch('getPizzas');
+    });
+}
+const deletePizza = ({ dispatch }, id) => {
+    axios.delete(urlServer+'pizzas/'+id)
+    .then(() => {
+        dispatch('getPizzas');
+    });
+};
 
 /*Products*/
 const getProducts = async ({ commit }) => {
@@ -138,4 +149,6 @@ export default {
     addIngredient,
     deleteIngredient,
     updateIngredient,
+    deletePizza,
+    addPizza,
 };
