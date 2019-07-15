@@ -35,16 +35,19 @@ const userRegister = ({ commit }, user) => {
 const changePoints = ({ commit, state }, newPoints) => {
     axios.put(urlServer+'users/points/'+state.user.id, {
         points: newPoints,
-    }).then(() => {
+    }).then(res => {
         commit('setPointsToChange', newPoints);
     });
 };
 
 const userSignOut = ({ commit }) => {
+    commit('setUserFinalized');
     commit('setToken', 'null');
     router.push('login');
 };
-
+const toProfile = ({ commit }) => {
+    router.push('profile');
+};
 
 /*Pizzas*/
 const getPizzas = async ({ commit }) => {
@@ -191,6 +194,7 @@ export default {
     userRegister,
     userLogin,
     userSignOut,
+    toProfile,
     getPizzas,
     addPizza,
     deletePizza,

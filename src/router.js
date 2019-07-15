@@ -1,4 +1,3 @@
-/* eslint-disable */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from './vuex/store';
@@ -48,7 +47,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-	if (!to.meta.authRequired && to.path !== 'profile') {
+	if (!to.meta.authRequired) {
 		next();
 	} else {
 		if (!store.getters.isAuthenticated) {

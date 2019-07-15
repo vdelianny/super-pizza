@@ -6,42 +6,40 @@
 					<img src="/assets/logo.png" alt="logo de superpizza" width="80px" height="auto">
 				</a>
 				<div class="navbar-nav ml-auto">
-					<div class="nav-item d-flex">
-						<div v-if="!isAuthenticated" class="d-flex">
-							<router-link tag="li" class="mx-2" to="/login">
-								<a class="nav-link p-0" style="font-size: 1.2rem;">
-									<i class="fas fa-user-plus"></i>
-									<p class="mb-0">Acceso</p>
-								</a>
-							</router-link>
-							<router-link tag="li" class="mx-2" to="/register">
-								<a class="nav-link p-0" style="font-size: 1.2rem;">
-									<i class="far fa-edit"></i>
-									<p class="mb-0">Registro</p>
-								</a>
-							</router-link>
-						</div>
-						<div v-else class="d-flex">
-							<router-link tag="li" class="mx-2" to="/profile">
-								<a class="nav-link p-0" style="font-size: 1.2rem;">
-									<i class="fas fa-user-cog"></i>
-									<p class="mb-0">Perfil</p>
-								</a>
-							</router-link>
-							<li class="mx-2" @click="logout()">
-								<div class="nav-link p-0" style="font-size: 1.2rem;">
-									<i class="fas fa-power-off"></i>
-									<p class="mb-0">Salir</p>
-								</div>
-							</li>
-						</div>
-						<router-link tag="li" class="mx-2" to="/orders">
+					<div v-if="!isAuthenticated" class="d-flex">
+						<router-link tag="li" class="mx-2 nav-item" to="/login">
 							<a class="nav-link p-0" style="font-size: 1.2rem;">
-								<i class="fas fa-shopping-cart"></i>
-								<p class="mb-0">Carrito</p>
+								<i class="fas fa-user-plus"></i>
+								<p class="mb-0">Acceso</p>
+							</a>
+						</router-link>
+						<router-link tag="li" class="mx-2 nav-item" to="/register">
+							<a class="nav-link p-0" style="font-size: 1.2rem;">
+								<i class="far fa-edit"></i>
+								<p class="mb-0">Registro</p>
 							</a>
 						</router-link>
 					</div>
+					<div v-else class="d-flex">
+						<li class="mx-2 nav-item" @click="toProfile()">
+							<div class="nav-link p-0" style="font-size: 1.2rem;">
+								<i class="fas fa-user-cog"></i>
+								<p class="mb-0">Perfil</p>
+							</div>
+						</li>
+						<li class="mx-2 nav-item" @click="logout()">
+							<div class="nav-link p-0" style="font-size: 1.2rem;">
+								<i class="fas fa-power-off"></i>
+								<p class="mb-0">Salir</p>
+							</div>
+						</li>
+					</div>
+					<router-link tag="li" class="mx-2 nav-item" to="/orders">
+						<a class="nav-link p-0" style="font-size: 1.2rem;">
+							<i class="fas fa-shopping-cart"></i>
+							<p class="mb-0">Carrito</p>
+						</a>
+					</router-link>
 				</div>
 			</div>
 		</div>
@@ -97,6 +95,9 @@ export default {
     methods: {
         logout() {
             this.$store.dispatch('userSignOut');
+        },
+        toProfile() {
+            this.$store.dispatch('toProfile');
         }
     }
 }

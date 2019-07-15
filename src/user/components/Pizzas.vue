@@ -154,7 +154,7 @@ export default {
 		/*box-shadow: 0px 0px 15px 0px rgba(158, 155, 155, .2);*/
 	}
 	.card .information-product{
-		background: rgba(255, 255, 255, 0.8);
+		background: #FFF;
 		border-radius: 40% 8px 8px 40%;
 		box-shadow: 0px 0px 10px 2px rgba(158, 155, 155, .2);
 	}

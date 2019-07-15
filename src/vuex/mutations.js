@@ -21,6 +21,14 @@ const setUserInicialized = (state, payload) => {
     state.user.id = payload.id;
     state.user.points = payload.points;
 };
+const setUserFinalized = (state) => {
+    state.user.id = null;
+    state.user.role = null;
+    state.user.points = 0;
+    state.user.pointsToChange = 0;
+    state.user.orders = [];
+    state.productsStore = [];
+};
 const setPointsToChange = (state, payload) => {
     state.user.pointsToChange = payload;
 };
@@ -42,4 +50,5 @@ export default {
     setIngredients,
     setOrders,
     setUserOrders,
+    setUserFinalized,
 };
