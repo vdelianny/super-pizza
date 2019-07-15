@@ -1,5 +1,2 @@
-module.exports = {
-	'urlServer':'http://localhost:3000/api/',
-	'urlPublic':'http://localhost:3000/',
-
-};
+export const urlServer = 'https://superpizza-api-01.herokuapp.com/api/';
+export const urlPublic = 'https://superpizza-api-01.herokuapp.com/';

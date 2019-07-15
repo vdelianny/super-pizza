@@ -85,7 +85,7 @@
 <script>
 /* eslint-disable */
 import axios from 'axios';
-import { urlPublic } from '../../vuex/variables.js'
+import {urlPublic} from '../../vuex/variables.js'
 
 export default {
 	name: 'Products',

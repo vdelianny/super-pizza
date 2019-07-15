@@ -65,6 +65,7 @@ const toProfile = ({ commit }) => {
 
 /*Pizzas*/
 const getPizzas = async ({ commit }) => {
+    console.log(urlServer);
     try {
         axios.get(urlServer+'pizzas')
         .then(res => {
