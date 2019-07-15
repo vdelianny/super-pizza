@@ -29,6 +29,9 @@ const setUserFinalized = (state) => {
     state.user.orders = [];
     state.productsStore = [];
 };
+const setPoints = (state, payload) => {
+    state.user.points = payload;
+};
 const setPointsToChange = (state, payload) => {
     state.user.pointsToChange = payload;
 };
@@ -46,6 +49,7 @@ export default {
 	setElementStore,
 	setResetStore,
     setUserInicialized,
+    setPoints,
     setPointsToChange,
     setIngredients,
     setOrders,

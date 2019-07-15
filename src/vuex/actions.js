@@ -32,12 +32,26 @@ const userRegister = ({ commit }, user) => {
     })
 };
 
-const changePoints = ({ commit, state }, newPoints) => {
+const changePoints = ({ commit, dispatch, state }, newPoints) => {
     axios.put(urlServer+'users/points/'+state.user.id, {
         points: newPoints,
-    }).then(res => {
+    }).then(() => {
+        dispatch('getPointsUser');
         commit('setPointsToChange', newPoints);
     });
+};
+
+const getPointsUser = ({ commit, state }) => {
+    try {
+        axios.get(urlServer+'users/points/'+state.user.id)
+        .then(res => {
+            console.log(res);
+            commit('setPoints', res.data.points);
+        });
+    }
+    catch (error) {
+        commit('setPoints', 0);
+    }
 };
 
 const userSignOut = ({ commit }) => {
@@ -156,6 +170,7 @@ const orderRegister = ({ commit, dispatch }, order) => {
         idUser: order.idUser
     }).then(() => {
         commit('setResetStore', []);
+        dispatch('getPointsUser');
         dispatch('getOrders');
     });
 };
@@ -195,6 +210,7 @@ export default {
     userLogin,
     userSignOut,
     toProfile,
+    getPointsUser,
     getPizzas,
     addPizza,
     deletePizza,
