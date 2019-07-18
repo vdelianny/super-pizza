@@ -10,6 +10,7 @@ import Custome from './user/components/Custome';
 import Register from './user/components/Register';
 import Login from './user/components/Login';
 import Profile from './user/components/Profile';
+import Tracking from './user/components/Tracking';
 
 import HomeAdmin from './admin/pages/Home';
 import PizzasAdmin from './admin/pages/Pizzas';
@@ -23,12 +24,14 @@ import LoginAdmin from './admin/pages/Login';
 Vue.use(VueRouter);
 
 const router = new VueRouter({
+	mode: 'history',
 	routes: [
 		{ path: '/', component: Home },
 		{ path: '/pizzas', component: Pizzas },
 		{ path: '/products', component: Products },
 		{ path: '/orders', component: Orders },
 		{ path: '/custome', component: Custome },
+		{ path: '/tracking', component: Tracking },
 		{ path: '/register', component: Register },
 		{ path: '/login', component: Login },
 		{

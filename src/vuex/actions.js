@@ -209,7 +209,18 @@ const updateStatus = ({ dispatch }, order) => {
     }).then(() => {
         dispatch('getOrders');
     });
+};
 
+const tracking = async ({ commit }, id) => {
+    try {
+        axios.get(urlServer+'orders/status/'+id)
+        .then(res => {
+            console.log(res);
+        });
+    }
+    catch (error) {
+        //commit('setOrders', []);
+    }
 };
 
 export default {
@@ -236,4 +247,5 @@ export default {
     changePoints,
     updateStatus,
     getUserOrders,
+    tracking,
 };

@@ -67,7 +67,7 @@
 							</router-link>
 						</div>
 						<div class="nav-item">
-							<router-link tag="li" to="/">
+							<router-link tag="li" to="/tracking">
 								<a class="nav-link">Rastrear pedido</a>
 							</router-link>
 						</div>
