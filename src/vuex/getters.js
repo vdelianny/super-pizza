@@ -3,6 +3,10 @@ const isAuthenticated = (state) => {
     return state.user.token !== 'null' && state.user.token !== undefined;
 };
 
+const isAuthenticatedAdmin = (state) => {
+    return state.admin.token !== 'null' && state.admin.token !== undefined;
+};
+
 const calculateAmount = (state) => {
 	var total = 0,
 		discount= 0;
@@ -13,7 +17,6 @@ const calculateAmount = (state) => {
 	{
 		discount = Math.trunc(state.user.pointsToChange / 20);
 		total = total - discount;
-		console.log(total);
 	}
     return total;
 };
@@ -26,4 +29,5 @@ export default {
 	isAuthenticated,
 	calculateAmount,
 	pointsToMoney,
+	isAuthenticatedAdmin
 };

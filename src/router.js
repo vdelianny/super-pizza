@@ -17,6 +17,7 @@ import ProductsAdmin from './admin/pages/Products';
 import Ingredients from './admin/pages/Ingredients';
 import OrdersAdmin from './admin/pages/Orders';
 import Payments from './admin/pages/Payments';
+import LoginAdmin from './admin/pages/Login';
 
 
 Vue.use(VueRouter);
@@ -34,24 +35,77 @@ const router = new VueRouter({
 			path: '/profile',
 			component: Profile,
 			meta: {
-				authRequired: true
+				authUserRequired: true
 			}
 		},
-		{ path: '/admin/', component: HomeAdmin },
-		{ path: '/admin/pizzas', component: PizzasAdmin },
-		{ path: '/admin/products', component: ProductsAdmin },
-		{ path: '/admin/ingredients', component: Ingredients },
-		{ path: '/admin/orders', component: OrdersAdmin },
-		{ path: '/admin/payments', component: Payments },
+		{
+			path: '/admin/',
+			component: HomeAdmin,
+			meta: {
+				authAdminRequired: true
+			}
+		},
+		{
+			path: '/admin/login',
+			component: LoginAdmin,
+			meta: {
+				authAdminRequired: true
+			}
+		},
+		{
+			path: '/admin/pizzas',
+			component: PizzasAdmin,
+			meta: {
+				authAdminRequired: true
+			}
+		},
+		{
+			path: '/admin/products',
+			component: ProductsAdmin,
+			meta: {
+				authAdminRequired: true
+			}
+		},
+		{
+			path: '/admin/ingredients',
+			component: Ingredients,
+			meta: {
+				authAdminRequired: true
+			}
+		},
+		{
+			path: '/admin/orders',
+			component: OrdersAdmin,
+			meta: {
+				authAdminRequired: true
+			}
+		},
+		{
+			path: '/admin/payments',
+			component: Payments,
+			meta: {
+				authAdminRequired: true
+			}
+		},
 	]
 });
 
 router.beforeEach((to, from, next) => {
-	if (!to.meta.authRequired) {
+	if (!to.meta.authUserRequired) {
 		next();
 	} else {
 		if (!store.getters.isAuthenticated) {
 			next({ path: '/login' });
+		} else {
+			next();
+		}
+	}
+
+	if (!to.meta.authAdminRequired) {
+		next();
+	} else {
+		if (!store.getters.isAuthenticatedAdmin) {
+			next({ path: '/admin/login' });
 		} else {
 			next();
 		}

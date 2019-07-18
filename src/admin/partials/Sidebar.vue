@@ -1,6 +1,6 @@
 <template>
 <!-- eslint-disable -->
-	<div class="w-10 position-absolute sidebar">
+	<div class="w-10 position-absolute sidebar" v-if="isAuthenticatedAdmin">
 		<div class="nav flex-column" aria-orientation="vertical">
 			<router-link tag="a" class="nav-link pt-3" to="/admin/pizzas">
 				<i class="fas fa-home"></i>
@@ -20,12 +20,32 @@
 			<router-link tag="a" class="nav-link pt-3" to="/admin/payments">
 				<i class="fas fa-dollar-sign"></i>
 			</router-link>
-			<router-link tag="a" class="nav-link pt-3" to="/admin/pizzas">
+			<li class="nav-link pt-3"  @click="logout()">
 				<i class="fas fa-power-off"></i>
-			</router-link>
+			</li>
 		</div>
 	</div>
 </template>
+
+<script>
+/* eslint-disable */
+/*
+"admin", "admin@sp.com", "0000"
+*/
+	export default {
+    name: 'Sidebar',
+    computed: {
+        isAuthenticatedAdmin() {
+            return this.$store.getters.isAuthenticatedAdmin;
+        }
+    },
+    methods: {
+        logout() {
+            this.$store.dispatch('userSignOutAdmin');
+        }
+    }
+}
+</script>
 
 <style scoped>
 	.sidebar{

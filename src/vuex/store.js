@@ -10,11 +10,16 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
+        admin: {
+            id: localStorage.spUserId,
+            role: localStorage.spUserRole,
+            token: localStorage.spAdminToken,
+        },
         user: {
-            id: null,
-            role: null,
-            token: localStorage.jwtToken,
-            points: 0,
+            id: localStorage.spUserId,
+            role: localStorage.spUserRole,
+            token: localStorage.spUserToken,
+            points: localStorage.spUserPoints,
             pointsToChange: 0,
             orders: [],
         },

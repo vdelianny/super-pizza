@@ -1,23 +1,34 @@
 <template>
-    <div class="navbar navbar-expand-lg w-100 py-0 px-5">
+    <div class="navbar navbar-expand-lg w-100 py-0 px-5" v-if="isAuthenticatedAdmin">
         <div class="navbar-nav ml-auto">
-            <div class="nav-item d-flex">
-                <li class="mx-2 my-auto">
-                    <div class="nav-link p-0">
-                        <i class="far fa-user-circle"></i>
-                    </div>
-                </li>
-                <li class="mx-2">
-                    <div class="nav-link p-0">
-                        <p class="mb-0 title">SuperPizzas</p>
-                        <span class="subtitle">Administrador</span>
-                    </div>
-                </li>
-            </div>
+            <li class="mx-2 my-auto nav-item">
+                <div class="nav-link p-0">
+                    <i class="far fa-user-circle"></i>
+                </div>
+            </li>
+            <li class="mx-2 nav-item">
+                <div class="nav-link p-0">
+                    <p class="mb-0 title">SuperPizzas</p>
+                    <span class="subtitle">Administrador</span>
+                </div>
+            </li>
         </div>
     </div>
 </template>
-
+<script>
+/* eslint-disable */
+/*
+"admin", "admin@sp.com", "0000"
+*/
+export default {
+    name: 'NavAdmin',
+    computed: {
+        isAuthenticatedAdmin() {
+            return this.$store.getters.isAuthenticatedAdmin;
+        }
+    }
+}
+</script>
 <style scoped>
     .navbar{
         height: 60px;

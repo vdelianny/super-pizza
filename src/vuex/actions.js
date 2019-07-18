@@ -11,8 +11,11 @@ const userLogin = ({ commit }, user) => {
         password: user.password
     }).then(res => {
         if (res.data.success) {
-            commit('setToken', res.data.token);
-            commit('setUserInicialized', res.data.user);
+            if (res.data.user.role !== 'admin') {
+                commit('setUserInicialized', res.data);
+            } else {
+                commit('setAdminInicialized', res.data);
+            }
             router.push('pizzas');
         } else {
             //errores
@@ -45,7 +48,6 @@ const getPointsUser = ({ commit, state }) => {
     try {
         axios.get(urlServer+'users/points/'+state.user.id)
         .then(res => {
-            console.log(res);
             commit('setPoints', res.data.points);
         });
     }
@@ -56,16 +58,20 @@ const getPointsUser = ({ commit, state }) => {
 
 const userSignOut = ({ commit }) => {
     commit('setUserFinalized');
-    commit('setToken', 'null');
     router.push('login');
 };
+
+const userSignOutAdmin = ({ commit }) => {
+    commit('setAdminFinalized');
+    router.push('login');
+};
+
 const toProfile = ({ commit }) => {
     router.push('profile');
 };
 
 /*Pizzas*/
 const getPizzas = async ({ commit }) => {
-    console.log(urlServer);
     try {
         axios.get(urlServer+'pizzas')
         .then(res => {
@@ -210,6 +216,7 @@ export default {
     userRegister,
     userLogin,
     userSignOut,
+    userSignOutAdmin,
     toProfile,
     getPointsUser,
     getPizzas,
