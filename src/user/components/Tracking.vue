@@ -12,21 +12,33 @@
 				</form>
 			</div>
 		</div>
+
+		<span class="message-success mt-4 p-4 d-inline-block" v-if="trackingOrder != null">
+			El status de su orden es:<b> {{trackingOrder}}</b>
+		</span>
 	</div>
 </template>
 <script>
 /* eslint-disable */
-import axios from 'axios';
 export default {
-	name: 'Register',
+	name: 'Tracking',
 	data () {
 		return {
 			orderNumber: null
 		}
 	},
+	computed: {
+        trackingOrder() {
+            return this.$store.state.user.trackingOrder;
+        }
+    },
+    beforeDestroy () {
+        this.$store.commit('setTrackingOrder', null);
+    },
     methods: {
-	    tracking() {
+	    tracking(e) {
             this.$store.dispatch('tracking', this.orderNumber);
+	    	e.preventDefault();
         }
     }
 }

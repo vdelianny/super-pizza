@@ -162,6 +162,40 @@ const updateIngredient = ({ dispatch }, ingredient) => {
     });
 };
 
+/*Promotions*/
+const getPromotions = async ({ commit }) => {
+    try {
+        axios.get(urlServer+'promotions')
+        .then(res => {
+            commit('setPromotions', res.data.promotions);
+        });
+    }
+    catch (error) {
+        commit('setPromotions', []);
+    }
+};
+const addPromotion = ({ dispatch }, promotion) => {
+    axios.post(urlServer+'promotions', promotion)
+    .then(() => {
+        dispatch('getPromotions');
+    });
+};
+const deletePromotion = ({ dispatch }, id) => {
+    axios.delete(urlServer+'promotions/'+id)
+    .then(() => {
+        dispatch('getPromotions');
+    });
+};
+const updatePromotion = ({ dispatch }, promotion) => {
+    axios.put(urlServer+'promotions/'+promotion.id, {
+        name: promotion.name,
+        description: promotion.description,
+        price: promotion.price
+    }).then(() => {
+        dispatch('getPromotions');
+    });
+};
+
 /*Orders*/
 const addElementStore = ({ commit }, product) => {
     commit('setElementStore', product);
@@ -169,6 +203,7 @@ const addElementStore = ({ commit }, product) => {
 const orderRegister = ({ commit, dispatch }, order) => {
     axios.post(urlServer+'orders', {
         name: order.name,
+        email: order.email,
         city: order.city,
         phone: order.phone,
         direction: order.direction,
@@ -215,11 +250,11 @@ const tracking = async ({ commit }, id) => {
     try {
         axios.get(urlServer+'orders/status/'+id)
         .then(res => {
-            console.log(res);
+            commit('setTrackingOrder', res.data.order.status);
         });
     }
     catch (error) {
-        //commit('setOrders', []);
+        commit('setTrackingOrder', null);
     }
 };
 
@@ -237,6 +272,10 @@ export default {
     addProduct,
     deleteProduct,
     updateProduct,
+    getPromotions,
+    addPromotion,
+    deletePromotion,
+    updatePromotion,
     getIngredients,
     addIngredient,
     deleteIngredient,

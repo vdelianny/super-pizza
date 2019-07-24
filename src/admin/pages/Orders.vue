@@ -135,6 +135,14 @@
 									<td>{{product.product.name}}</td>
 									<td>-</td>
 								</tr>
+								<tr v-for="promotion in orderCurrent.promotions">
+									<td>
+										<img src="/assets/promotion-icon.png" width="auto" height="20px">
+									</td>
+									<td>{{promotion.quantity}}</td>
+									<td>{{promotion.promotion.name}}</td>
+									<td>-</td>
+								</tr>
 							</tbody>
 						</table>
 						<p>
@@ -172,7 +180,8 @@ export default {
 				amount: null,
 				status: null,
 				pizzas: null,
-				products: null
+				products: null,
+				promotions: null
 			}
 		}
 	},
@@ -197,6 +206,7 @@ export default {
         	this.orderCurrent.status = order.status;
         	this.orderCurrent.pizzas = order.OrderPizzas;
         	this.orderCurrent.products = order.OrderProducts;
+        	this.orderCurrent.promotions = order.OrderPromotions;
         },
         updateStatus(){
             this.$store.dispatch('updateStatus', this.orderCurrent);

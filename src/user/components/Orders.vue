@@ -15,7 +15,7 @@
 					</div>
 					<div class="form-row">
 						<div class="form-group col">
-							<input type="email" class="form-control" placeholder="Email">
+							<input type="email" class="form-control" placeholder="Email" v-model="order.email">
 						</div>
 					</div>
 					<div class="text-left subtitle mb-2 mt-3">
@@ -122,6 +122,7 @@ export default {
 			order: {
 				idUser: null,
 				name: null,
+				email: null,
 				city: null,
 				phone: null,
 				direction: null,
@@ -149,13 +150,19 @@ export default {
         }
     },
     methods: {
-	    addOrder() {
+	    addOrder(e) {
+			e.preventDefault();
 	    	this.order.idUser = this.userId;
 	    	this.order.products = this.products;
 	    	this.order.amount = this.calculateAmount;
         	this.$store.dispatch('orderRegister', this.order);
 			let element = this.$refs.modal;
 			$(element).modal('show');
+			this.order.name = null;
+			this.order.email = null;
+			this.order.city = null;
+			this.order.phone = null;
+			this.order.direction = null;
         },
         changePoints() {
         	this.$store.dispatch('changePoints', this.newPoints);         

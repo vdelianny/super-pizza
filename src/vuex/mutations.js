@@ -7,8 +7,14 @@ const setOrders = (state, payload) => {
 const setProducts = (state, payload) => {
     state.products = payload;
 };
+const setPromotions = (state, payload) => {
+    state.promotions = payload;
+};
 const setElementStore = (state, payload) => {
     state.productsStore.push(payload);
+};
+const setTrackingOrder = (state, payload) => {
+    state.user.trackingOrder = payload;
 };
 const setResetStore = (state, payload) => {
     state.productsStore = payload;
@@ -61,13 +67,15 @@ const setUserOrders = (state, payload) => {
 export default {
 	setPizzas,
 	setProducts,
+    setPromotions,
+    setIngredients,
 	setElementStore,
 	setResetStore,
     setUserInicialized,
     setAdminInicialized,
     setPoints,
     setPointsToChange,
-    setIngredients,
+    setTrackingOrder,
     setOrders,
     setUserOrders,
     setUserFinalized,

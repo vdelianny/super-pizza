@@ -30,8 +30,9 @@ export default {
 		}
 	},
     methods: {
-	    login() {
+	    login(e) {
             this.$store.dispatch('userLogin', this.user);
+            e.preventDefault();
         }
     }
 }

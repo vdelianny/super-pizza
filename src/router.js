@@ -5,6 +5,7 @@ import store from './vuex/store';
 import Home from './user/components/Home';
 import Pizzas from './user/components/Pizzas';
 import Products from './user/components/Products';
+import Promotions from './user/components/Promotions';
 import Orders from './user/components/Orders';
 import Custome from './user/components/Custome';
 import Register from './user/components/Register';
@@ -15,6 +16,7 @@ import Tracking from './user/components/Tracking';
 import HomeAdmin from './admin/pages/Home';
 import PizzasAdmin from './admin/pages/Pizzas';
 import ProductsAdmin from './admin/pages/Products';
+import PromotionsAdmin from './admin/pages/Promotions';
 import Ingredients from './admin/pages/Ingredients';
 import OrdersAdmin from './admin/pages/Orders';
 import Payments from './admin/pages/Payments';
@@ -30,6 +32,7 @@ const router = new VueRouter({
 		{ path: '/pizzas', component: Pizzas },
 		{ path: '/products', component: Products },
 		{ path: '/orders', component: Orders },
+		{ path: '/promotions', component: Promotions },
 		{ path: '/custome', component: Custome },
 		{ path: '/tracking', component: Tracking },
 		{ path: '/register', component: Register },
@@ -79,6 +82,13 @@ const router = new VueRouter({
 		{
 			path: '/admin/orders',
 			component: OrdersAdmin,
+			meta: {
+				authAdminRequired: true
+			}
+		},
+		{
+			path: '/admin/promotions',
+			component: PromotionsAdmin,
 			meta: {
 				authAdminRequired: true
 			}

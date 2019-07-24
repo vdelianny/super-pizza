@@ -160,6 +160,14 @@ export default {
 		border-color: #28b0a6;
 	}
 
+	.message-success{
+		background-color: #e9f9df;
+		border: 2px solid #8fcd90;
+		border-radius: 10px;
+		color: #8fcd90;
+		font-weight: 500;
+	}
+
 	/*original red: #ba0811;*/
 	/*original yellow: #ffc50c;*/
 

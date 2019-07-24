@@ -11,6 +11,9 @@
 			<router-link tag="a" class="nav-link pt-3" to="/admin/products">
 				<i class="fas fa-cookie-bite"></i>
 			</router-link>
+			<router-link tag="a" class="nav-link pt-3" to="/admin/promotions">
+				<i class="fas fa-sort-amount-down"></i>
+			</router-link>
 			<router-link tag="a" class="nav-link pt-3" to="/admin/ingredients">
 				<i class="fas fa-clipboard-list"></i>
 			</router-link>
