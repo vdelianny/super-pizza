@@ -18,7 +18,8 @@ const userLogin = ({ commit }, user) => {
             }
             router.push('pizzas');
         } else {
-            //errores
+            commit('setMgError', res.data.msg);
+            commit('setShowError', true);
         }
     })
 };
@@ -31,6 +32,9 @@ const userRegister = ({ commit }, user) => {
     }).then(res => {
         if (res.data.success) {
             router.push('login');
+        } else {
+            commit('setMgError', res.data.msg);
+            commit('setShowError', true);
         }
     })
 };
@@ -246,17 +250,28 @@ const updateStatus = ({ dispatch }, order) => {
     });
 };
 
-const tracking = async ({ commit }, id) => {
+const tracking = async ({ commit, dispatch }, id) => {
     try {
         axios.get(urlServer+'orders/status/'+id)
         .then(res => {
-            commit('setTrackingOrder', res.data.order.status);
+            if (res.data.success) {
+                commit('setMgSuccess', `Su pedido con el nro: ${id} se encuentra: ${res.data.order.status}`);
+                commit('setShowSuccess', true);
+            } else {
+                commit('setMgError', `${res.data.msg}: ${id}`);
+                commit('setShowError', true);
+            }
         });
     }
     catch (error) {
-        commit('setTrackingOrder', null);
+        dispatch('showErrors');
     }
 };
+
+const showErrors = ({ commit }) => {
+    commit('setMgError', 'Ha ocurrido un error, intente más tarde');
+    commit('setShowError', true);
+} 
 
 export default {
     userRegister,
@@ -287,4 +302,5 @@ export default {
     updateStatus,
     getUserOrders,
     tracking,
+    showErrors
 };

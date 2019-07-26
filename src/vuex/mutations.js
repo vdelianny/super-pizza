@@ -49,14 +49,26 @@ const setUserFinalized = (state) => {
     state.user.role = null;
     state.user.points = 0;
     state.user.token = "null";
+    state.user.name = null;
+    state.user.email = null;
     state.user.pointsToChange = 0;
     state.user.orders = [];
     state.productsStore = [];
+
+    localStorage.removeItem('spUserId');
+    localStorage.removeItem('spUserToken');
+    localStorage.removeItem('spUserRole');
+    localStorage.removeItem('spUserName');
+    localStorage.removeItem('spUserEmail');
+    localStorage.removeItem('spUserPoints');
 };
 const setAdminFinalized = (state) => {
     state.admin.id = null;
     state.admin.role = null;
     state.admin.token = "null";
+    localStorage.removeItem('spAdminId');
+    localStorage.removeItem('spAdminToken');
+    localStorage.removeItem('spAdminRole');
 };
 const setPoints = (state, payload) => {
     state.user.points = payload;
@@ -69,6 +81,18 @@ const setIngredients = (state, payload) => {
 };
 const setUserOrders = (state, payload) => {
     state.user.orders = payload;
+};
+const setMgError = (state, payload) => {
+    state.messages.msgError = payload;
+};
+const setShowError = (state, payload) => {
+    state.messages.showError = payload;
+};
+const setMgSuccess = (state, payload) => {
+    state.messages.msgSuccess = payload;
+};
+const setShowSuccess = (state, payload) => {
+    state.messages.showSuccess = payload;
 };
 
 export default {
@@ -88,4 +112,8 @@ export default {
     setUserOrders,
     setUserFinalized,
     setAdminFinalized,
+    setMgError,
+    setShowError,
+    setMgSuccess,
+    setShowSuccess
 };

@@ -26,6 +26,12 @@ export default new Vuex.Store({
             trackingOrder: null,
             orders: [],
         },
+        messages: {
+            showError: false,
+            msgError: null,
+            showSuccess: false,
+            msgSuccess: null
+        },
         pizzas: [],
         products: [],
         promotions: [],

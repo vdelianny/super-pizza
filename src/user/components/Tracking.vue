@@ -12,10 +12,6 @@
 				</form>
 			</div>
 		</div>
-
-		<span class="message-success mt-4 p-4 d-inline-block" v-if="trackingOrder != null">
-			El status de su orden es:<b> {{trackingOrder}}</b>
-		</span>
 	</div>
 </template>
 <script>
@@ -27,14 +23,6 @@ export default {
 			orderNumber: null
 		}
 	},
-	computed: {
-        trackingOrder() {
-            return this.$store.state.user.trackingOrder;
-        }
-    },
-    beforeDestroy () {
-        this.$store.commit('setTrackingOrder', null);
-    },
     methods: {
 	    tracking(e) {
             this.$store.dispatch('tracking', this.orderNumber);

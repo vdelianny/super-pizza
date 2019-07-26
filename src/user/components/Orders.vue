@@ -168,11 +168,12 @@ export default {
 	    	}
 	    	if (this.existProducts()) {
         		this.$store.dispatch('orderRegister', this.order);
+        		this.openModal();
+        		this.resetOrder();
 	    	} else {
-        		//Mensaje error
+        		this.$store.commit('setMgError', 'Debe seleccionar al menos un producto para poder realizar su compra.');
+        		this.$store.commit('setShowError', true);
 	    	}
-        	this.openModal();
-        	this.resetOrder();
         },
         changePoints() {
         	this.$store.dispatch('changePoints', this.newPoints);         

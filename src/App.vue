@@ -4,6 +4,10 @@
 		<NavAdmin v-if="adminRoute()"/>
 		<SidebarAdmin v-if="adminRoute()"/>
 		<div class="body">
+			<div class="msg-box position-absolute my-3">
+				<MsgError />
+				<MsgSuccess />
+			</div>
 			<router-view />
 			<router-link tag="div" class="btn btn-primary btn-store py-2" to="/orders" v-if="!adminRoute()">
 				<a class="nav-link p-0" style="font-size: 1.5rem;">
@@ -22,6 +26,8 @@ import Nav from './user/partials/Nav.vue'
 import NavAdmin from './admin/partials/Nav.vue'
 import SidebarAdmin from './admin/partials/Sidebar.vue'
 import Footer from './user/partials/Footer.vue'
+import MsgError from './user/partials/MsgError.vue'
+import MsgSuccess from './user/partials/MsgSuccess.vue'
 
 export default {
 	name: 'app',
@@ -30,7 +36,9 @@ export default {
 		Nav,
 		NavAdmin,
 		SidebarAdmin,
-		Footer
+		Footer,
+		MsgError,
+		MsgSuccess,
 	},
 	updated() {
 		//console.log(this.jwtToken);
@@ -53,6 +61,11 @@ export default {
 		font-family: 'Roboto';
 		overflow-x: hidden;
 		text-align: center;
+	}
+	.msg-box{
+		left: 10%;
+	    width: 80%;
+	    z-index: 1;
 	}
 	.body{
 		min-height: calc(100vh - 60px);
@@ -190,7 +203,7 @@ export default {
 	.btn-store{
 		border-radius: 50px;
 		box-shadow: 0px 0px 10px 0px rgba(155, 155, 155, .6);
-		position: absolute;
+		position: fixed;
 		right: 2rem;
 		top: 80vh;
 	}

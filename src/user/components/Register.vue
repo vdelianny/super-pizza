@@ -35,8 +35,9 @@ export default {
 		}
 	},
     methods: {
-	    addUser() {
+	    addUser(e) {
 	    	this.$store.dispatch('userRegister', this.user);
+	    	e.preventDefault();
         }
     }
 }
