@@ -5,15 +5,15 @@
 			<div class="form-shop col-md-7 p-4">
 				<h2 class="text-left title-form">Formulario de compra</h2>
 				<form @submit="addOrder">
-					<div class="text-left subtitle mb-2 mt-4">
+					<div class="text-left subtitle mb-2 mt-4" v-if="!isAuthenticated">
 						<label><i class="far fa-address-card"></i> Datos personales</label>
 					</div>
-					<div class="form-row">
+					<div class="form-row" v-if="!isAuthenticated">
 						<div class="form-group col">
 							<input type="text" class="form-control" placeholder="Nombre y apellido" v-model="order.name">
 						</div>
 					</div>
-					<div class="form-row">
+					<div class="form-row" v-if="!isAuthenticated">
 						<div class="form-group col">
 							<input type="email" class="form-control" placeholder="Email" v-model="order.email">
 						</div>
@@ -44,14 +44,16 @@
 							<input type="text" class="form-control" placeholder="CCV">
 						</div>
 					</div> -->
-					<button type="submit" class="btn btn-primary w-75 mt-4">Continuar</button>
+					<button type="submit" class="btn btn-primary w-75 mt-4" :disabled="!existProducts()">
+						Continuar
+					</button>
 				</form>
 			</div>
 			<div class="details-shop text-left col-md-5 p-4">
 				<h2 class="text-left title mb-3">Detalles de pedido</h2>
 				<table class="table">
 					<tbody>
-						<tr v-for="product in products">
+						<tr v-for="(product, index) in products">
 							<td width="50px">
 								<img :src="'/assets/'+product.category+'-icon.png'" width="auto" height="25px">
 								<span class="cant">{{product.quantity}}</span>
@@ -59,6 +61,11 @@
 							<td>{{product.name}}</td>
 							<td><span v-show="product.category == 'pizza'">{{product.size}}</span></td>
 							<td class="text-right">{{product.price * product.quantity}}$</td>
+							<td class="td-trash">
+								<div @click="deleteProductStore(index)">
+									<i class="fas fa-trash-alt"></i>
+								</div>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -155,17 +162,37 @@ export default {
 	    	this.order.idUser = this.userId;
 	    	this.order.products = this.products;
 	    	this.order.amount = this.calculateAmount;
-        	this.$store.dispatch('orderRegister', this.order);
+	    	if (this.isAuthenticated) {
+		    	this.order.name = this.$store.state.user.name;
+		    	this.order.email = this.$store.state.user.email;
+	    	}
+	    	if (this.existProducts()) {
+        		this.$store.dispatch('orderRegister', this.order);
+	    	} else {
+        		//Mensaje error
+	    	}
+        	this.openModal();
+        	this.resetOrder();
+        },
+        changePoints() {
+        	this.$store.dispatch('changePoints', this.newPoints);         
+        },
+        openModal() {
 			let element = this.$refs.modal;
 			$(element).modal('show');
+        },
+        existProducts(){
+        	return this.products.length > 0;
+        },
+        resetOrder() {
 			this.order.name = null;
 			this.order.email = null;
 			this.order.city = null;
 			this.order.phone = null;
 			this.order.direction = null;
         },
-        changePoints() {
-        	this.$store.dispatch('changePoints', this.newPoints);         
+        deleteProductStore(i) {
+        	this.$store.commit('deleteElementStore', i);
         }
     }
 }
@@ -215,6 +242,10 @@ export default {
 		margin-top: -8px;
 		margin-left: -8px;
 		position: absolute;
+	}
+	.table tbody .td-trash i{
+		color: #ba0811;
+		font-size: 1.1rem;
 	}
 	.points-box{
 		background-color: #FFF;

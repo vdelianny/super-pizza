@@ -17,6 +17,8 @@ export default new Vuex.Store({
         },
         user: {
             id: localStorage.spUserId,
+            name: localStorage.spUserName,
+            email: localStorage.spUserEmail,
             role: localStorage.spUserRole,
             token: localStorage.spUserToken,
             points: localStorage.spUserPoints,

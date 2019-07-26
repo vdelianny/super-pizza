@@ -193,14 +193,14 @@ export default {
         	this.productCurrent.type = product.type;
         	this.productCurrent.price = product.price;
         },
-        addProduct() {
+        addProduct(e) {
         	var formData = new FormData();
         	formData.append('name', this.newProduct.name);
         	formData.append('avatar', this.newProduct.avatar);
         	formData.append('type', this.newProduct.type);
         	formData.append('price', this.newProduct.price);
-
             this.$store.dispatch('addProduct', formData);
+            e.preventDefault();
         	this.newProduct.name = null;
 			this.newProduct.avatar = null;
 			this.newProduct.type = "";

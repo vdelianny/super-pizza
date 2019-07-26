@@ -193,7 +193,7 @@ export default {
         	this.pizzaCurrent.name = pizza.name;
         	this.pizzaCurrent.price = pizza.price;
         },
-        addPizza() {
+        addPizza(e) {
         	var formData = new FormData();
         	formData.append('name', this.newPizza.name);
         	formData.append('avatar', this.newPizza.avatar);
@@ -202,6 +202,7 @@ export default {
         	}
         	formData.append('price', this.newPizza.price);
             this.$store.dispatch('addPizza', formData);
+            e.preventDefault();
         	this.newPizza.name = null;
 			this.newPizza.avatar = null;
 			this.newPizza.ingredients = [];

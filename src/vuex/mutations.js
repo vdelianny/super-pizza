@@ -13,6 +13,9 @@ const setPromotions = (state, payload) => {
 const setElementStore = (state, payload) => {
     state.productsStore.push(payload);
 };
+const deleteElementStore = (state, payload) => {
+    state.productsStore.splice(payload, 1);
+};
 const setTrackingOrder = (state, payload) => {
     state.user.trackingOrder = payload;
 };
@@ -21,12 +24,16 @@ const setResetStore = (state, payload) => {
 };
 const setUserInicialized = (state, payload) => {
     state.user.id = payload.user.id;
+    state.user.name = payload.user.name;
+    state.user.email = payload.user.email;
     state.user.token = payload.token;
     state.user.role = payload.user.role;
     state.user.points = payload.user.points;
     localStorage.setItem('spUserId', payload.user.id);
     localStorage.setItem('spUserToken', payload.token);
     localStorage.setItem('spUserRole', payload.user.role);
+    localStorage.setItem('spUserName', payload.user.name);
+    localStorage.setItem('spUserEmail', payload.user.email);
     localStorage.setItem('spUserPoints', payload.user.points);
 };
 const setAdminInicialized = (state, payload) => {
@@ -70,6 +77,7 @@ export default {
     setPromotions,
     setIngredients,
 	setElementStore,
+    deleteElementStore,
 	setResetStore,
     setUserInicialized,
     setAdminInicialized,
