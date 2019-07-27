@@ -10,12 +10,22 @@
 					</div>
 					<div class="form-row" v-if="!isAuthenticated">
 						<div class="form-group col">
-							<input type="text" class="form-control" placeholder="Nombre y apellido" v-model="order.name">
+							<input
+								name="name"
+								type="text"
+								class="form-control"
+								v-model="order.name"
+								placeholder="Nombre y apellido">
 						</div>
 					</div>
 					<div class="form-row" v-if="!isAuthenticated">
 						<div class="form-group col">
-							<input type="email" class="form-control" placeholder="Email" v-model="order.email">
+							<input
+								name="email"
+								type="email"
+								placeholder="Email"
+								class="form-control"
+								v-model="order.email">
 						</div>
 					</div>
 					<div class="text-left subtitle mb-2 mt-3">
@@ -23,13 +33,28 @@
 					</div>
 					<div class="form-row">
 						<div class="form-group col">
-							<input type="text" class="form-control" placeholder="Teléfono" v-model="order.phone">
+							<input
+								type="text"
+								name="phone"
+								class="form-control"
+								v-model="order.phone"
+								placeholder="Teléfono">
 						</div>
 						<div class="form-group col">
-							<input type="text" class="form-control" placeholder="Ciudad" v-model="order.city">
+							<input
+								name="city"
+								type="text"
+								class="form-control"
+								v-model="order.city"
+								placeholder="Ciudad">
 						</div>
 						<div class="form-group col-12">
-							<input type="text" class="form-control" placeholder="Dirección" v-model="order.direction">
+							<input
+								type="text"
+								name="direction"
+								class="form-control"
+								placeholder="Dirección"
+								v-model="order.direction">
 						</div>
 					</div>
 					<!--

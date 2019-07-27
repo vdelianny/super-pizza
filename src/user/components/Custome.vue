@@ -1,118 +1,24 @@
 <template>
+<!-- eslint-disable -->
 	<div class="container py-5">
-		<div class="custom-pizza mt-5">
-			<div class="ingredients p-5 text-left">
+		<div class="custom-pizza mt-0 mt-md-5">
+			<div class="ingredients p-3 p-md-5 text-left">
 				<div class="text-center mb-4">
 					<img width="auto" height="auto" src="/assets/message.png">
 				</div>
 				<p class="title mb-3 text-center">Selecciona los ingredientes que desees añadir.</p>
 				<form action="">
-					<div class="vegetals px-2 px-md-5">
-						<p class="subtitle text-center mt-5 mb-0">Vegetales</p>
-						<hr class="w-50 mb-5 mt-2">
-						<div class="form-row justify-content-md-center">
-							<div class="form-check col-12 col-md-3 p-2">
-								<img src="/assets/ingredients/pimiento.png" class="element mr-4 p-1" width="40px">
+					<div class="form-row">
+						<div v-for="ingredient in ingredients" class="col-6 col-md-3 p-2">
+							<div class="form-check">
 								<label class="form-check-label ml-1">
-									<input class="form-check-input" type="radio" value="option1">
-									<span>Pimientos</span>
-								</label>
-							</div>
-							<div class="form-check col-12 col-md-3 p-2">
-								<img src="/assets/ingredients/jalapeño.png" class="element mr-4 p-1" width="40px">
-								<label class="form-check-label ml-1">
-									<input class="form-check-input" type="radio" value="option1">
-									<span>Jalapeños</span>
-								</label>
-							</div>	
-							<div class="form-check col-12 col-md-3 p-2">
-								<img src="/assets/ingredients/piña.png" class="element mr-4 p-1" width="40px">
-								<label class="form-check-label ml-1">
-									<input class="form-check-input" type="radio" value="option1">
-									<span>Piña</span>
-								</label>
-							</div>
-						</div>
-						<div class="form-row justify-content-md-center">
-							<div class="form-check col-12 col-md-3 p-2">
-								<img src="/assets/ingredients/maiz.png" class="element mr-4 p-1" width="40px">
-								<label class="form-check-label ml-1">
-									<input class="form-check-input" type="radio" value="option1">
-									<span>Maíz</span>
-								</label>
-							</div>	
-							<div class="form-check col-12 col-md-3 p-2">
-								<img src="/assets/ingredients/cebolla.png" class="element mr-4 p-1" width="40px">
-								<label class="form-check-label ml-1">
-									<input class="form-check-input" type="radio" value="option1">
-									<span>Cebolla</span>
-								</label>
-							</div>
-							<div class="form-check col-12 col-md-3 p-2">
-								<img src="/assets/ingredients/tomate.png" class="element mr-4 p-1" width="40px">
-								<label class="form-check-label ml-1">
-									<input class="form-check-input" type="radio" value="option1">
-									<span>Tomate</span>
-								</label>
-							</div>	
-						</div>
-					</div>
-
-					<div class="animals px-2 px-md-5">
-						<p class="subtitle text-center mt-5 mb-0">Productos animales</p>
-						<hr class="w-50 mb-5 mt-2">
-						<div class="form-row justify-content-md-center">
-							<div class="form-check col-12 col-md-3 p-2">
-								<img src="/assets/ingredients/pepperoni.png" class="element mr-4 p-1" width="40px">
-								<label class="form-check-label ml-1">
-									<input class="form-check-input" type="radio" value="option1">
-									<span>Pepperoni</span>
-								</label>
-							</div>
-							<div class="form-check col-12 col-md-3 p-2">
-								<img src="/assets/ingredients/bacon.png" class="element mr-4 p-1" width="40px">
-								<label class="form-check-label ml-1">
-									<input class="form-check-input" type="radio" value="option1">
-									<span>Bacon</span>
-								</label>
-							</div>	
-							<div class="form-check col-12 col-md-3 p-2">
-								<img src="/assets/ingredients/jamon.png" class="element mr-4 p-1" width="40px">
-								<label class="form-check-label ml-1">
-									<input class="form-check-input" type="radio" value="option1">
-									<span>Jamón</span>
+									<input class="form-check-input" type="radio" :value="ingredient.id">
+									<span>{{ingredient.name}}</span>
 								</label>
 							</div>
 						</div>
 					</div>
 
-					<div class="others px-2 px-md-5">
-						<p class="subtitle text-center mt-5 mb-0">Otros</p>
-						<hr class="w-50 mb-5 mt-2">
-						<div class="form-row justify-content-md-center">
-							<div class="form-check col-12 col-md-3 p-2">
-								<img src="/assets/ingredients/queso.png" class="element mr-4 p-1" width="40px">
-								<label class="form-check-label ml-1">
-									<input class="form-check-input" type="radio" value="option1">
-									<span>Queso extra</span>
-								</label>
-							</div>
-							<div class="form-check col-12 col-md-3 p-2">
-								<img src="/assets/ingredients/champiñon.png" class="element mr-4 p-1" width="40px">
-								<label class="form-check-label ml-1">
-									<input class="form-check-input" type="radio" value="option1">
-									<span>Champiñones</span>
-								</label>
-							</div>	
-							<div class="form-check col-12 col-md-3 p-2">
-								<img src="/assets/ingredients/aceituna.png" class="element mr-4 p-1" width="40px">
-								<label class="form-check-label ml-1">
-									<input class="form-check-input" type="radio" value="option1">
-									<span>Aceitunas negras</span>
-								</label>
-							</div>
-						</div>
-					</div>
 					<div class="text-center mt-5 pt-0 pt-md-4">
 						<router-link tag="button" class="btn btn-primary w-50" to="/orders">
 							Continuar
@@ -124,8 +30,22 @@
 	</div>
 </template>
 <script>
+/* eslint-disable */
 export default {
-	name: 'Custome'
+	name: 'Custome',
+	computed: {
+        ingredients() {
+            return this.$store.state.ingredients;
+        }
+    },
+    mounted () {
+    	this.getIngredients();
+    },
+    methods: {
+        getIngredients() {
+            this.$store.dispatch('getIngredients');
+        }
+    }
 }
 </script>
 <style scoped>

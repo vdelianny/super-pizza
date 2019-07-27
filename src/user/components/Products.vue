@@ -143,7 +143,7 @@ export default {
 		box-shadow: 0px 0px 10px 2px rgba(158, 155, 155, .2);
 	}
 	.card .information-product div{
-	    background: rgba(255, 255, 255, 0.8);
+	    background: #FFF;
 	    box-shadow: 0px 0px 10px 2px rgba(158, 155, 155, .2);
 	    display: flex;
 	    height: 10rem;

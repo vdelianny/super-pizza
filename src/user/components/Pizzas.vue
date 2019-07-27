@@ -72,21 +72,42 @@
 									placeholder="Ingrese cantidad"
 									v-model="pizzaCurrent.quantity">
 							</div>
-							<div class="form-group text-center d-flex">
-								<!--
-								<div class="w-50 px-2">
-									<router-link tag="button" data-dismiss="modal" class="btn btn-secundary w-100" to="/custome">
-										Personalizar
-									</router-link>
+							<div class="custome my-3 p-2" v-if="customed">
+								<p>Customiza tu pizza</p>
+								<div class="form-row">
+									<label v-for="ingredient in ingredients" class="col-6 col-md-4 p-2">
+										<input
+											type="checkbox"
+											:value="ingredient.name"
+											@change="addIngredients(ingredient.name)"
+											v-model="pizzaCurrent.ingredientsAdditionals">
+										<span class="ml-2">{{ingredient.name}}</span>
+									</label>
 								</div>
-								-->
-								<div class="w-100 px-2">
+								<div class="form-group">
+									<input
+										type="text"
+										class="form-control"
+										placeholder="Notas adicionales"
+										v-model="pizzaCurrent.notesAdditionals">
+								</div>
+							</div>
+							<div class="form-group text-center d-flex">
+								<div class="w-50 pr-1">
 									<button
 										type="button"
 										data-dismiss="modal"
 										@click="addElementStore()"
 										class="btn btn-primary w-100">
 										Continuar
+									</button>
+								</div>
+								<div class="w-50 pl-1">
+									<button
+										type="button"
+										@click="showCustome()"
+										class="btn btn-secundary w-100">
+										Personalizar
 									</button>
 								</div>
 							</div>
@@ -112,22 +133,32 @@ export default {
 				size: 'Pequeña',
 				quantity: 1,
 				price: null,
-				category: 'pizza'
+				category: 'pizza',
+				ingredientsAdditionals: [],
+				notesAdditionals: null
 			},
+			customed: false,
 			urlPublic
 		}
 	},
     computed: {
         pizzas() {
             return this.$store.state.pizzas;
+        },
+        ingredients() {
+            return this.$store.state.ingredients;
         }
     },
     mounted () {
     	this.getPizzas();
+    	this.getIngredients();
     },
     methods: {
         getPizzas() {
             this.$store.dispatch('getPizzas');
+        },
+        getIngredients() {
+            this.$store.dispatch('getIngredients');
         },
         selectPizza(pizza) {
         	this.pizzaCurrent.pizzaId = pizza.id;
@@ -136,6 +167,12 @@ export default {
         },
         addElementStore() {
         	this.$store.dispatch('addElementStore', this.pizzaCurrent);
+        },
+        showCustome() {
+        	this.customed = true;
+        },
+        addIngredients(ingredient) {
+        	console.log(ingredient);
         }
     }
 }
@@ -159,7 +196,7 @@ export default {
 		box-shadow: 0px 0px 10px 2px rgba(158, 155, 155, .2);
 	}
 	.card .information-product div{
-	    background: rgba(255, 255, 255, 0.8);
+	    background: #FFF;
 	    box-shadow: 0px 0px 10px 2px rgba(158, 155, 155, .2);
 	    display: flex;
 	    height: 10rem;
@@ -186,5 +223,12 @@ export default {
 	}
 	.card .name button span{
 		color: #474747;
+	}
+	.custome{
+		background: #f9f9f9;
+    	border-radius: 10px;
+	}
+	.custome .form-control{
+		background: transparent;
 	}
 </style>
