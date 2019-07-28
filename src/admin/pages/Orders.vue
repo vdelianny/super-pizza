@@ -109,13 +109,15 @@
 							<i class="fas fa-utensils mr-2"></i>
 							<strong> Pedido: </strong>
 						</p>
-						<table class="table table-striped text-center">
+						<table class="table table-striped text-center table-responsive">
 							<thead>
 								<tr>
 									<th scope="col">Tipo</th>
-									<th scope="col">Cantidad</th>
+									<th scope="col">Cant.</th>
 									<th scope="col">Producto</th>
 									<th scope="col">Tamaño</th>
+									<th scope="col">Ingredientes Ad.</th>
+									<th scope="col">Notas</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -126,6 +128,8 @@
 									<td>{{pizza.quantity}}</td>
 									<td>{{pizza.pizza.name}}</td>
 									<td>{{pizza.size}}</td>
+									<td>{{pizza.ingredientsAdditionals}}</td>
+									<td>{{pizza.notesAdditionals}}</td>
 								</tr>
 								<tr v-for="product in orderCurrent.products">
 									<td>
@@ -133,7 +137,9 @@
 									</td>
 									<td>{{product.quantity}}</td>
 									<td>{{product.product.name}}</td>
-									<td>-</td>
+									<td><i class="fas fa-minus"></i></td>
+									<td><i class="fas fa-minus"></i></td>
+									<td><i class="fas fa-minus"></i></td>
 								</tr>
 								<tr v-for="promotion in orderCurrent.promotions">
 									<td>
@@ -141,7 +147,9 @@
 									</td>
 									<td>{{promotion.quantity}}</td>
 									<td>{{promotion.promotion.name}}</td>
-									<td>-</td>
+									<td><i class="fas fa-minus"></i></td>
+									<td><i class="fas fa-minus"></i></td>
+									<td><i class="fas fa-minus"></i></td>
 								</tr>
 							</tbody>
 						</table>
@@ -229,5 +237,10 @@ export default {
 	}
 	.modal-admin .modal-content i{
 		color: #28b0a6;
+	}
+	@media (min-width: 768px) {
+		.modal-dialog {
+		    max-width: 700px;
+		}		
 	}
 </style>
