@@ -76,7 +76,7 @@
 			</div>
 			<div class="details-shop text-left col-md-5 p-4">
 				<h2 class="text-left title mb-3">Detalles de pedido</h2>
-				<table class="table">
+				<table class="table text-center">
 					<tbody>
 						<tr v-for="(product, index) in products">
 							<td width="50px">
@@ -84,8 +84,8 @@
 								<span class="cant">{{product.quantity}}</span>
 							</td>
 							<td>{{product.name}}</td>
-							<td><span v-show="product.category == 'pizza'">{{product.size}}</span></td>
-							<td class="text-right">{{product.price * product.quantity}}$</td>
+							<td><span v-show="product.category == 'pizza' || 'pizzacustom'">{{product.size}}</span></td>
+							<td class="text-right">{{priceQuantity(product.price, product.quantity)}}$</td>
 							<td class="td-trash">
 								<div @click="deleteProductStore(index)">
 									<i class="fas fa-trash-alt"></i>
@@ -209,6 +209,10 @@ export default {
         },
         existProducts(){
         	return this.products.length > 0;
+        },
+        priceQuantity(product, quantity) {
+        	var total = product*quantity;
+        	return Number(total.toFixed(2))
         },
         resetOrder() {
 			this.order.name = null;

@@ -66,6 +66,11 @@
 							</router-link>
 						</div>
 						<div class="nav-item">
+							<router-link tag="li" to="/custompizza">
+								<a class="nav-link">Personaliza tu pizza</a>
+							</router-link>
+						</div>
+						<div class="nav-item">
 							<router-link tag="li" to="/products">
 								<a class="nav-link">Bebidas y Complementos</a>
 							</router-link>

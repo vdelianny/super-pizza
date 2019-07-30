@@ -18,7 +18,7 @@ const calculateAmount = (state) => {
 		discount = Math.trunc(state.user.pointsToChange / 20);
 		total = total - discount;
 	}
-    return total;
+    return Number(total.toFixed(2));
 };
 
 const pointsToMoney = (state) => {

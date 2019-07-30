@@ -72,35 +72,8 @@
 									placeholder="Ingrese cantidad"
 									v-model="pizzaCurrent.quantity">
 							</div>
-							<div class="custome my-3 p-2" v-if="customed">
-								<p>Customiza tu pizza</p>
-								<div class="form-row">
-									<label v-for="ingredient in ingredients" class="col-6 col-md-4 p-2">
-										<input
-											type="checkbox"
-											:value="ingredient.name"
-											@change="addIngredients(ingredient.name)">
-										<span class="ml-2">{{ingredient.name}}</span>
-									</label>
-								</div>
-								<div class="form-group">
-									<input
-										type="text"
-										class="form-control"
-										placeholder="Notas adicionales"
-										v-model="pizzaCurrent.notesAdditionals">
-								</div>
-							</div>
-							<div class="form-group text-center d-flex">
-								<div class="w-50 pr-1">
-									<button
-										type="button"
-										@click="showCustome()"
-										class="btn btn-secundary w-100">
-										Personalizar
-									</button>
-								</div>
-								<div class="w-50 pl-1">
+							<div class="form-group text-center">
+								<div class="w-100">
 									<button
 										type="button"
 										data-dismiss="modal"
@@ -132,11 +105,8 @@ export default {
 				size: 'Pequeña',
 				quantity: 1,
 				price: null,
-				category: 'pizza',
-				ingredientsAdditionals: '',
-				notesAdditionals: null
+				category: 'pizza'
 			},
-			customed: false,
 			urlPublic
 		}
 	},
@@ -166,23 +136,6 @@ export default {
         },
         addElementStore() {
         	this.$store.dispatch('addElementStore', this.pizzaCurrent);
-        },
-        showCustome() {
-        	this.customed = !this.customed;
-        },
-        addIngredients(ingredient) {
-        	var newList = this.pizzaCurrent.ingredientsAdditionals;
-        	var newPrice = this.pizzaCurrent.price;
-        	if (!newList.includes(ingredient)) {
-        		newList = this.pizzaCurrent.ingredientsAdditionals.concat(`${ingredient}, `);
-        		newPrice += 0.90;
-        	} else {
-        		newList = this.pizzaCurrent.ingredientsAdditionals.replace(`${ingredient}, `, '');
-        		newPrice -= 0.90;
-        	}
-        	this.pizzaCurrent.ingredientsAdditionals = newList;
-        	this.pizzaCurrent.price = Number(newPrice.toFixed(2));
-        	console.log(this.pizzaCurrent);
         }
     }
 }

@@ -109,50 +109,57 @@
 							<i class="fas fa-utensils mr-2"></i>
 							<strong> Pedido: </strong>
 						</p>
-						<table class="table table-striped text-center table-responsive">
-							<thead>
-								<tr>
-									<th scope="col">Tipo</th>
-									<th scope="col">Cant.</th>
-									<th scope="col">Producto</th>
-									<th scope="col">Tamaño</th>
-									<th scope="col">Ingredientes Ad.</th>
-									<th scope="col">Notas</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr v-for="pizza in orderCurrent.pizzas">
-									<td>
-										<img src="/assets/pizza-icon.png" width="auto" height="20px">
-									</td>
-									<td>{{pizza.quantity}}</td>
-									<td>{{pizza.pizza.name}}</td>
-									<td>{{pizza.size}}</td>
-									<td>{{pizza.ingredientsAdditionals}}</td>
-									<td>{{pizza.notesAdditionals}}</td>
-								</tr>
-								<tr v-for="product in orderCurrent.products">
-									<td>
-										<img src="/assets/product-icon.png" width="auto" height="20px">
-									</td>
-									<td>{{product.quantity}}</td>
-									<td>{{product.product.name}}</td>
-									<td><i class="fas fa-minus"></i></td>
-									<td><i class="fas fa-minus"></i></td>
-									<td><i class="fas fa-minus"></i></td>
-								</tr>
-								<tr v-for="promotion in orderCurrent.promotions">
-									<td>
-										<img src="/assets/promotion-icon.png" width="auto" height="20px">
-									</td>
-									<td>{{promotion.quantity}}</td>
-									<td>{{promotion.promotion.name}}</td>
-									<td><i class="fas fa-minus"></i></td>
-									<td><i class="fas fa-minus"></i></td>
-									<td><i class="fas fa-minus"></i></td>
-								</tr>
-							</tbody>
-						</table>
+						<div class="text-center">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th scope="col">Tipo</th>
+										<th scope="col">Cant.</th>
+										<th scope="col">Producto</th>
+										<th scope="col">Tamaño</th>
+										<th scope="col">Ingredientes</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="pizza in orderCurrent.pizzas">
+										<td>
+											<img src="/assets/pizza-icon.png" width="auto" height="20px">
+										</td>
+										<td>{{pizza.quantity}}</td>
+										<td>{{pizza.pizza.name}}</td>
+										<td>{{pizza.size}}</td>
+										<td><i class="fas fa-minus"></i></td>
+									</tr>
+									<tr v-for="pizzacustom in orderCurrent.pizzacustoms">
+										<td>
+											<img src="/assets/pizzacustom-icon.png" width="auto" height="20px">
+										</td>
+										<td>{{pizzacustom.quantity}}</td>
+										<td>Pizza personalizada</td>
+										<td>{{pizzacustom.size}}</td>
+										<td>{{pizzacustom.ingredients}}</td>
+									</tr>
+									<tr v-for="product in orderCurrent.products">
+										<td>
+											<img src="/assets/product-icon.png" width="auto" height="20px">
+										</td>
+										<td>{{product.quantity}}</td>
+										<td>{{product.product.name}}</td>
+										<td><i class="fas fa-minus"></i></td>
+										<td><i class="fas fa-minus"></i></td>
+									</tr>
+									<tr v-for="promotion in orderCurrent.promotions">
+										<td>
+											<img src="/assets/promotion-icon.png" width="auto" height="20px">
+										</td>
+										<td>{{promotion.quantity}}</td>
+										<td>{{promotion.promotion.name}}</td>
+										<td><i class="fas fa-minus"></i></td>
+										<td><i class="fas fa-minus"></i></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 						<p>
 							<i class="fas fa-dollar-sign mr-2"></i>
 							<strong> Total: </strong>
@@ -188,6 +195,7 @@ export default {
 				amount: null,
 				status: null,
 				pizzas: null,
+				pizzacustoms: null,
 				products: null,
 				promotions: null
 			}
@@ -213,6 +221,7 @@ export default {
         	this.orderCurrent.amount = order.amount;
         	this.orderCurrent.status = order.status;
         	this.orderCurrent.pizzas = order.OrderPizzas;
+        	this.orderCurrent.pizzacustoms = order.OrderPizzaCustoms;
         	this.orderCurrent.products = order.OrderProducts;
         	this.orderCurrent.promotions = order.OrderPromotions;
         },

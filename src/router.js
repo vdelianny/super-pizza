@@ -7,7 +7,7 @@ import Pizzas from './user/components/Pizzas';
 import Products from './user/components/Products';
 import Promotions from './user/components/Promotions';
 import Orders from './user/components/Orders';
-import Custome from './user/components/Custome';
+import CustomPizza from './user/components/CustomPizza';
 import Register from './user/components/Register';
 import Login from './user/components/Login';
 import Profile from './user/components/Profile';
@@ -33,7 +33,7 @@ const router = new VueRouter({
 		{ path: '/products', component: Products },
 		{ path: '/orders', component: Orders },
 		{ path: '/promotions', component: Promotions },
-		{ path: '/custome', component: Custome },
+		{ path: '/custompizza', component: CustomPizza },
 		{ path: '/tracking', component: Tracking },
 		{ path: '/register', component: Register },
 		{ path: '/login', component: Login },
