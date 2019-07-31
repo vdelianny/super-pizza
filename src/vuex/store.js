@@ -38,6 +38,7 @@ export default new Vuex.Store({
         ingredients: [],
         productsStore: [],
         orders: [],
+        wait: false,
     },
     mutations,
     actions,

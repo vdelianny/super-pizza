@@ -6,7 +6,7 @@
 				<h2 class="text-center title mb-3">Ingreso al sistema</h2>
 				<form @submit="login">
 					<div class="form-group">
-						<input type="email" class="form-control" placeholder="Email" v-model="user.email" required>
+						<input name="email" type="email" class="form-control" placeholder="Email" v-model="user.email" required>
 					</div>
 					<div class="form-group">
 						<input type="password" class="form-control" placeholder="Password" v-model="user.password" required>

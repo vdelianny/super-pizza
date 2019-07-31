@@ -7,10 +7,11 @@
 					<div class="col-12 col-md-6" v-for="pizza in pizzas">
 						<div class="card text-center py-3 mx-0 mx-md-2 mb-3">
 							<div class="information-product pr-4 py-3 text-right">
-								<div class="rounded-circle position-absolute w-45 p-2">
+								<div class="rounded-circle position-absolute w-45">
 									<img
 										width="auto"
 										height="auto"
+										class="rounded-circle"
 										:src="urlPublic+'pizzas/'+pizza.id+'.jpg'">
 								</div>
 								<p class="name mb-0">

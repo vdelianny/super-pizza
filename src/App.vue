@@ -1,5 +1,8 @@
 <template>
 	<div id="app">
+		<div class="position-fixed w-100 h-100 wait-message" v-if="wait">
+			<img src="/assets/logo.png" alt="logo de superpizza" width="100rem" height="auto">
+		</div>
 		<Nav v-if="!adminRoute()"/>
 		<NavAdmin v-if="adminRoute()"/>
 		<SidebarAdmin v-if="adminRoute()"/>
@@ -40,12 +43,14 @@ export default {
 		MsgError,
 		MsgSuccess,
 	},
-	updated() {
-		//console.log(this.jwtToken);
-	},
+	computed: {
+        wait() {
+            return this.$store.state.wait;
+        }
+    },
     methods: {
         adminRoute() {
-        	if (this.router.currentRoute.path.search('/admin/') == 0){
+        	if (this.router.currentRoute.path.search('/admin') == 0){
     			return true;
         	}
         	return false;
@@ -61,6 +66,16 @@ export default {
 		font-family: 'Roboto';
 		overflow-x: hidden;
 		text-align: center;
+	}
+	.wait-message{
+        align-items: center;
+	    background: rgba(255, 255, 255, 0.8);
+    	display: grid;
+    	justify-content: center;
+	    z-index: 10000;
+	}
+	.wait-message img{
+	    animation: rotateMsg 3s infinite linear;
 	}
 	.msg-box{
 		left: 10%;
@@ -224,5 +239,9 @@ export default {
 		.w-md-90{
 			width: 90% !important;
 		}
+	}
+	@keyframes rotateMsg {
+	    0% {transform: rotate(-0deg);}
+	    100% {transform: rotate(360deg);}
 	}
 </style>

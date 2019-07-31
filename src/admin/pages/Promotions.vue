@@ -193,7 +193,7 @@ export default {
         	this.promotionCurrent.description = promotion.description;
         	this.promotionCurrent.price = promotion.price;
         },
-        addPromotion() {
+        addPromotion(e) {
         	var formData = new FormData();
         	formData.append('name', this.newPromotion.name);
         	formData.append('avatar', this.newPromotion.avatar);
@@ -201,6 +201,7 @@ export default {
         	formData.append('price', this.newPromotion.price);
 
             this.$store.dispatch('addPromotion', formData);
+            e.preventDefault();
         	this.newPromotion.name = null;
 			this.newPromotion.avatar = null;
 			this.newPromotion.description = "";

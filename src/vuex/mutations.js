@@ -94,7 +94,9 @@ const setMgSuccess = (state, payload) => {
 const setShowSuccess = (state, payload) => {
     state.messages.showSuccess = payload;
 };
-
+const setWait = (state, payload) => {
+    state.wait = payload;
+};
 export default {
 	setPizzas,
 	setProducts,
@@ -115,5 +117,6 @@ export default {
     setMgError,
     setShowError,
     setMgSuccess,
-    setShowSuccess
+    setShowSuccess,
+    setWait
 };

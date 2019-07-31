@@ -25,8 +25,8 @@ import LoginAdmin from './admin/pages/Login';
 
 Vue.use(VueRouter);
 
-//	mode: 'history',
 const router = new VueRouter({
+	mode: 'history',
 	routes: [
 		{ path: '/', component: Home },
 		{ path: '/pizzas', component: Pizzas },

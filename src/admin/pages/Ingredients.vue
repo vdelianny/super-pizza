@@ -146,8 +146,9 @@ export default {
         	this.ingredientCurrent.id = ingredient.id;
         	this.ingredientCurrent.name = ingredient.name;
         },
-        addIngredient() {
+        addIngredient(e) {
             this.$store.dispatch('addIngredient', this.name);
+            e.preventDefault();
             this.name = null;
         },
         deleteIngredient() {

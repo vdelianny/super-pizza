@@ -6,10 +6,12 @@ import router from '../router';
 /*User*/
 
 const userLogin = ({ commit }, user) => {
+    commit('setWait', true);
     axios.post(urlServer+'users/login', {
         email: user.email,
         password: user.password
     }).then(res => {
+        commit('setWait', false);
         if (res.data.success) {
             if (res.data.user.role !== 'admin') {
                 commit('setUserInicialized', res.data);
@@ -25,11 +27,13 @@ const userLogin = ({ commit }, user) => {
 };
 
 const userRegister = ({ commit }, user) => {
+    commit('setWait', true);
     axios.post(urlServer+'users', {
         name: user.name,
         email: user.email,
         password: user.password
     }).then(res => {
+        commit('setWait', false);
         if (res.data.success) {
             router.push('login');
         } else {
@@ -49,10 +53,12 @@ const changePoints = ({ commit, dispatch, state }, newPoints) => {
 };
 
 const getPointsUser = ({ commit, state }) => {
+    commit('setWait', true);
     try {
         axios.get(urlServer+'users/points/'+state.user.id)
         .then(res => {
             commit('setPoints', res.data.points);
+            commit('setWait', false);
         });
     }
     catch (error) {
@@ -67,7 +73,7 @@ const userSignOut = ({ commit }) => {
 
 const userSignOutAdmin = ({ commit }) => {
     commit('setAdminFinalized');
-    router.push('login');
+    router.push('/admin/login');
 };
 
 const toProfile = ({ commit }) => {
@@ -76,19 +82,23 @@ const toProfile = ({ commit }) => {
 
 /*Pizzas*/
 const getPizzas = async ({ commit }) => {
+    commit('setWait', true);
     try {
         axios.get(urlServer+'pizzas')
         .then(res => {
             commit('setPizzas', res.data.pizzas);
+            commit('setWait', false);
         });
     }
     catch (error) {
         commit('setPizzas', []);
     }
 };
-const addPizza = ({ dispatch }, pizza) => {
+const addPizza = ({ commit, dispatch }, pizza) => {
+    commit('setWait', true);
     axios.post(urlServer+'pizzas', pizza)
     .then(() => {
+        commit('setWait', false);
         dispatch('getPizzas');
     });
 }
@@ -101,19 +111,24 @@ const deletePizza = ({ dispatch }, id) => {
 
 /*Products*/
 const getProducts = async ({ commit }) => {
+    commit('setWait', true);
     try {
         axios.get(urlServer+'products')
         .then(res => {
             commit('setProducts', res.data.products);
+            commit('setWait', false);
         });
     }
     catch (error) {
+        commit('setWait', false);
         commit('setProducts', []);
     }
 };
-const addProduct = ({ dispatch }, product) => {
+const addProduct = ({ commit, dispatch }, product) => {
+    commit('setWait', true);
     axios.post(urlServer+'products', product)
     .then(() => {
+        commit('setWait', false);
         dispatch('getProducts');
     });
 };
@@ -136,19 +151,24 @@ const updateProduct = ({ dispatch }, product) => {
 /*Ingredients*/
 
 const getIngredients = async ({ commit }) => {
+    commit('setWait', true);
     try {
         axios.get(urlServer+'ingredients')
         .then(res => {
             commit('setIngredients', res.data.ingredients);
+            commit('setWait', false);
         });
     }
     catch (error) {
+        commit('setWait', false);
         commit('setIngredients', []);
     }
 };
-const addIngredient = ({ dispatch }, name) => {
+const addIngredient = ({ commit, dispatch }, name) => {
+    commit('setWait', true);
     axios.post(urlServer+'ingredients', { name })
     .then(() => {
+        commit('setWait', false);
         dispatch('getIngredients');
     });
 };
@@ -168,19 +188,24 @@ const updateIngredient = ({ dispatch }, ingredient) => {
 
 /*Promotions*/
 const getPromotions = async ({ commit }) => {
+    commit('setWait', true);
     try {
         axios.get(urlServer+'promotions')
         .then(res => {
             commit('setPromotions', res.data.promotions);
+            commit('setWait', false);
         });
     }
     catch (error) {
+            commit('setWait', false);
         commit('setPromotions', []);
     }
 };
-const addPromotion = ({ dispatch }, promotion) => {
+const addPromotion = ({ commit, dispatch }, promotion) => {
+    commit('setWait', true);
     axios.post(urlServer+'promotions', promotion)
     .then(() => {
+        commit('setWait', false);
         dispatch('getPromotions');
     });
 };
@@ -221,20 +246,25 @@ const orderRegister = ({ commit, dispatch }, order) => {
     });
 };
 const getOrders = async ({ commit }) => {
+    commit('setWait', true);
     try {
         axios.get(urlServer+'orders')
         .then(res => {
             commit('setOrders', res.data.orders);
+            commit('setWait', false);
         });
     }
     catch (error) {
+        commit('setWait', false);
         commit('setOrders', []);
     }
 };
 const getUserOrders = async ({ commit }, id) => {
+    commit('setWait', true);
     try {
         axios.get(urlServer+'orders/user/'+id)
         .then(res => {
+            commit('setWait', false);
             commit('setUserOrders', res.data.orders);
         });
     }
@@ -251,9 +281,11 @@ const updateStatus = ({ dispatch }, order) => {
 };
 
 const tracking = async ({ commit, dispatch }, id) => {
+    commit('setWait', true);
     try {
         axios.get(urlServer+'orders/status/'+id)
         .then(res => {
+            commit('setWait', false);
             if (res.data.success) {
                 commit('setMgSuccess', `Su pedido con el nro: ${id} se encuentra: ${res.data.order.status}`);
                 commit('setShowSuccess', true);
