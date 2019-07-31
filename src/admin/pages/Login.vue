@@ -9,7 +9,7 @@
 						<input name="email" type="email" class="form-control" placeholder="Email" v-model="user.email" required>
 					</div>
 					<div class="form-group">
-						<input type="password" class="form-control" placeholder="Password" v-model="user.password" required>
+						<input name="password" type="password" class="form-control" placeholder="Password" v-model="user.password" required>
 					</div>
 					<button type="submit" class="btn btn-primary w-75 mt-4">Continuar</button>
 				</form>

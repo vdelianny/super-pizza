@@ -36,7 +36,13 @@ const router = new VueRouter({
 		{ path: '/custompizza', component: CustomPizza },
 		{ path: '/tracking', component: Tracking },
 		{ path: '/register', component: Register },
-		{ path: '/login', component: Login },
+		{
+			path: '/login',
+			component: Login,
+			meta: {
+				logoutUserRequired: true
+			}
+		},
 		{
 			path: '/profile',
 			component: Profile,
@@ -55,7 +61,7 @@ const router = new VueRouter({
 			path: '/admin/login',
 			component: LoginAdmin,
 			meta: {
-				authAdminRequired: true
+				logoutAdminRequired: true
 			}
 		},
 		{
@@ -121,6 +127,26 @@ router.beforeEach((to, from, next) => {
 			next({ path: '/admin/login' });
 		} else {
 			next();
+		}
+	}
+
+	if (!to.meta.logoutAdminRequired) {
+		next();
+	} else {
+		if (!store.getters.isAuthenticatedAdmin) {
+			next();
+		} else {
+			next({ path: '/admin/' });
+		}
+	}
+
+	if (!to.meta.logoutUserRequired) {
+		next();
+	} else {
+		if (!store.getters.isAuthenticated) {
+			next();
+		} else {
+			next({ path: '/' });
 		}
 	}
 });
