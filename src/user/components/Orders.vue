@@ -58,9 +58,6 @@
 						</div>
 					</div>
 					<!--
-					<div class="text-left subtitle mb-2 mt-3">
-						<label><i class="far fa-money-bill-alt"></i> Datos bancarios</label>
-					</div>
 					<div class="form-row">
 						<div class="form-group col">
 							<input type="text" class="form-control" placeholder="Número de tarjeta">

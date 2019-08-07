@@ -3,9 +3,6 @@
 	<div class="w-10 position-absolute sidebar" v-if="isAuthenticatedAdmin">
 		<div class="nav flex-column" aria-orientation="vertical">
 			<router-link tag="a" class="nav-link pt-3" to="/admin/pizzas">
-				<i class="fas fa-home"></i>
-			</router-link>
-			<router-link tag="a" class="nav-link pt-3" to="/admin/pizzas">
 				<i class="fas fa-pizza-slice"></i>
 			</router-link>
 			<router-link tag="a" class="nav-link pt-3" to="/admin/products">

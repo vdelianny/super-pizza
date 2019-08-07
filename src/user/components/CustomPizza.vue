@@ -76,7 +76,9 @@ export default {
     },
     methods: {
         getIngredients() {
-            this.$store.dispatch('getIngredients');
+        	if (this.ingredients.length <= 0) {
+            	this.$store.dispatch('getIngredients');
+        	}
         },
         addElementStore() {
         	this.pricePizza();

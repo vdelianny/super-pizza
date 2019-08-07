@@ -132,7 +132,7 @@ export default {
 	},
 	computed: {
         ingredients() {
-            return this.$store.state.ingredients;
+        	return this.$store.state.ingredients;
         }
     },
     mounted () {
@@ -140,7 +140,9 @@ export default {
     },
     methods: {
         getIngredients() {
-            this.$store.dispatch('getIngredients');
+        	if (this.ingredients.length <= 0) {
+            	this.$store.dispatch('getIngredients');
+        	}
         },
         selectIngredient(ingredient) {
         	this.ingredientCurrent.id = ingredient.id;

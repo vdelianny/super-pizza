@@ -13,7 +13,7 @@ import Login from './user/components/Login';
 import Profile from './user/components/Profile';
 import Tracking from './user/components/Tracking';
 
-import HomeAdmin from './admin/pages/Home';
+//import HomeAdmin from './admin/pages/Home';
 import PizzasAdmin from './admin/pages/Pizzas';
 import ProductsAdmin from './admin/pages/Products';
 import PromotionsAdmin from './admin/pages/Promotions';
@@ -48,13 +48,6 @@ const router = new VueRouter({
 			component: Profile,
 			meta: {
 				authUserRequired: true
-			}
-		},
-		{
-			path: '/admin/',
-			component: HomeAdmin,
-			meta: {
-				authAdminRequired: true
 			}
 		},
 		{

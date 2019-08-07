@@ -112,7 +112,9 @@ export default {
     },
     methods: {
         getProducts() {
-            this.$store.dispatch('getProducts');
+        	if (this.products.length <= 0) {
+            	this.$store.dispatch('getProducts');
+        	}
         },
         selectProduct(product) {
         	this.productCurrent.productId = product.id;

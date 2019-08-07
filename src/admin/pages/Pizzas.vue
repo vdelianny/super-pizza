@@ -183,10 +183,14 @@ export default {
     },
     methods: {
         getIngredients() {
-            this.$store.dispatch('getIngredients');
+        	if (this.pizzas.length <= 0) {
+            	this.$store.dispatch('getIngredients');
+        	}
         },
         getPizzas() {
-            this.$store.dispatch('getPizzas');
+        	if (this.ingredients.length <= 0) {
+            	this.$store.dispatch('getPizzas');
+        	}
         },
         selectPizza(pizza) {
         	this.pizzaCurrent.id = pizza.id;

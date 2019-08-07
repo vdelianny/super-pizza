@@ -185,7 +185,9 @@ export default {
     },
     methods: {
         getPromotions() {
-            this.$store.dispatch('getPromotions');
+        	if (this.promotions.lenght <= 0) {
+            	this.$store.dispatch('getPromotions');
+        	}
         },
         selectPromotion(promotion) {
         	this.promotionCurrent.id = promotion.id;
