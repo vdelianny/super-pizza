@@ -16,7 +16,7 @@
 									placeholder="Nombre del producto">
 							</div>
 							<div class="form-group">
-								<p class="text-left px-3">Ingredientes</p>
+								<p class="text-left px-2">Ingredientes</p>
 								<div class="row text-left px-4">
 									<label v-for="ingredient in ingredients" class="col-12 col-md-6">
 										<input type="checkbox" :value="ingredient.id"  v-model="newPizza.ingredients">
@@ -24,16 +24,37 @@
 									</label>
 								</div>
 							</div>
-							<div class="form-group">
+							<div class="form-group mb-4">
 								<input type="file" ref="avatar" @change="uploadAvatar">
 							</div>
-							<div class="form-group">
+							<div class="form-group mt-4">
+								<p class="text-left px-2 mb-0">Precio del tamaño pequeño</p>
 								<input
 									min=0
 									step=".01"
 									type="number"
 									class="form-control"
-									v-model="newPizza.price"
+									v-model="newPizza.pricePeq"
+									placeholder="Precio del producto">
+							</div>
+							<div class="form-group mt-4">
+								<p class="text-left px-2 mb-0">Precio del tamaño mediano</p>
+								<input
+									min=0
+									step=".01"
+									type="number"
+									class="form-control"
+									v-model="newPizza.priceMed"
+									placeholder="Precio del producto">
+							</div>
+							<div class="form-group mt-4">
+								<p class="text-left px-2 mb-0">Precio del tamaño familiar</p>
+								<input
+									min=0
+									step=".01"
+									type="number"
+									class="form-control"
+									v-model="newPizza.priceGran"
 									placeholder="Precio del producto">
 							</div>
 							<button type="submit" class="btn btn-admin mt-4 w-75">Enviar</button>
@@ -50,7 +71,9 @@
 								<tr>
 									<th scope="col">Nombre</th>
 									<th scope="col">Ingredientes</th>
-									<th scope="col">Precio</th>
+									<th scope="col">Peqeña</th>
+									<th scope="col">Mediana</th>
+									<th scope="col">Gigante</th>
 									<th scope="col">Acciones</th>
 								</tr>
 							</thead>
@@ -58,13 +81,13 @@
 								<tr v-for="pizza in pizzas">
 									<td>{{pizza.name}}</td>
 									<td>
-										<ul class="p-0">
-											<li v-for="ingredient in pizza.ingredients">
-												<em>{{ingredient.name}}</em>
-											</li>
-										</ul>
+										<span v-for="ingredient in pizza.ingredients">
+											<em>{{ingredient.name}}, </em>
+										</span>
 									</td>
-									<td>{{pizza.price}}</td>
+									<td>{{pizza.price_peq}}</td>
+									<td>{{pizza.price_med}}</td>
+									<td>{{pizza.price_gran}}</td>
 									<td>
 										<!--
 										<button class="btn p-0" data-toggle="modal" data-target="#modalEdit">
@@ -160,7 +183,9 @@ export default {
 				name: null,
 				avatar: null,
 				ingredients: [],
-				price: null
+				pricePeq: null,
+				priceMed: null,
+				priceGran: null
 			},
 			pizzaCurrent: {
 				id: null,
@@ -195,7 +220,6 @@ export default {
         selectPizza(pizza) {
         	this.pizzaCurrent.id = pizza.id;
         	this.pizzaCurrent.name = pizza.name;
-        	this.pizzaCurrent.price = pizza.price;
         },
         addPizza(e) {
         	var formData = new FormData();
@@ -204,13 +228,17 @@ export default {
         	for (var i=0; i<this.newPizza.ingredients.length; i++){
     			formData.append('ingredients[]', this.newPizza.ingredients[i]);
         	}
-        	formData.append('price', this.newPizza.price);
+        	formData.append('price_peq', this.newPizza.pricePeq);
+        	formData.append('price_med', this.newPizza.priceMed);
+        	formData.append('price_gran', this.newPizza.priceGran);
             this.$store.dispatch('addPizza', formData);
             e.preventDefault();
         	this.newPizza.name = null;
 			this.newPizza.avatar = null;
 			this.newPizza.ingredients = [];
-			this.newPizza.price = null;
+			this.newPizza.pricePeq = null;
+			this.newPizza.priceMed = null;
+			this.newPizza.priceGran = null;
         },
         deletePizza() {
             this.$store.dispatch('deletePizza', this.pizzaCurrent.id);
