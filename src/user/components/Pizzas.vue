@@ -57,10 +57,10 @@
 						<form action="">
 							<div class="form-group">
 								<label for="size">Seleccione tamaño</label>
-								<select class="form-control" id="size" v-model="pizzaCurrent.size">
-									<option>Pequeña</option>
-									<option>Mediana</option>
-									<option>Familiar</option>
+								<select class="form-control" id="size" v-model="pizzaCurrent.size" @change="updatePrice">
+									<option value="Pequeña">Pequeña</option>
+									<option value="Mediana">Mediana</option>
+									<option value="Familiar">Familiar</option>
 								</select>
 							</div>
 							<div class="form-group">
@@ -108,6 +108,9 @@ export default {
 				price: null,
 				category: 'pizza'
 			},
+			price_peq: null,
+			price_med: null,
+			price_gran: null,
 			urlPublic
 		}
 	},
@@ -135,12 +138,29 @@ export default {
         	}
         },
         selectPizza(pizza) {
+        	console.log(pizza);
         	this.pizzaCurrent.pizzaId = pizza.id;
         	this.pizzaCurrent.name = pizza.name;
-        	this.pizzaCurrent.price = pizza.price;
+        	this.pizzaCurrent.price = pizza.price_peq;
+        	this.price_peq = pizza.price_peq;
+        	this.price_med = pizza.price_med;
+        	this.price_gran = pizza.price_gran;
         },
         addElementStore() {
         	this.$store.dispatch('addElementStore', this.pizzaCurrent);
+        },
+        updatePrice(){
+        	switch(this.pizzaCurrent.size){
+        		case 'Pequeña': 
+        			this.pizzaCurrent.price = this.price_peq;
+        		break;
+        		case 'Mediana': 
+        			this.pizzaCurrent.price = this.price_med;
+        		break;
+        		case 'Familiar': 
+        			this.pizzaCurrent.price = this.price_gran;
+        		break;
+        	}
         }
     }
 }
