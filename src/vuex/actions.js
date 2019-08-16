@@ -239,7 +239,8 @@ const orderRegister = ({ commit, dispatch }, order) => {
         products: order.products,
         amount: order.amount,
         idUser: order.idUser
-    }).then(() => {
+    }).then((res) => {
+        commit('setPaymentParams', res.data);
         commit('setResetStore', []);
         dispatch('getPointsUser');
         dispatch('getOrders');

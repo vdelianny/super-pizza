@@ -24,9 +24,20 @@ export default {
 		}
 	},
     methods: {
+    	validateFields() {
+    		if (this.orderNumber != null) {
+    			return true
+    		}
+    		return false
+    	},
 	    tracking(e) {
-            this.$store.dispatch('tracking', this.orderNumber);
 	    	e.preventDefault();
+	    	if (this.validateFields()) {
+            	this.$store.dispatch('tracking', this.orderNumber);
+	    	} else {
+	    		this.$store.commit('setMgError', 'Por favor, complete los campos');
+	            this.$store.commit('setShowError', true);
+	    	}
         }
     }
 }

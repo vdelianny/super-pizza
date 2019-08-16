@@ -11,6 +11,7 @@
 					<div class="form-row" v-if="!isAuthenticated">
 						<div class="form-group col">
 							<input
+								required
 								name="name"
 								type="text"
 								class="form-control"
@@ -21,6 +22,7 @@
 					<div class="form-row" v-if="!isAuthenticated">
 						<div class="form-group col">
 							<input
+								required
 								name="email"
 								type="email"
 								placeholder="Email"
@@ -34,6 +36,7 @@
 					<div class="form-row">
 						<div class="form-group col">
 							<input
+								required
 								type="text"
 								name="phone"
 								class="form-control"
@@ -42,6 +45,7 @@
 						</div>
 						<div class="form-group col">
 							<input
+								required
 								name="city"
 								type="text"
 								class="form-control"
@@ -50,6 +54,7 @@
 						</div>
 						<div class="form-group col-12">
 							<input
+								required
 								type="text"
 								name="direction"
 								class="form-control"
@@ -60,10 +65,10 @@
 					<!--
 					<div class="form-row">
 						<div class="form-group col">
-							<input type="text" class="form-control" placeholder="Número de tarjeta">
+							<input required type="text" class="form-control" placeholder="Número de tarjeta">
 						</div>
 						<div class="form-group col">
-							<input type="text" class="form-control" placeholder="CCV">
+							<input required type="text" class="form-control" placeholder="CCV">
 						</div>
 					</div> -->
 					<button type="submit" class="btn btn-primary w-75 mt-4" :disabled="!existProducts()">
@@ -106,6 +111,7 @@
 						<p><b>Por cada 20 puntos ahorras 1$ en tu compra.</b></p>
 						<p class="d-flex justify-content-md-center">
 							<input
+								required
 								min="20"
 								type="number"
 								class="form-control w-auto"
@@ -139,6 +145,20 @@
 				</div>
 			</div>
 		</div>
+		<form ref="form" id="form" action="https://sis-t.redsys.es:25443/sis/realizarPago" method="POST" target="_blank">
+			<div>
+				<div class="form-group">
+					<input id="dsMerchantParameters" name="Ds_MerchantParameters" value="">
+				</div>
+				<div class="form-group">
+					<input id="dsSignature" name="Ds_Signature" value="">
+				</div>
+				<div class="form-group">
+					<input id="dsSignatureVersion" name="Ds_SignatureVersion" value="">
+				</div>
+			</div>
+			<button type="submit">Continuar</button>
+		</form>
 	</div>
 </template>
 <script>
@@ -176,6 +196,15 @@ export default {
         },
         userId(){
             return this.$store.state.user.id;
+        },
+        dsMerchantParameters(){
+            return this.$store.state.payment.dsMerchantParameters;
+        },
+        dsSignature(){
+            return this.$store.state.payment.dsSignature;
+        },
+        dsSignatureVersion(){
+            return this.$store.state.payment.dsSignatureVersion;
         }
     },
     methods: {
@@ -189,9 +218,15 @@ export default {
 		    	this.order.email = this.$store.state.user.email;
 	    	}
 	    	if (this.existProducts()) {
-        		this.$store.dispatch('orderRegister', this.order);
-        		this.openModal();
-        		this.resetOrder();
+	    		if (this.validateFields()) {
+	        		this.$store.dispatch('orderRegister', this.order);
+	        		//this.$refs.form.submit();
+	        		this.openModal();
+	        		this.resetOrder();
+	    		} else {
+	    			this.$store.commit('setMgError', 'Por favor, complete los campos');
+	            	this.$store.commit('setShowError', true);
+	    		}
 	    	} else {
         		this.$store.commit('setMgError', 'Debe seleccionar al menos un producto para poder realizar su compra.');
         		this.$store.commit('setShowError', true);
@@ -220,6 +255,13 @@ export default {
         },
         deleteProductStore(i) {
         	this.$store.commit('deleteElementStore', i);
+        },
+        validateFields() {
+        	var obj = this.order;
+        	if (obj.name!=null && obj.email!=null && obj.city!=null && obj.phone!=null && obj.direction!=null) {
+        		return true
+        	}
+        	return false
         }
     }
 }

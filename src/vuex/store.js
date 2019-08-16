@@ -26,6 +26,11 @@ export default new Vuex.Store({
             trackingOrder: null,
             orders: [],
         },
+        payment: {
+            dsMerchantParameters: null,
+            dsSignature: null,
+            dsSignatureVersion: null
+        },
         messages: {
             showError: false,
             msgError: null,

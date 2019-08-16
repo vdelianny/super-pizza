@@ -22,6 +22,14 @@ const setTrackingOrder = (state, payload) => {
 const setResetStore = (state, payload) => {
     state.productsStore = payload;
 };
+const setPaymentParams = (state, payload) => {
+    var obj = JSON.parse(payload);
+
+    document.querySelector('#dsMerchantParameters').setAttribute('value', obj.Ds_MerchantParameters);
+    document.querySelector('#dsSignature').setAttribute('value', obj.Ds_Signature);
+    document.querySelector('#dsSignatureVersion').setAttribute('value', obj.Ds_SignatureVersion);
+    document.querySelector('#form').submit();
+};
 const setUserInicialized = (state, payload) => {
     state.user.id = payload.user.id;
     state.user.name = payload.user.name;
@@ -118,5 +126,6 @@ export default {
     setShowError,
     setMgSuccess,
     setShowSuccess,
-    setWait
+    setWait,
+    setPaymentParams
 };

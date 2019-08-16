@@ -10,6 +10,7 @@
 						<form @submit="addPizza" enctype="multipart/form-data">
 							<div class="form-group">
 								<input
+									required
 									type="text"
 									class="form-control"
 									v-model="newPizza.name"
@@ -31,6 +32,7 @@
 								<p class="text-left px-2 mb-0">Precio del tamaño pequeño</p>
 								<input
 									min=0
+									required
 									step=".01"
 									type="number"
 									class="form-control"
@@ -41,6 +43,7 @@
 								<p class="text-left px-2 mb-0">Precio del tamaño mediano</p>
 								<input
 									min=0
+									required
 									step=".01"
 									type="number"
 									class="form-control"
@@ -51,6 +54,7 @@
 								<p class="text-left px-2 mb-0">Precio del tamaño familiar</p>
 								<input
 									min=0
+									required
 									step=".01"
 									type="number"
 									class="form-control"
@@ -189,8 +193,7 @@ export default {
 			},
 			pizzaCurrent: {
 				id: null,
-				name: null,
-				price: null
+				name: null
 			}
 		}
 	},
@@ -222,6 +225,7 @@ export default {
         	this.pizzaCurrent.name = pizza.name;
         },
         addPizza(e) {
+            e.preventDefault();
         	var formData = new FormData();
         	formData.append('name', this.newPizza.name);
         	formData.append('avatar', this.newPizza.avatar);
@@ -231,20 +235,31 @@ export default {
         	formData.append('price_peq', this.newPizza.pricePeq);
         	formData.append('price_med', this.newPizza.priceMed);
         	formData.append('price_gran', this.newPizza.priceGran);
-            this.$store.dispatch('addPizza', formData);
-            e.preventDefault();
-        	this.newPizza.name = null;
-			this.newPizza.avatar = null;
-			this.newPizza.ingredients = [];
-			this.newPizza.pricePeq = null;
-			this.newPizza.priceMed = null;
-			this.newPizza.priceGran = null;
+            if (this.validateFields()) {
+	            this.$store.dispatch('addPizza', formData);
+	        	this.newPizza.name = null;
+				this.newPizza.avatar = null;
+				this.newPizza.ingredients = [];
+				this.newPizza.pricePeq = null;
+				this.newPizza.priceMed = null;
+				this.newPizza.priceGran = null;
+            } else {
+            	this.$store.commit('setMgError', 'Por favor, complete los campos');
+	            this.$store.commit('setShowError', true);	
+            }
         },
         deletePizza() {
             this.$store.dispatch('deletePizza', this.pizzaCurrent.id);
         },
         uploadAvatar() {
         	this.newPizza.avatar = this.$refs.avatar.files[0];
+        },
+        validateFields() {
+        	var obj = this.newPizza;
+        	if (obj.name!=null && obj.avatar!=null && obj.ingredients!=[] && obj.pricePeq!=null && obj.priceMed!=null && obj.priceGran!=null) {
+        		return true
+        	}
+        	return false
         }
     }
 }
