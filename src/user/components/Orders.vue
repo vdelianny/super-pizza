@@ -145,16 +145,16 @@
 				</div>
 			</div>
 		</div>
-		<form ref="form" id="form" action="https://sis-t.redsys.es:25443/sis/realizarPago" method="POST" target="_blank">
+		<form style="display: none;" ref="form" id="form" action="https://sis-t.redsys.es:25443/sis/realizarPago" method="POST" target="_blank">
 			<div>
 				<div class="form-group">
-					<input id="dsMerchantParameters" name="Ds_MerchantParameters" value="">
+					<input type="hidden" id="dsMerchantParameters" name="Ds_MerchantParameters" value="">
 				</div>
 				<div class="form-group">
-					<input id="dsSignature" name="Ds_Signature" value="">
+					<input type="hidden" id="dsSignature" name="Ds_Signature" value="">
 				</div>
 				<div class="form-group">
-					<input id="dsSignatureVersion" name="Ds_SignatureVersion" value="">
+					<input type="hidden" id="dsSignatureVersion" name="Ds_SignatureVersion" value="">
 				</div>
 			</div>
 			<button type="submit">Continuar</button>

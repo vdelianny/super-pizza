@@ -240,6 +240,7 @@ const orderRegister = ({ commit, dispatch }, order) => {
         amount: order.amount,
         idUser: order.idUser
     }).then((res) => {
+        console.log(res);
         commit('setPaymentParams', res.data);
         commit('setResetStore', []);
         dispatch('getPointsUser');
