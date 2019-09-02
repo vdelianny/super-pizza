@@ -238,6 +238,7 @@ const orderRegister = ({ commit, dispatch }, order) => {
         direction: order.direction,
         products: order.products,
         amount: order.amount,
+        withdrawTime: order.withdrawTime,
         idUser: order.idUser
     }).then((res) => {
         console.log(res);

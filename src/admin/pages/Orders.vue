@@ -12,8 +12,8 @@
 								<tr>
 									<th scope="col">Cliente</th>
 									<th scope="col">Teléfono</th>
-									<th scope="col">Ciudad</th>
-									<th scope="col">Dirección</th>
+									<th scope="col">Ciudad - Dirección</th>
+									<th scope="col">Hora de retiro</th>
 									<th scope="col">Monto total</th>
 									<th scope="col">Status</th>
 									<th scope="col">Acciones</th>
@@ -23,8 +23,18 @@
 								<tr v-for="order in orders">
 									<td>{{order.name}}</td>
 									<td>{{order.phone}}</td>
-									<td>{{order.city}}</td>
-									<td>{{order.direction}}</td>
+									<td v-if="order.city && order.direction">
+										{{order.city}} - {{order.direction}}
+									</td>
+									<td v-else>
+										<i class="fas fa-minus"></i>
+									</td>
+									<td v-if="order.withdrawTime">
+										{{order.withdrawTime}}
+									</td>
+									<td v-else>
+										<i class="fas fa-minus"></i>
+									</td>
 									<td>{{order.amount}}$</td>
 									<td>{{order.status}}</td>
 									<td>
@@ -203,6 +213,7 @@ export default {
 	},
 	computed: {
         orders() {
+        	console.log(this.$store.state.orders);
             return this.$store.state.orders;
         }
     },

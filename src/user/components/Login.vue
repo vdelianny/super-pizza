@@ -3,7 +3,7 @@
 	<div class="container py-5">
 		<div class="row justify-content-md-center px-3">
 			<div class="form-register col-12 col-md-6 py-5 px-3 px-md-4">
-				<h2 class="text-center title mb-3">Ingreso de usuarios</h2>
+				<h2 class="text-center title mb-3">Conectarse</h2>
 				<form @submit="login">
 					<div class="form-group">
 						<input name="email" type="email" class="form-control" placeholder="Email" v-model="user.email" required>
@@ -17,7 +17,7 @@
 							Recordar datos
 						</label>
 					</div>
-					<button type="submit" class="btn btn-primary w-100 mt-4">Conectarse</button>
+					<button type="submit" class="btn btn-primary w-100 mt-4">Continuar</button>
 					<div class="mt-4 text-left">
 						<a href="#">¿Olvidaste tu contraseña?</a>
 					</div>

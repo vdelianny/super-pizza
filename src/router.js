@@ -103,6 +103,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+	store.commit('setShowError', false);
+	store.commit('setShowSuccess', false);
 	if (!to.meta.authUserRequired) {
 		next();
 	} else {

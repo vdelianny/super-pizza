@@ -12,16 +12,16 @@
 				<MsgSuccess />
 			</div>
 			<router-view />
-			<router-link tag="div" class="btn btn-primary btn-store py-2" to="/orders" v-if="!adminRoute()">
-				<a class="nav-link p-0" style="font-size: 1.5rem;">
+			<router-link tag="div" class="btn btn-primary btn-store py-2" to="/orders" v-if="!adminRoute() && existProducts()">
+				<a class="nav-link p-0 shop-cart" style="font-size: 1.5rem;">
 					<i class="fas fa-shopping-cart"></i>
+					<span class="cant">{{quantityProduct()}}</span>
 				</a>
 			</router-link>
 		</div>
 		<Footer v-if="!adminRoute()"/>
 	</div>
 </template>
-
 <script>
 /* eslint-disable */
 
@@ -46,6 +46,9 @@ export default {
 	computed: {
         wait() {
             return this.$store.state.wait;
+        },
+        products() {
+            return this.$store.state.productsStore;
         }
     },
     methods: {
@@ -54,6 +57,12 @@ export default {
     			return true;
         	}
         	return false;
+        },
+        existProducts(){
+        	return this.products.length > 0;
+        },
+        quantityProduct(){
+        	return this.products.length;
         }
     }
 }
@@ -66,6 +75,17 @@ export default {
 		font-family: 'Roboto';
 		overflow-x: hidden;
 		text-align: center;
+	}
+	.shop-cart span{
+		background: rgba(186, 8, 17, 0.8);
+		border-radius: 50px;
+		font-size: small;
+		color: white;
+		padding: 0 6px;
+	}
+	.shop-cart .cant{
+		margin-top: -8px;
+		position: absolute;
 	}
 	.wait-message{
         align-items: center;
@@ -216,17 +236,23 @@ export default {
 	}
 
 	.btn-store{
+		background: #fff;
+		border: #fff;
 		border-radius: 50px;
 		box-shadow: 0px 0px 10px 0px rgba(155, 155, 155, .6);
 		position: fixed;
 		right: 2rem;
 		top: 80vh;
 	}
+	.btn-store:hover{
+		background: #fff;
+		border: #fff;
+	}
 	.btn-store a,
 	.btn-store a:hover,
 	.btn-store a:active,
 	.btn-store a:focus{
-		color: #fff;
+		color: #343a40;
 	}
 
 	@media (min-width: 768px) {

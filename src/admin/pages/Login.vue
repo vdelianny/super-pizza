@@ -3,7 +3,7 @@
 	<div class="p-5 login-admin">
 		<div class="row justify-content-md-center px-3">
 			<div class="form-login col-12 col-md-4 py-5 mt-0 mt-md-5">
-				<h2 class="text-center title mb-3">Ingreso al sistema</h2>
+				<h2 class="text-center title mb-3">Conectarse</h2>
 				<form @submit="login">
 					<div class="form-group">
 						<input name="email" type="email" class="form-control" placeholder="Email" v-model="user.email" required>
@@ -11,7 +11,7 @@
 					<div class="form-group">
 						<input name="password" type="password" class="form-control" placeholder="Contraseña" v-model="user.password" required>
 					</div>
-					<button type="submit" class="btn btn-primary w-75 mt-4">Conectarse</button>
+					<button type="submit" class="btn btn-primary w-75 mt-4">Continuar</button>
 				</form>
 			</div>
 		</div>

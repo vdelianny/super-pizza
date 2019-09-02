@@ -92,12 +92,18 @@ const setUserOrders = (state, payload) => {
 };
 const setMgError = (state, payload) => {
     state.messages.msgError = payload;
+    setTimeout(function(){
+        state.messages.showError = false;
+    }, 10000);
 };
 const setShowError = (state, payload) => {
     state.messages.showError = payload;
 };
 const setMgSuccess = (state, payload) => {
     state.messages.msgSuccess = payload;
+    setTimeout(function(){
+        state.messages.showError = false;
+    }, 10000);
 };
 const setShowSuccess = (state, payload) => {
     state.messages.showSuccess = payload;

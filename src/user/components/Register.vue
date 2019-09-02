@@ -23,7 +23,7 @@
 					<div class="form-check mt-4 text-left">
 						<label class="form-check-label">
 							<input type="checkbox" v-model="checkTerms" class="form-check-input">
-							Al registrarte estás aceptando los <a href="#">términos y condiciones</a>
+							Al registrarse usted acepta nuestros <a href="#">términos y condiciones</a>
 						</label>
 					</div>
 					<button type="submit" class="btn btn-primary w-100 mt-4">Registrarse</button>
@@ -33,6 +33,7 @@
 					<div>
 						<a href="#" class="btn btn-secundary w-100">Iniciar sesión</a>
 					</div>
+					<button class="btn btn-primary" @click="recaptcha">Execute recaptcha</button>
 				</form>
 			</div>
 		</div>
@@ -56,6 +57,11 @@ export default {
 		}
 	},
     methods: {
+    	recaptcha() {
+    		this.$recaptcha('login').then((token) => {
+    			console.log(token) // Will print the token
+    		});
+	    },
     	isEqualEmail(){
     		return this.user.email == this.user.emailConfirm;
     	},

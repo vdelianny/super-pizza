@@ -2,12 +2,16 @@ import Vue from 'vue';
 import VueAxios from 'vue-axios';
 import App from './App.vue';
 import axios from 'axios'
+import { VueReCaptcha } from 'vue-recaptcha-v3'
 import router from './router';
 import store from './vuex/store';
 
 import injectInitialState from './utils/inject-initial-state' 
 
 Vue.use(VueAxios, axios);
+ 
+// For more options see below
+Vue.use(VueReCaptcha, { siteKey: '6LfS7LUUAAAAAMsWbBXKzBrnhpBMI9SYwd5HPjal' })
 
 Vue.config.productionTip = false;
 

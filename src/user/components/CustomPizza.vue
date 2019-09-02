@@ -30,13 +30,16 @@
 					</div>
 					<div class="form-row">
 						<div v-for="ingredient in ingredients" class="col-6 col-md-3 p-2">
-							<label>
-								<input
-									type="checkbox"
-									:value="ingredient.name"
-									@change="addIngredients(ingredient.name)">
-								<span class="ml-2">{{ingredient.name}}</span>
-							</label>
+							<span>{{ingredient.name}}</span>
+							<button type="button" @click="addIngredients(ingredient)">+</button>
+							<span v-if="quantitySameIngredient(ingredient.id) >= 1">
+								<button
+									type="button"
+									@click="subtractIngredients(ingredient)">
+									-
+								</button>
+								<span>{{quantitySameIngredient(ingredient.id)}}</span>
+							</span>
 						</div>
 					</div>
 
@@ -61,7 +64,7 @@ export default {
 				quantity: 1,
 				price: null,
 				category: 'pizzacustom',
-				ingredients: ''
+				ingredients: [],
 			},
 			quantityIngredients: 0
 		}
@@ -110,20 +113,51 @@ export default {
         updateQuantity(operation) {
         	if (operation == 'add') {
         		this.quantityIngredients += 1;
+        		this.quantityIngredients += 1;
         	} else {
+        		this.quantityIngredients -= 1;
         		this.quantityIngredients -= 1;
         	}
         },
+        findFromList(id) {
+        	var list = this.pizzaCustom.ingredients;
+        	return list.findIndex(
+        		function (list) { return list.id == id }
+    		);
+        },
         addIngredients(ingredient) {
-        	var newList = this.pizzaCustom.ingredients;
+        	var posIngredient = this.findFromList(ingredient.id);
+        	if (posIngredient >= 0) {
+        		this.pizzaCustom.ingredients[posIngredient].quantity += 1; 
+        	} else{
+	        	var newIngredient = {'id': ingredient.id, 'quantity': 1};
+	        	this.pizzaCustom.ingredients.push(newIngredient);
+        	}
+    		this.updateQuantity('add');
+        	/*
         	if (!newList.includes(ingredient)) {
+        		var newList = this.pizzaCustom.ingredients;
         		newList = this.pizzaCustom.ingredients.concat(`${ingredient}, `);
-        		this.updateQuantity('add');
         	} else {
         		newList = this.pizzaCustom.ingredients.replace(`${ingredient}, `, '');
-        		this.updateQuantity('subtract');
         	}
-        	this.pizzaCustom.ingredients = newList;
+        	this.pizzaCustom.ingredients = newList;*/
+        },
+        subtractIngredients(ingredient) {
+        	var posIngredient = this.findFromList(ingredient.id);
+        	if (posIngredient >= 0) {
+        		this.pizzaCustom.ingredients[posIngredient].quantity -= 1; 
+        	}
+    		this.updateQuantity('subtract');
+        },
+        quantitySameIngredient(id) {
+        	var element = this.pizzaCustom.ingredients.filter(
+        		function(ingredient){ return ingredient.id == id }
+    		);
+    		if (element.length > 0) {
+    			return element[0].quantity;
+    		}
+    		return 0;
         }
     }
 }

@@ -1,7 +1,16 @@
 <template>
 <!-- eslint-disable -->
 	<div class="container py-5">
-		<div class="order-content row">
+
+		<div v-if="!existProducts()">
+			<div class="card-empty px-3 py-2 py-md-5">
+				<img src="/assets/logo.png" alt="logo de superpizza" width="80px" height="auto">
+				<p class="mb-0 mt-4">
+					No has añadido ningún producto a tu carrito, puedes ver nuestro <a href="/pizzas">menú de pizzas</a> y seleccionar una.
+				</p>
+			</div>
+		</div>
+		<div v-else class="order-content row">
 			<div class="form-shop col-md-7 p-4">
 				<h2 class="text-left title-form">Formulario de compra</h2>
 				<form @submit="addOrder">
@@ -31,10 +40,10 @@
 						</div>
 					</div>
 					<div class="text-left subtitle mb-2 mt-3">
-						<label><i class="fas fa-map-pin"></i> Dirección de compra</label>
+						<label><i class="fas fa-map-pin"></i> Datos de compra</label>
 					</div>
 					<div class="form-row">
-						<div class="form-group col">
+						<div class="form-group col-12">
 							<input
 								required
 								type="text"
@@ -43,34 +52,44 @@
 								v-model="order.phone"
 								placeholder="Teléfono">
 						</div>
-						<div class="form-group col">
-							<input
-								required
-								name="city"
-								type="text"
-								class="form-control"
-								v-model="order.city"
-								placeholder="Ciudad">
+						<div class="form-row col-12" v-if="!withdraw">
+							<div class="form-group col-12 col-md-6">
+								<input
+									required
+									name="city"
+									type="text"
+									class="form-control"
+									v-model="order.city"
+									placeholder="Ciudad">
+							</div>
+							<div class="form-group col-12 col-md-6">
+								<input
+									required
+									type="text"
+									name="direction"
+									class="form-control"
+									placeholder="Dirección"
+									v-model="order.direction">
+							</div>
 						</div>
-						<div class="form-group col-12">
-							<input
-								required
-								type="text"
-								name="direction"
-								class="form-control"
-								placeholder="Dirección"
-								v-model="order.direction">
+						<div class="col-12 text-left" v-else>
+							<div class="form-group">
+						    <label for="withdrawTime">Selecciona la hora que desea retirar su pedido</label>
+						    <select class="form-control w-50" id="withdrawTime" v-model="order.withdrawTime">
+						    	<option value="19:00">19:00</option>
+						    	<option value="20:00">20:00</option>
+						    	<option value="21:00">21:00</option>
+						    	<option value="22:00">22:00</option>
+						    </select>
+						  </div>
+						</div>
+						<div class="form-check col-12 text-right">
+							<label class="form-check-label">
+								<input type="checkbox" class="form-check-input" v-model="withdraw" @change="changeWithdraw()">
+								¿Desea retirar su pedido en la pizzería?
+							</label>
 						</div>
 					</div>
-					<!--
-					<div class="form-row">
-						<div class="form-group col">
-							<input required type="text" class="form-control" placeholder="Número de tarjeta">
-						</div>
-						<div class="form-group col">
-							<input required type="text" class="form-control" placeholder="CCV">
-						</div>
-					</div> -->
 					<button type="submit" class="btn btn-primary w-75 mt-4" :disabled="!existProducts()">
 						Continuar
 					</button>
@@ -175,10 +194,12 @@ export default {
 				city: null,
 				phone: null,
 				direction: null,
+				withdrawTime: null,
 				products: [],
 				amount: null
 			},
-			newPoints: 20
+			newPoints: 20,
+			withdraw: false
 		}
 	},
 	computed: {
@@ -217,20 +238,24 @@ export default {
 		    	this.order.name = this.$store.state.user.name;
 		    	this.order.email = this.$store.state.user.email;
 	    	}
-	    	if (this.existProducts()) {
-	    		if (this.validateFields()) {
-	        		this.$store.dispatch('orderRegister', this.order);
-	        		//this.$refs.form.submit();
-	        		this.openModal();
-	        		this.resetOrder();
-	    		} else {
-	    			this.$store.commit('setMgError', 'Por favor, complete los campos');
-	            	this.$store.commit('setShowError', true);
-	    		}
-	    	} else {
-        		this.$store.commit('setMgError', 'Debe seleccionar al menos un producto para poder realizar su compra.');
-        		this.$store.commit('setShowError', true);
-	    	}
+    		if (this.validatePersonal() && this.validateDirection()) {
+        		this.$store.dispatch('orderRegister', this.order);
+        		//this.$refs.form.submit();
+        		this.openModal();
+        		this.resetOrder();
+    		} else {
+    			this.$store.commit('setMgError', 'Por favor, complete los campos');
+            	this.$store.commit('setShowError', true);
+    		}
+        },
+        changeWithdraw() {
+        	if (this.withdraw) {
+        		this.order.city = null;
+        		this.order.direction = null;
+        		this.order.withdrawTime = "19:00";
+        	} else {
+        		this.order.withdrawTime = null;
+        	}
         },
         changePoints() {
         	this.$store.dispatch('changePoints', this.newPoints);         
@@ -252,13 +277,23 @@ export default {
 			this.order.city = null;
 			this.order.phone = null;
 			this.order.direction = null;
+			this.order.withdrawTime = null;
+			this.withdraw = false;
         },
         deleteProductStore(i) {
         	this.$store.commit('deleteElementStore', i);
         },
-        validateFields() {
+        validatePersonal() {
         	var obj = this.order;
-        	if (obj.name!=null && obj.email!=null && obj.city!=null && obj.phone!=null && obj.direction!=null) {
+        	if (obj.name!=null && obj.email!=null && obj.phone!=null) {
+        		return true
+        	}
+        	return false
+        },
+        validateDirection() {
+        	var obj = this.order;
+        	console.log((obj.city!=null && obj.direction!=null) || obj.withdrawTime!=null);
+        	if ((obj.city!=null && obj.direction!=null) || obj.withdrawTime!=null) {
         		return true
         	}
         	return false
@@ -267,8 +302,14 @@ export default {
 }
 </script>
 <style scoped>
+	.card-empty{
+		box-shadow: 0px 2px 20px -3px rgba(158, 155, 155, .4);
+	}
 	.order-content{
 		box-shadow: 0px 2px 20px -3px rgba(158, 155, 155, .4);
+	}
+	.card-empty p{
+		font-size: 1.09rem;
 	}
 	.form-shop i{
 		color: #c12f36;

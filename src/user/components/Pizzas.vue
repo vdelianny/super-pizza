@@ -138,7 +138,6 @@ export default {
         	}
         },
         selectPizza(pizza) {
-        	console.log(pizza);
         	this.pizzaCurrent.pizzaId = pizza.id;
         	this.pizzaCurrent.name = pizza.name;
         	this.pizzaCurrent.price = pizza.price_peq;
