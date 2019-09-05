@@ -41,14 +41,14 @@
 										<button
 											class="btn p-0"
 											data-toggle="modal"
-											@click="selectOrder(order)"
+											@click="selectOrderDetails(order)"
 											data-target="#modalDetails">
 											<i class="fas fa-eye mx-1"></i>
 										</button>
 										<button
 											class="btn p-0"
 											data-toggle="modal"
-											@click="selectOrder(order)"
+											@click="selectOrderUpdate(order)"
 											data-target="#modalChangeStatus">
 											<i class="fas fa-random"></i>
 										</button>
@@ -147,7 +147,13 @@
 										<td>{{pizzacustom.quantity}}</td>
 										<td>Pizza personalizada</td>
 										<td>{{pizzacustom.size}}</td>
-										<td>{{pizzacustom.ingredients}}</td>
+										<td>
+											<ul>
+												<li v-for="ingredient in pizzacustom.OrderPizzaCustomIngredients">
+													{{ingredient.ingredientId}} - ({{ingredient.quantity}})
+												</li>
+											</ul>
+										</td>
 									</tr>
 									<tr v-for="product in orderCurrent.products">
 										<td>
@@ -213,8 +219,10 @@ export default {
 	},
 	computed: {
         orders() {
-        	console.log(this.$store.state.orders);
             return this.$store.state.orders;
+        },
+        orderDetails() {
+            return this.$store.state.orderDetails;
         }
     },
     mounted () {
@@ -224,17 +232,22 @@ export default {
         getOrders() {
             this.$store.dispatch('getOrders');
         },
-        selectOrder(order) {
+        selectOrderDetails(order) {
         	this.orderCurrent.id = order.id;
         	this.orderCurrent.name = order.name;
         	this.orderCurrent.city = order.city;
         	this.orderCurrent.direction = order.direction;
         	this.orderCurrent.amount = order.amount;
         	this.orderCurrent.status = order.status;
-        	this.orderCurrent.pizzas = order.OrderPizzas;
-        	this.orderCurrent.pizzacustoms = order.OrderPizzaCustoms;
-        	this.orderCurrent.products = order.OrderProducts;
-        	this.orderCurrent.promotions = order.OrderPromotions;
+            this.$store.dispatch('getDetailsOrder', this.orderCurrent);
+        	this.orderCurrent.pizzas = this.orderDetails.OrderPizzas;
+        	this.orderCurrent.pizzacustoms = this.orderDetails.OrderPizzaCustoms;
+        	this.orderCurrent.products = this.orderDetails.OrderProducts;
+        	this.orderCurrent.promotions = this.orderDetails.OrderPromotions;
+        },
+        selectOrderUpdate(order) {
+        	this.orderCurrent.id = order.id;
+        	this.orderCurrent.status = order.status;
         },
         updateStatus(){
             this.$store.dispatch('updateStatus', this.orderCurrent);

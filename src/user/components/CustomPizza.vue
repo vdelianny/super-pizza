@@ -126,11 +126,12 @@ export default {
     		);
         },
         addIngredients(ingredient) {
+        	console.log(ingredient);
         	var posIngredient = this.findFromList(ingredient.id);
         	if (posIngredient >= 0) {
         		this.pizzaCustom.ingredients[posIngredient].quantity += 1; 
         	} else{
-	        	var newIngredient = {'id': ingredient.id, 'quantity': 1};
+	        	var newIngredient = {'id': ingredient.id, 'quantity': 1, 'name': ingredient.name};
 	        	this.pizzaCustom.ingredients.push(newIngredient);
         	}
     		this.updateQuantity('add');
