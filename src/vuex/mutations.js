@@ -4,9 +4,6 @@ const setPizzas = (state, payload) => {
 const setOrders = (state, payload) => {
     state.orders = payload;
 };
-const setOrderDetails = (state, payload) => {
-    state.orderDetails = payload;
-};
 const setProducts = (state, payload) => {
     state.products = payload;
 };
@@ -128,7 +125,6 @@ export default {
     setPointsToChange,
     setTrackingOrder,
     setOrders,
-    setOrderDetails,
     setUserOrders,
     setUserFinalized,
     setAdminFinalized,

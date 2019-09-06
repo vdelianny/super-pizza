@@ -41,14 +41,14 @@
 										<button
 											class="btn p-0"
 											data-toggle="modal"
-											@click="selectOrderDetails(order)"
+											@click="selectOrder(order)"
 											data-target="#modalDetails">
 											<i class="fas fa-eye mx-1"></i>
 										</button>
 										<button
 											class="btn p-0"
 											data-toggle="modal"
-											@click="selectOrderUpdate(order)"
+											@click="selectOrder(order)"
 											data-target="#modalChangeStatus">
 											<i class="fas fa-random"></i>
 										</button>
@@ -127,7 +127,7 @@
 										<th scope="col">Cant.</th>
 										<th scope="col">Producto</th>
 										<th scope="col">Tamaño</th>
-										<th scope="col">Ingredientes</th>
+										<th scope="col">Ingredientes - Cant.</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -150,7 +150,7 @@
 										<td>
 											<ul>
 												<li v-for="ingredient in pizzacustom.OrderPizzaCustomIngredients">
-													{{ingredient.ingredientId}} - ({{ingredient.quantity}})
+													{{ingredient.ingredientId}} - {{ingredient.quantity}}
 												</li>
 											</ul>
 										</td>
@@ -219,10 +219,8 @@ export default {
 	},
 	computed: {
         orders() {
+        	console.log(this.$store.state.orders);
             return this.$store.state.orders;
-        },
-        orderDetails() {
-            return this.$store.state.orderDetails;
         }
     },
     mounted () {
@@ -232,22 +230,17 @@ export default {
         getOrders() {
             this.$store.dispatch('getOrders');
         },
-        selectOrderDetails(order) {
+        selectOrder(order) {
         	this.orderCurrent.id = order.id;
         	this.orderCurrent.name = order.name;
         	this.orderCurrent.city = order.city;
         	this.orderCurrent.direction = order.direction;
         	this.orderCurrent.amount = order.amount;
         	this.orderCurrent.status = order.status;
-            this.$store.dispatch('getDetailsOrder', this.orderCurrent);
-        	this.orderCurrent.pizzas = this.orderDetails.OrderPizzas;
-        	this.orderCurrent.pizzacustoms = this.orderDetails.OrderPizzaCustoms;
-        	this.orderCurrent.products = this.orderDetails.OrderProducts;
-        	this.orderCurrent.promotions = this.orderDetails.OrderPromotions;
-        },
-        selectOrderUpdate(order) {
-        	this.orderCurrent.id = order.id;
-        	this.orderCurrent.status = order.status;
+        	this.orderCurrent.pizzas = order.OrderPizzas;
+        	this.orderCurrent.pizzacustoms = order.OrderPizzaCustoms;
+        	this.orderCurrent.products = order.OrderProducts;
+        	this.orderCurrent.promotions = order.OrderPromotions;
         },
         updateStatus(){
             this.$store.dispatch('updateStatus', this.orderCurrent);
@@ -259,11 +252,19 @@ export default {
 	.table{
 		color: #747474;
 	}
+	.table td, .table th{
+		vertical-align: middle;
+	}
 	.table thead th{
 		border-top: none;
 	}
 	.table .btn{
 		color: #28b0a6;
+	}
+	.table ul{
+		list-style: none;
+		padding-left: 0;
+		margin-bottom: 0;
 	}
 	.table .btn:hover{
 		color: #227669;

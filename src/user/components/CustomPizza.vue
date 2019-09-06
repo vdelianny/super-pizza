@@ -29,17 +29,25 @@
 						</div>
 					</div>
 					<div class="form-row">
-						<div v-for="ingredient in ingredients" class="col-6 col-md-3 p-2">
-							<span>{{ingredient.name}}</span>
-							<button type="button" @click="addIngredients(ingredient)">+</button>
-							<span v-if="quantitySameIngredient(ingredient.id) >= 1">
-								<button
-									type="button"
-									@click="subtractIngredients(ingredient)">
-									-
-								</button>
+						<div v-for="ingredient in ingredients" class="col-12 col-md-4 py-2 px-4 ingredient-box">
+							<button
+								type="button"
+								class="position-absolute btn btn-secundary subtract"
+								@click="subtractIngredients(ingredient)"
+								v-if="quantitySameIngredient(ingredient.id) >= 1">
+								-
+							</button>
+							<div class="ingredient-content text-center">
+								<img src="/assets/ingredients/queso.png" alt="">
+								<p>{{ingredient.name}}</p>
 								<span>{{quantitySameIngredient(ingredient.id)}}</span>
-							</span>
+							</div>
+							<button 
+								type="button"
+								class="position-absolute btn btn-primary add"
+								@click="addIngredients(ingredient)">
+								<div class="text-center">+</div>
+							</button>
 						</div>
 					</div>
 
@@ -188,6 +196,24 @@ export default {
 	}
 	.custom-pizza .ingredients hr{
 		background-color: rgba(193, 47, 54, 0.3);
+	}
+	.custom-pizza .ingredients .ingredient-box{		
+		align-items: center;
+	    display: grid;
+	}
+	.custom-pizza .ingredients .ingredient-box .btn{
+        line-height: 1rem;
+	    opacity: 0.8;
+	}
+	.custom-pizza .ingredients .ingredient-box .subtract{
+		left: 10px;
+	}
+	.custom-pizza .ingredients .ingredient-box .add{
+		right: 10px;
+	}
+	.custom-pizza .ingredients .ingredient-box .ingredient-content{
+	    background-color: rgba(249, 249, 249, .6);
+	    border-radius: 10px;
 	}
 	@media(max-width: 992px) {
 		.w-md-75{

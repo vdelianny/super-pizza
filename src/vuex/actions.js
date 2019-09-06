@@ -276,21 +276,6 @@ const getUserOrders = async ({ commit }, id) => {
     }
 };
 
-const getDetailsOrder = async ({ commit }, order) => {
-    commit('setWait', true);
-    try {
-        axios.get(urlServer+'orders/details/'+order.id)
-        .then(res => {
-            console.log(res);
-            commit('setWait', false);
-            commit('setOrderDetails', res.data.order);
-        });
-    }
-    catch (error) {
-        commit('setOrderDetails', null);
-    }
-};
-
 const updateStatus = ({ dispatch }, order) => {
     axios.put(urlServer+'orders/status/'+order.id, {
         status: order.status
@@ -347,7 +332,6 @@ export default {
     deleteIngredient,
     updateIngredient,
     getOrders,
-    getDetailsOrder,
     orderRegister,
     addElementStore,
     changePoints,
