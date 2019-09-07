@@ -11,6 +11,9 @@
 							<div class="form-group">
 								<input type="text" class="form-control" v-model="name" placeholder="Nombre del ingrediente">
 							</div>
+							<div class="form-group">
+								<input type="file" ref="avatar" @change="uploadAvatar">
+							</div>
 							<button type="submit" class="btn btn-admin mt-4 w-75">Enviar</button>
 						</form>
 					</div>
@@ -124,6 +127,7 @@ export default {
 	data () {
 		return {
 			name: null,
+			avatar: null,
 			ingredientCurrent: {
 				name: null,
 				id: null
@@ -149,15 +153,22 @@ export default {
         	this.ingredientCurrent.name = ingredient.name;
         },
         addIngredient(e) {
-            this.$store.dispatch('addIngredient', this.name);
+            var formData = new FormData();
             e.preventDefault();
+        	formData.append('name', this.name);
+        	formData.append('avatar', this.avatar);
+            this.$store.dispatch('addIngredient', formData);
             this.name = null;
+            this.avatar = null;
         },
         deleteIngredient() {
             this.$store.dispatch('deleteIngredient', this.ingredientCurrent.id);
         },
         updateIngredient() {
             this.$store.dispatch('updateIngredient', this.ingredientCurrent);
+        },
+        uploadAvatar() {
+        	this.avatar = this.$refs.avatar.files[0];
         }
     }
 }

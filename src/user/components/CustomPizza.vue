@@ -29,25 +29,35 @@
 						</div>
 					</div>
 					<div class="form-row">
-						<div v-for="ingredient in ingredients" class="col-12 col-md-4 py-2 px-4 ingredient-box">
-							<button
-								type="button"
-								class="position-absolute btn btn-secundary subtract"
-								@click="subtractIngredients(ingredient)"
-								v-if="quantitySameIngredient(ingredient.id) >= 1">
-								-
-							</button>
-							<div class="ingredient-content text-center">
-								<img src="/assets/ingredients/queso.png" alt="">
-								<p>{{ingredient.name}}</p>
-								<span>{{quantitySameIngredient(ingredient.id)}}</span>
+						<div v-for="ingredient in ingredients" class="col-12 col-md-4 py-2 px-4 mb-4 ingredient-box">
+							<div class="ingredient-content text-center py-3">
+								<img
+									width="auto"
+								    height= "40px"
+									:src="urlPublic+'ingredients/'+ingredient.id+'.jpg'">
+								<p class="my-1 mb-0">{{ingredient.name}}</p>
+								<div class="row text-center pt-2">
+									<div class="col">
+										<button
+											type="button"
+											class="subtract"
+											@click="subtractIngredients(ingredient)">
+											<div>-</div>
+										</button>
+									</div>
+									<div class="col">
+										<span>{{quantitySameIngredient(ingredient.id)}}</span>
+									</div>
+									<div class="col">
+										<button 
+											type="button"
+											class="add"
+											@click="addIngredients(ingredient)">
+											<div>+</div>
+										</button>
+									</div>
+								</div>
 							</div>
-							<button 
-								type="button"
-								class="position-absolute btn btn-primary add"
-								@click="addIngredients(ingredient)">
-								<div class="text-center">+</div>
-							</button>
 						</div>
 					</div>
 
@@ -63,6 +73,9 @@
 </template>
 <script>
 /* eslint-disable */
+import {urlPublic} from '../../vuex/variables.js';
+import router from '../../router';
+
 export default {
 	name: 'Custome',
 	data () {
@@ -74,7 +87,9 @@ export default {
 				category: 'pizzacustom',
 				ingredients: [],
 			},
-			quantityIngredients: 0
+			quantityIngredients: 0,
+			urlPublic,
+			router
 		}
 	},
 	computed: {
@@ -94,9 +109,8 @@ export default {
         addElementStore() {
         	this.pricePizza();
         	if (this.quantityIngredients >= 3) {
-        		this.$store.dispatch('addElementStore', this.pizzaCustom);
-        		this.$store.commit('setMgSuccess', `Su pizza ha sido agregada al carrito`);
-                this.$store.commit('setShowSuccess', true);
+        		this.$store.dispatch('addElementStore', this.pizzaCustom);        		
+        		router.push('orders');
         	} else{
 	            this.$store.commit('setMgError', 'Debe elegir al menos 3 ingredientes');
 	            this.$store.commit('setShowError', true);
@@ -134,7 +148,6 @@ export default {
     		);
         },
         addIngredients(ingredient) {
-        	console.log(ingredient);
         	var posIngredient = this.findFromList(ingredient.id);
         	if (posIngredient >= 0) {
         		this.pizzaCustom.ingredients[posIngredient].quantity += 1; 
@@ -154,10 +167,11 @@ export default {
         },
         subtractIngredients(ingredient) {
         	var posIngredient = this.findFromList(ingredient.id);
-        	if (posIngredient >= 0) {
+
+        	if (posIngredient >= 0 && this.quantitySameIngredient(ingredient.id) >= 1) {
         		this.pizzaCustom.ingredients[posIngredient].quantity -= 1; 
+				this.updateQuantity('subtract');
         	}
-    		this.updateQuantity('subtract');
         },
         quantitySameIngredient(id) {
         	var element = this.pizzaCustom.ingredients.filter(
@@ -201,9 +215,16 @@ export default {
 		align-items: center;
 	    display: grid;
 	}
-	.custom-pizza .ingredients .ingredient-box .btn{
-        line-height: 1rem;
+	.custom-pizza .ingredients .ingredient-box button{
+		background: transparent;
+	    border: 1px solid #ba0811;
+	    border-radius: 50px;
+	    color: #ba0811; 
+	    height: 1.5rem;
+        line-height: 1.5rem;
 	    opacity: 0.8;
+	    padding: 0;
+	    width: 1.5rem;
 	}
 	.custom-pizza .ingredients .ingredient-box .subtract{
 		left: 10px;
@@ -212,8 +233,24 @@ export default {
 		right: 10px;
 	}
 	.custom-pizza .ingredients .ingredient-box .ingredient-content{
-	    background-color: rgba(249, 249, 249, .6);
-	    border-radius: 10px;
+	    background-color: rgba(249, 249, 249, .8);
+	    box-shadow: 0px 0px 8px 0px rgba(158, 155, 155, .25);
+	    border-radius: 8px;
+	}
+	.custom-pizza .ingredients .ingredient-box .ingredient-content .row{
+	    border-top: 2px solid #f0f0f0;
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.custom-pizza .ingredients .ingredient-box .ingredient-content p{
+	    color: #747474;
+	    font-size: 0.8rem;
+	    font-weight: bold;
+	    text-transform: uppercase;
+	}
+	.custom-pizza .ingredients .ingredient-box .ingredient-content .row span{
+		color: #ba0811;
+		font-weight: bold;
 	}
 	@media(max-width: 992px) {
 		.w-md-75{

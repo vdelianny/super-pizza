@@ -164,9 +164,10 @@ const getIngredients = async ({ commit }) => {
         commit('setIngredients', []);
     }
 };
-const addIngredient = ({ commit, dispatch }, name) => {
+const addIngredient = ({ commit, dispatch }, ingredient) => {
+    console.log(ingredient);
     commit('setWait', true);
-    axios.post(urlServer+'ingredients', { name })
+    axios.post(urlServer+'ingredients', ingredient)
     .then(() => {
         commit('setWait', false);
         dispatch('getIngredients');
