@@ -36,14 +36,14 @@ const app = new Vue({
     }
   }),
   mounted() {
-    document.dispatchEvent(new Event('render-event'));
+    //document.dispatchEvent(new Event('render-event'));
     store.dispatch('getPizzas');
     store.dispatch('getProducts');
     store.dispatch('getIngredients');
     store.dispatch('getPromotions');
   }
 })
-
+/*
 if (window.__INITIAL_STATE__) store.replaceState(window.__INITIAL_STATE__)
 
 router.beforeResolve(async (to, from, next) => {
@@ -56,6 +56,6 @@ router.beforeResolve(async (to, from, next) => {
     console.log(error)
   }
   return next()
-})
+})*/
 
 app.$mount(`#app`)

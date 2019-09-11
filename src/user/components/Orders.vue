@@ -164,7 +164,7 @@
 				</div>
 			</div>
 		</div>
-		<form style="display: none;" ref="form" id="form" action="https://sis-t.redsys.es:25443/sis/realizarPago" method="POST" target="_blank">
+		<form ref="form" style="display: none;" id="form" action="https://sis-t.redsys.es:25443/sis/realizarPago" method="POST" target="_blank">
 			<div>
 				<div class="form-group">
 					<input type="hidden" id="dsMerchantParameters" name="Ds_MerchantParameters" value="">
@@ -240,7 +240,6 @@ export default {
 	    	}
     		if (this.validatePersonal() && this.validateDirection()) {
         		this.$store.dispatch('orderRegister', this.order);
-        		//this.$refs.form.submit();
         		this.openModal();
         		this.resetOrder();
     		} else {
@@ -292,7 +291,6 @@ export default {
         },
         validateDirection() {
         	var obj = this.order;
-        	console.log((obj.city!=null && obj.direction!=null) || obj.withdrawTime!=null);
         	if ((obj.city!=null && obj.direction!=null) || obj.withdrawTime!=null) {
         		return true
         	}

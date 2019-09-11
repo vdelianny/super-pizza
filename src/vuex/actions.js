@@ -43,6 +43,18 @@ const userRegister = ({ commit }, user) => {
     })
 };
 
+const updateEmail = ({ commit, state }, email) => {
+    commit('setWait', true);
+    axios.put(urlServer+'users/email/'+state.user.id, {
+        email: email,
+    }).then(() => {
+        commit('setWait', false);
+        commit('setUserEmail', email);
+        commit('setMgSuccess', 'Su email ha sido actualizado');
+        commit('setShowSuccess', true);
+    });
+};
+
 const changePoints = ({ commit, dispatch, state }, newPoints) => {
     axios.put(urlServer+'users/points/'+state.user.id, {
         points: newPoints,
@@ -314,6 +326,7 @@ export default {
     userRegister,
     userLogin,
     userSignOut,
+    updateEmail,
     userSignOutAdmin,
     toProfile,
     getPointsUser,

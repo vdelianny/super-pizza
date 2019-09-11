@@ -12,6 +12,11 @@
 					Pedidos
 				</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="true">
+					Configuración de la cuenta
+				</a>
+			</li>
 		</ul>
 		<div class="tab-content mt-5" id="myTabContent">
   			<div class="tab-pane fade show active" id="points" role="tabpanel" aria-labelledby="points-tab">
@@ -28,6 +33,13 @@
   					</div>
   				</div>
   			</div>
+  			<div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+  				<div class="row justify-content-md-center">
+  					<div class="col-12 col-md-6">
+						<CardSettings/>
+  					</div>
+  				</div>
+  			</div>
 		</div>
 	</div>
 </template>
@@ -36,11 +48,13 @@
 import axios from 'axios';
 import CardPoints from '../partials/CardPoints.vue'
 import UserOrders from '../partials/UserOrders.vue'
+import CardSettings from '../partials/CardSettings.vue'
 export default {
 	name: 'Profile',
 	components: {
 		UserOrders,
-		CardPoints
+		CardPoints,
+		CardSettings
 	},
     methods: {
 	    

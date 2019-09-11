@@ -10,6 +10,9 @@ const setProducts = (state, payload) => {
 const setPromotions = (state, payload) => {
     state.promotions = payload;
 };
+const setUserEmail = (state, payload) => {
+    state.user.email = payload;
+};
 const setElementStore = (state, payload) => {
     state.productsStore.push(payload);
 };
@@ -24,6 +27,7 @@ const setResetStore = (state, payload) => {
 };
 const setPaymentParams = (state, payload) => {
     var obj = JSON.parse(payload);
+    console.log(payload);
 
     document.querySelector('#dsMerchantParameters').setAttribute('value', obj.Ds_MerchantParameters);
     document.querySelector('#dsSignature').setAttribute('value', obj.Ds_Signature);
@@ -128,6 +132,7 @@ export default {
     setUserOrders,
     setUserFinalized,
     setAdminFinalized,
+    setUserEmail,
     setMgError,
     setShowError,
     setMgSuccess,
