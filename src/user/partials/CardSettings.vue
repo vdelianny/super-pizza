@@ -29,19 +29,19 @@
 			<div class="form-group">
 				<p class="text-left mb-0">Ingrese su nueva contraseña</p>
 				<input
-					type="text"
+					type="password"
 					class="form-control"
 					v-model="user.password">
 			</div>
 			<div class="form-group">
 				<p class="text-left mb-0">Confirme su nueva contraseña</p>
 				<input
-					type="text"
+					type="password"
 					class="form-control"
 					v-model="user.confirmPassword">
 			</div>
 			<div class="text-center">
-				<button class="btn btn-primary w-100">Guardar cambios</button>
+				<button class="btn btn-primary w-100" @click="updatePassword">Guardar cambios</button>
 			</div>
 		</div>
 		<div class="p-4">
@@ -81,6 +81,19 @@
 	    methods: {
 	    	updateEmail() {
 	    		this.$store.dispatch('updateEmail', this.user.email);
+	    	},
+	    	updatePassword() {
+	    		if (!this.comparePassword) {
+	    			this.$store.commit('setMgError', 'Las contraseñas no coinciden');
+	            	this.$store.commit('setShowError', true);
+	    		} else {
+	    			this.$store.dispatch('updatePassword', this.user.password);
+	    			this.user.password = null;
+	    			this.user.confirmPassword = null;
+	    		}
+	    	},
+	    	comparePassword() {
+	    		return this.user.password === this.user.confirmPassword;
 	    	}
 	    }
 	}

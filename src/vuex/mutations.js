@@ -12,6 +12,7 @@ const setPromotions = (state, payload) => {
 };
 const setUserEmail = (state, payload) => {
     state.user.email = payload;
+    localStorage.setItem('spUserEmail', payload);
 };
 const setElementStore = (state, payload) => {
     state.productsStore.push(payload);

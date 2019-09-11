@@ -55,6 +55,17 @@ const updateEmail = ({ commit, state }, email) => {
     });
 };
 
+const updatePassword = ({ commit, state }, password) => {
+    commit('setWait', true);
+    axios.put(urlServer+'users/password/'+state.user.id, {
+        newPassword: password,
+    }).then(() => {
+        commit('setWait', false);
+        commit('setMgSuccess', 'Su email ha sido actualizado');
+        commit('setShowSuccess', true);
+    });
+};
+
 const changePoints = ({ commit, dispatch, state }, newPoints) => {
     axios.put(urlServer+'users/points/'+state.user.id, {
         points: newPoints,
@@ -327,6 +338,7 @@ export default {
     userLogin,
     userSignOut,
     updateEmail,
+    updatePassword,
     userSignOutAdmin,
     toProfile,
     getPointsUser,
