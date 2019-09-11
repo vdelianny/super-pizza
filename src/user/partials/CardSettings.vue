@@ -51,7 +51,39 @@
 			<div class="form-group col-12">
 				<p class="text-left mb-0">¿Desea eliminar sus datos de nuestra web?</p>
 				<div class="mt-3">
-					<button class="btn btn-primary w-100">Eliminar</button>
+					<button 
+						type="button"
+						data-toggle="modal"
+						data-target="#exampleModal"
+						class="btn btn-primary w-100">
+						Eliminar
+					</button>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Confirmación</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body text-left py-4 px-3 px-md-5">
+						<p>¿Confirma que desea eliminar su cuenta?</p>
+						<div class="mt-3">
+							<button
+								type="button"
+								data-dismiss="modal"
+								class="btn btn-secundary w-100"
+								@click="deleteAccount">
+								Eliminar
+							</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -91,6 +123,9 @@
 	    			this.user.password = null;
 	    			this.user.confirmPassword = null;
 	    		}
+	    	},
+	    	deleteAccount() {
+	    		this.$store.dispatch('userDelete');
 	    	},
 	    	comparePassword() {
 	    		return this.user.password === this.user.confirmPassword;

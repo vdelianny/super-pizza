@@ -43,6 +43,15 @@ const userRegister = ({ commit }, user) => {
     })
 };
 
+const userDelete = ({ dispatch, commit, state }) => {
+    commit('setWait', true);
+    axios.delete(urlServer+'users/'+state.user.id)
+    .then(() => {
+        commit('setWait', false);
+        dispatch('userSignOut');
+    });
+};
+
 const updateEmail = ({ commit, state }, email) => {
     commit('setWait', true);
     axios.put(urlServer+'users/email/'+state.user.id, {
@@ -338,6 +347,7 @@ export default {
     userLogin,
     userSignOut,
     updateEmail,
+    userDelete,
     updatePassword,
     userSignOutAdmin,
     toProfile,

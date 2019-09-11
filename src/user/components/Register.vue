@@ -6,19 +6,47 @@
 				<h2 class="text-center title mb-3">Registro de usuario</h2>
 				<form @submit="addUser">
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Nombre y apellido" v-model="user.name" required>
+						<input 
+							required
+							name="name" 
+							type="text"
+							class="form-control"
+							v-model="user.name"
+							placeholder="Nombre y apellido">
 					</div>
 					<div class="form-group">
-						<input type="email" class="form-control" placeholder="Email" v-model="user.email" required>
+						<input
+							required
+							name="email"
+							type="email"
+							placeholder="Email"
+							class="form-control"
+							v-model="user.email">
 					</div>
 					<div class="form-group">
-						<input type="email" class="form-control" placeholder="Confirmar email" v-model="user.emailConfirm" required>
+						<input
+							required
+							name="email"
+							type="email"
+							class="form-control"
+							v-model="user.emailConfirm"
+							placeholder="Confirmar email">
 					</div>
 					<div class="form-group">
-						<input type="password" class="form-control" placeholder="Contraseña" v-model="user.password" required>
+						<input
+							required
+							type="password"
+							class="form-control"
+							v-model="user.password"
+							placeholder="Contraseña">
 					</div>
 					<div class="form-group">
-						<input type="password" class="form-control" placeholder="Confirmar contraseña" v-model="user.passwordConfirm" required>
+						<input
+							required
+							type="password"
+							class="form-control"
+							v-model="user.passwordConfirm"
+							placeholder="Confirmar contraseña">
 					</div>
 					<div class="form-check mt-4 text-left">
 						<label class="form-check-label">
