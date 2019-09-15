@@ -9,12 +9,17 @@
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="true">
-					Pedidos
+					Pedidos por entregar
 				</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="true">
 					Configuración de la cuenta
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="invoices-tab" data-toggle="tab" href="#invoices" role="tab" aria-controls="invoices" aria-selected="true">
+					Facturas
 				</a>
 			</li>
 		</ul>
@@ -40,6 +45,13 @@
   					</div>
   				</div>
   			</div>
+  			<div class="tab-pane fade" id="invoices" role="tabpanel" aria-labelledby="invoices-tab">
+  				<div class="row justify-content-md-center">
+  					<div class="col-12">
+						<UserInvoices/>
+  					</div>
+  				</div>
+  			</div>
 		</div>
 	</div>
 </template>
@@ -49,12 +61,14 @@ import axios from 'axios';
 import CardPoints from '../partials/CardPoints.vue'
 import UserOrders from '../partials/UserOrders.vue'
 import CardSettings from '../partials/CardSettings.vue'
+import UserInvoices from '../partials/UserInvoices.vue'
 export default {
 	name: 'Profile',
 	components: {
 		UserOrders,
 		CardPoints,
-		CardSettings
+		CardSettings,
+		UserInvoices
 	},
     methods: {
 	    

@@ -25,6 +25,7 @@ export default new Vuex.Store({
             pointsToChange: 0,
             trackingOrder: null,
             orders: [],
+            invoices: [],
         },
         payment: {
             dsMerchantParameters: null,

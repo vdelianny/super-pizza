@@ -309,6 +309,22 @@ const getUserOrders = async ({ commit }, id) => {
     }
 };
 
+
+const getUserInvoices = async ({ commit }, id) => {
+    commit('setWait', true);
+    try {
+        axios.get(urlServer+'orders/invoice/'+id)
+        .then(res => {
+            commit('setWait', false);
+            console.log(res.data.invoices);
+            commit('setUserInvoices', res.data.invoices);
+        });
+    }
+    catch (error) {
+        commit('setUserInvoices', []);
+    }
+};
+
 const updateStatus = ({ dispatch }, order) => {
     axios.put(urlServer+'orders/status/'+order.id, {
         status: order.status
@@ -373,6 +389,7 @@ export default {
     changePoints,
     updateStatus,
     getUserOrders,
+    getUserInvoices,
     tracking,
     showErrors
 };

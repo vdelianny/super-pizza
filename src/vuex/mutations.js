@@ -95,6 +95,9 @@ const setIngredients = (state, payload) => {
 const setUserOrders = (state, payload) => {
     state.user.orders = payload;
 };
+const setUserInvoices = (state, payload) => {
+    state.user.invoices = payload;
+};
 const setMgError = (state, payload) => {
     state.messages.msgError = payload;
     setTimeout(function(){
@@ -131,6 +134,7 @@ export default {
     setTrackingOrder,
     setOrders,
     setUserOrders,
+    setUserInvoices,
     setUserFinalized,
     setAdminFinalized,
     setUserEmail,
