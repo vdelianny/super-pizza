@@ -197,7 +197,6 @@ const getIngredients = async ({ commit }) => {
     }
 };
 const addIngredient = ({ commit, dispatch }, ingredient) => {
-    console.log(ingredient);
     commit('setWait', true);
     axios.post(urlServer+'ingredients', ingredient)
     .then(() => {
@@ -274,7 +273,6 @@ const orderRegister = ({ commit, dispatch }, order) => {
         withdrawTime: order.withdrawTime,
         idUser: order.idUser
     }).then((res) => {
-        console.log(res);
         commit('setPaymentParams', res.data);
         commit('setResetStore', []);
         dispatch('getPointsUser');
@@ -316,7 +314,6 @@ const getUserInvoices = async ({ commit }, id) => {
         axios.get(urlServer+'orders/invoice/'+id)
         .then(res => {
             commit('setWait', false);
-            console.log(res.data.invoices);
             commit('setUserInvoices', res.data.invoices);
         });
     }

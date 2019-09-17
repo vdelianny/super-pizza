@@ -5,7 +5,7 @@
 			<h2 class="text-left">Facturas</h2>
 		</div>
 		<div class="card-body pt-0">
-			<table class="table table-striped">
+			<table class="table table-striped" id="my-table">
 				<thead>
 					<tr>
 						<th scope="col">Estado del pedido</th>
@@ -23,7 +23,7 @@
 						<td>{{invoice.amount}}$</td>
 						<td>{{invoice.phone}}</td>
 						<td>{{invoice.direction}} {{invoice.withdrawTime}}</td>
-						<td><i class="far fa-download"></i></td>
+						<td @click="generateContent(invoice)"><i class="fas fa-download"></i></td>
 					</tr>
 				</tbody>
 			</table>
@@ -32,6 +32,7 @@
 </template>
 <script>		
 /* eslint-disable */
+	import jsPDF from 'jspdf';
 	export default {
 		name: 'CardPoints',
 	    computed: {
@@ -49,7 +50,20 @@
 	        getUserOrders() {
 	        	const id = this.userId;
 	            this.$store.dispatch('getUserInvoices', id);
-	        }
+	        },
+	        generateContent(invoice) {
+	        	var html = `<h3>Factura</h3>
+	        	<p><b>Nombre:</b> ${invoice.name}</p>
+	        	<p><b>Monto:</b> ${invoice.amount}</p>
+	        	<p><b>Teléfono:</b> ${invoice.phone}</p>
+	        	<p><b>Hora de retiro/Dirección de envío:</b> ${invoice.direction || invoice.withdrawTime}</p>`
+	        	this.download(html);
+	        },
+	        download(html) {
+	        	var doc = new jsPDF();
+			    doc.fromHTML(html, 10, 10,);
+			    doc.save('factura.pdf');
+			}
         }
 	}
 </script>
